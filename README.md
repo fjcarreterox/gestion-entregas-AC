@@ -1,4 +1,6 @@
-#ChioApp: Web application to manage deliveries of olives based con Fuel PHP.
+#ChioApp
+
+Web application to manage deliveries of olives based con Fuel PHP.
 
 * Version: 1.0
 
