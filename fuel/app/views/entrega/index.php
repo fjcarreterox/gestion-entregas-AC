@@ -33,7 +33,7 @@ else {
             <?php echo Form::input('albaran', $idAlbaran+1, array('class' => 'col-md-4 form-control', 'readonly' =>'readonly')); ?>
         </div>
         <div class="form-group">
-            <?php echo Form::label('Nombre de usuario', 'username', array('class' => 'control-label')); ?>
+            <?php echo Form::label('Proveedor', 'username', array('class' => 'control-label')); ?>
             <?php echo Form::select('username', '', $provs, array('class' => 'col-md-4 form-control')); ?>
         </div>
         <br/>

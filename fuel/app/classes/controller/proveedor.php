@@ -4,11 +4,16 @@ class Controller_Proveedor extends Controller_Template
 
 	public function action_index()
 	{
-		$data['proveedors'] = Model_Proveedor::find('all');
+		$data['proveedors'] = Model_Proveedor::find('all',array('order_by' => 'nombre'));
 		$this->template->title = "Proveedores";
 		$this->template->content = View::forge('proveedor/index', $data);
-
 	}
+
+    public function action_search()
+    {
+        $this->template->title = "Buscar un proveedor";
+        $this->template->content = View::forge('proveedor/_form_search');
+    }
 
 	public function action_view($id = null)
 	{
@@ -22,7 +27,6 @@ class Controller_Proveedor extends Controller_Template
 
 		$this->template->title = "Proveedor";
 		$this->template->content = View::forge('proveedor/view', $data);
-
 	}
 
 	public function action_create()

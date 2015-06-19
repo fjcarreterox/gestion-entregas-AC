@@ -36,7 +36,7 @@
 					<div class="btn-group">
 						<?php echo Html::anchor('proveedor/view/'.$item->id, '<i class="icon-eye-open"></i> Ver ficha completa', array('class' => 'btn btn-small')); ?>
                         <?php echo Html::anchor('proveedor/edit/'.$item->id, '<i class="icon-wrench"></i> Editar', array('class' => 'btn btn-small')); ?>
-                        <?php echo Html::anchor('proveedor/delete/'.$item->id, '<i class="icon-trash icon-white"></i> Borrar', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('Are you sure?')")); ?>					</div>
+                        <?php echo Html::anchor('proveedor/delete/'.$item->id, '<i class="icon-trash icon-white"></i> Borrar', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('¿Estás seguro de esto?')")); ?>					</div>
 				</div>
 			</td>
 		</tr>

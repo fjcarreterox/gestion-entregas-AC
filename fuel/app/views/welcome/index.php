@@ -26,13 +26,14 @@
                 <h2>Acciones más frecuentes</h2>
                 <ul>
                     <li><a href="entrega">Registrar nueva entrega</a></li>
+                    <li><a href="entrega/diaria">Entrada diaria</a></li>
                     <li><a href="anticipo">Anticipos</a></li>
+
                 </ul>
 			</div>
 			<div class="col-md-4">
-				<h2>Generar Informes</h2>
+				<h2>Facturación e informes</h2>
 				<ul>
-                    <li><a href="entrega/diaria">Entrada diaria</a></li>
                     <li><a href="entrega/list">Ver todas las entregas hasta la fecha</a></li>
                     <li><a href="albaran/list">Ver todos los albaranes hasta la fecha</a></li>
                     <li><a href="proveedor/final">Ficha final del proveedor</a></li>
@@ -40,7 +41,7 @@
 			</div>
 			<div class="col-md-4">
                 <h2>Gestión de la aplicación</h2>
-                <li><a href="proveedor">Proveedores de la campaña 2015</a></li>
+                <li><a href="proveedor">Proveedores campaña 2015/2016</a></li>
                 <li><a href="variedad">Variedades de aceitunas</a></li>
                 <li><a href="user">Usuarios del sistema</a></li>
                 <li><a href="puesto">Puestos de la empresa</a></li>

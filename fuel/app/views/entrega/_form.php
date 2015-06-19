@@ -29,14 +29,14 @@ $percents=array(
     100=>'100%',
 );
 
-$idpuesto= Model_Puesto::find(\Fuel\Core\Session::get('puesto'))->get('id');
-
+$idpuesto = Model_Puesto::find(\Fuel\Core\Session::get('puesto'))->get('id');
+$puesto = Model_Puesto::find($idpuesto)->get('nombre');
 ?>
 	<fieldset>
         <div class="form-group">
             <?php echo Form::label('Puesto', 'idpuesto', array('class'=>'control-label')); ?>
 
-            <?php echo Form::input('idpuesto', Input::post('idpuesto', isset($entrega) ? $entrega->idpuesto : $idpuesto), array('class' => 'col-md-4 form-control', 'placeholder'=>'Albaran','readonly'=>'readonly')); ?>
+            <?php echo Form::input('idpuesto', Input::post('idpuesto', isset($entrega) ? $entrega->idpuesto : $idpuesto), array('class' => 'col-md-4 form-control', 'placeholder'=>'Puesto','readonly'=>'readonly')); ?>
 
         </div>
 		<div class="form-group">
