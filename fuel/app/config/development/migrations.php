@@ -1,11 +1,11 @@
 <?php
-return array(
+return array (
   'version' => 
-  array(
+  array (
     'app' => 
-    array(
+    array (
       'default' => 
-      array(
+      array (
         0 => '001_create_variedads',
         1 => '002_create_proveedors',
         2 => '003_create_users',
@@ -14,13 +14,14 @@ return array(
         5 => '006_create_puestos',
         6 => '007_create_anticipos',
         7 => '008_create_bancos',
+        8 => '009_create_facturas',
       ),
     ),
     'module' => 
-    array(
+    array (
     ),
     'package' => 
-    array(
+    array (
     ),
   ),
   'folder' => 'migrations/',
