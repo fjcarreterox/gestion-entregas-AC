@@ -16,7 +16,7 @@
 	<tbody>
 <?php foreach ($facturas as $item): ?>		<tr>
 
-			<td><?php echo $item->idprov; ?></td>
+			<td><?php echo Model_Proveedor::find($item->idprov)->get('nombre'); ?></td>
 			<td><?php echo $item->concepto; ?></td>
 			<td><?php echo $item->base_imponible; ?></td>
 			<td><?php echo $item->iva; ?></td>

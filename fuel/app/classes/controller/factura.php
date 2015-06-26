@@ -60,8 +60,9 @@ class Controller_Factura extends Controller_Template
 			}
 		}
 
+        $data['proveedores'] = Model_Proveedor::find('all',array('select' => array('id', 'nombre'),'order_by' => 'nombre'));
 		$this->template->title = "Facturas";
-		$this->template->content = View::forge('factura/create');
+		$this->template->content = View::forge('factura/create',$data);
 
 	}
 

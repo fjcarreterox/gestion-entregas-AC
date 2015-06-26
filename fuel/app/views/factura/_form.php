@@ -1,10 +1,15 @@
-<?php echo Form::open(array("class"=>"form-horizontal")); ?>
+<?php
+$provs = Model_Proveedor::find('all',array('select' => array('id', 'nombre'),'order_by' => 'nombre'));
+foreach($provs as $prov){
+    $options[$prov->get('id')]=$prov->get('nombre');
+}
+echo Form::open(array("class"=>"form-horizontal")); ?>
 
 	<fieldset>
 		<div class="form-group">
 			<?php echo Form::label('Proveedor', 'idprov', array('class'=>'control-label')); ?>
 
-				<?php echo Form::input('idprov', Input::post('idprov', isset($factura) ? $factura->idprov : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Idprov')); ?>
+				<?php echo Form::select('idprov', '',$options, array('class' => 'col-md-4 form-control', 'placeholder'=>'Idprov')); ?>
 
 		</div>
 		<div class="form-group">
