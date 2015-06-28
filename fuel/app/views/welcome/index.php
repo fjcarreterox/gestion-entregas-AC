@@ -26,7 +26,7 @@
                 <h2>Acciones más frecuentes</h2>
                 <ul>
                     <li><a href="entrega">Registrar nueva entrega</a></li>
-                    <li><a href="entrega/diaria">Entrada diaria</a></li>
+                    <li><a href="puesto">Entrada diaria</a></li>
                     <li><a href="anticipo">Anticipos</a></li>
 
                 </ul>

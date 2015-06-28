@@ -12,27 +12,33 @@ class Controller_Entrega extends Controller_Template
 
 	}
 
-    public function action_list()
-    {
-        $data['entregas'] = Model_Entrega::find('all');
-        $this->template->title = "Listado de Entregas";
-        $this->template->content = View::forge('entrega/list', $data);
+    public function action_list($idpuesto = null){
 
+        if(is_null($idpuesto)) {
+            $data['entregas'] = Model_Entrega::find('all', array('order_by' => array('Fecha' => 'desc')));
+            $this->template->title = "Listado de Entregas";
+        }
+        else{
+            $data['puesto']=Model_Puesto::find($idpuesto)->get('nombre');
+            $data['entregas'] = Model_Entrega::find('all',array('where' => array('idpuesto' => $idpuesto),'order_by' => array('Fecha' => 'desc')));
+            $this->template->title = "Entrega diaria";
+        }
+        $this->template->content = View::forge('entrega/list', $data);
     }
 
     public function action_diaria()
     {
         if (Input::method() == 'POST'){
             $data['idpuesto']=\Fuel\Core\Input::post('idpuesto');
+            $data['fecha']=date('Y-m-d');
             $this->template->title = "Entregas del día de hoy";
-            $this->template->content = View::forge('entrega/_diaria2', $data);
+            $this->template->content = View::forge('entrega/list', $data);
         }
         else{
             $data['puestos'] = Model_Puesto::find('all');
             $this->template->title = "Listado de Entregas por puesto";
             $this->template->content = View::forge('entrega/_diaria', $data);
         }
-
     }
 
 	public function action_view($id = null)
@@ -47,7 +53,6 @@ class Controller_Entrega extends Controller_Template
 
 		$this->template->title = "Entrega";
 		$this->template->content = View::forge('entrega/view', $data);
-
 	}
 
 	public function action_create()
@@ -90,7 +95,7 @@ class Controller_Entrega extends Controller_Template
                         Response::redirect('entrega/create');
                     }
                     else{
-                        Response::redirect('entrega');
+                        Response::redirect('entrega/list');
                     }
 				}
 

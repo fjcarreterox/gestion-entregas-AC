@@ -1,10 +1,11 @@
-<h2><span class='muted'>Puestos</span> activos:</h2>
+<h2>Listado de <span class='muted'>puestos</span> activos.</h2>
 <br>
+<p>Selecciona la acción concreta que quieres realizar sobre uno de los puestos de recogida de la empresa:</p>
 <?php if ($puestos): ?>
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<th>Nombre</th>
+			<th>Nombre identificativo</th>
 			<th>&nbsp;</th>
 		</tr>
 	</thead>
@@ -17,6 +18,7 @@
 					<div class="btn-group">
 						<?php echo Html::anchor('puesto/view/'.$item->id, '<i class="icon-eye-open"></i> Ver Ficha', array('class' => 'btn btn-small')); ?>
                         <?php echo Html::anchor('puesto/edit/'.$item->id, '<i class="icon-wrench"></i> Editar', array('class' => 'btn btn-small')); ?>
+                        <?php echo Html::anchor('entrega/list/'.$item->id, '<i class="icon-eye-open"></i> Entrada diaria', array('class' => 'btn btn-small btn-info')); ?>
                         <?php echo Html::anchor('puesto/delete/'.$item->id, '<i class="icon-trash icon-white"></i> Borrar', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('¿Estás seguro de querer borrar este puesto?')")); ?>
                     </div>
 				</div>
