@@ -83,3 +83,7 @@ h1{
 .table tbody > tr > td, .table tfoot > tr > td {
     text-align: center;
 }
+
+a.no-decoration:hover{
+    text-decoration: none;
+}

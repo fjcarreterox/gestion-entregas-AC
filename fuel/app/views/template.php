@@ -21,8 +21,8 @@ if(Session::get('username')==""){
 	<div class="container">
 		<div class="col-md-12">
 			<!--<h1><?php /*echo $title;*/ ?></h1>-->
-            <a href="http://localhost/fuel/public/"><?php echo Asset::img('aceitunas.jpg',array("class"=>"logo")); ?></a>
-            <h1>Aceitunas Coria S.L.</h1>
+            <a alt="Ir al menú principal" href="http://localhost/fuel/public/" class="no-decoration"><?php echo Asset::img('aceitunas.jpg',array("class"=>"logo","alt"=>"Ir al menú principal")); ?>
+            <h1>Aceitunas Coria S.L.</h1></a>
 			<hr>
 <?php if (Session::get_flash('success')): ?>
 			<div class="alert alert-success">
@@ -45,10 +45,10 @@ if(Session::get('username')==""){
 <?php echo $content; ?>
 		</div>
 		<footer>
-			<p class="pull-right">Contenido cargado en {exec_time}s usando {mem_usage}mb de memoria.</p>
+			<p class="pull-right"><small>Contenido cargado en {exec_time}s usando {mem_usage}mb de memoria.</small></p>
 			<!--<p>
 				<a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.<br>
-				<small>Version: <?php /*echo e(Fuel::VERSION);*/ ?></small>
+				Version: <?php /*echo e(Fuel::VERSION);*/ ?></small>
 			</p>-->
 		</footer>
 	</div>

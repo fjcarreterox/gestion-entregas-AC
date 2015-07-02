@@ -51,8 +51,9 @@
 		</div>
 		<hr/>
 		<footer>
-			<p class="pull-right">Contenido cargado en {exec_time}s usando {mem_usage}mb de memoria.</p>
-			<!--<p>
+            <p class="pull-right"><small>Developed and designed with love by <a href="mailto:rentonr11@gmail.com">jaxxrenton</a>.</small></p>
+            <!--<p class="pull-right">COntenido cargado en {exec_time}s usando {mem_usage}mb de memoria.</p>
+			<p>
 				<a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.<br>
 				<small>Version: <?php echo Fuel::VERSION; ?></small>
 			</p>-->
