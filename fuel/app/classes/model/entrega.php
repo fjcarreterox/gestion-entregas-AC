@@ -41,7 +41,7 @@ class Model_Entrega extends Model
 		$val->add_field('fecha', 'Fecha', 'required');
 		$val->add_field('albaran', 'Albaran', 'required|valid_string[numeric]');
 		$val->add_field('variedad', 'Variedad', 'required|valid_string[numeric]');
-		$val->add_field('tam', 'Tam', 'required|valid_string[numeric]');
+		$val->add_field('tam', 'Tam', 'valid_string[numeric]');
 		$val->add_field('total', 'Total', 'required|valid_string[numeric]');
 		$val->add_field('rate_picado', 'Rate Picado', 'required|valid_string[numeric]');
 		$val->add_field('rate_molestado', 'Rate Molestado', 'required|valid_string[numeric]');

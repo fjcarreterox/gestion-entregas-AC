@@ -25,7 +25,7 @@ class Controller_Albaran extends Controller_Template
 		if ( ! $data['albaran'] = Model_Albaran::find($id))
 		{
 			Session::set_flash('error', 'Could not find albaran #'.$id);
-			Response::redirect('albaran');
+			Response::redirect('albaran/list');
 		}
 
 		$this->template->title = "Albaran";

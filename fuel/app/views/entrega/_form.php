@@ -32,24 +32,18 @@ $percents=array(
 $idpuesto = Model_Puesto::find(\Fuel\Core\Session::get('puesto'))->get('id');
 $puesto = Model_Puesto::find($idpuesto)->get('nombre');
 ?>
+    <p>Puesto donde se hace la entrega: <strong><?php echo $puesto; ?></strong></p>
 	<fieldset>
         <div class="form-group">
-            <?php echo Form::label('Puesto', 'idpuesto', array('class'=>'control-label')); ?>
-
-            <?php echo Form::input('idpuesto', Input::post('idpuesto', isset($entrega) ? $entrega->idpuesto : $idpuesto), array('class' => 'col-md-4 form-control', 'placeholder'=>'Puesto','readonly'=>'readonly')); ?>
-
+            <?php echo Form::hidden('idpuesto', Input::post('idpuesto', isset($entrega) ? $entrega->idpuesto : $idpuesto), array('class' => 'col-md-4 form-control', 'placeholder'=>'Puesto','readonly'=>'readonly')); ?>
         </div>
 		<div class="form-group">
 			<?php echo Form::label('Fecha de la entrega', 'fecha', array('class'=>'control-label')); ?>
-
-				<?php echo Form::input('fecha', Input::post('fecha', isset($entrega) ? $entrega->fecha : ''), array('type' => 'date','class' => 'col-md-4 form-control', 'placeholder'=>'Fecha')); ?>
-
+			<?php echo Form::input('fecha', Input::post('fecha', isset($entrega) ? $entrega->fecha : ''), array('type' => 'date','class' => 'col-md-4 form-control', 'placeholder'=>'Fecha')); ?>
 		</div>
 		<div class="form-group">
 			<?php echo Form::label('Núm. Albaran asignado', 'albaran', array('class'=>'control-label')); ?>
-
-				<?php echo Form::input('albaran', Input::post('albaran', isset($entrega) ? $entrega->albaran : \Fuel\Core\Session::get('ses_idalbaran')), array('class' => 'col-md-4 form-control', 'placeholder'=>'Albaran','readonly'=>'readonly')); ?>
-
+			<?php echo Form::input('albaran', Input::post('albaran', isset($entrega) ? $entrega->albaran : \Fuel\Core\Session::get('ses_idalbaran')), array('class' => 'col-md-4 form-control', 'placeholder'=>'Albaran','readonly'=>'readonly')); ?>
 		</div>
 		<div class="form-group">
 			<?php echo Form::label('Variedad entregada', 'variedad', array('class'=>'control-label')); ?>
@@ -127,7 +121,7 @@ $puesto = Model_Puesto::find($idpuesto)->get('nombre');
 		<div class="form-group">
 			<label class='control-label'>&nbsp;</label>
 			<?php echo Form::submit('more', 'Agregar más entregas', array('class' => 'btn btn-primary')); ?>
-            <?php echo Form::submit('end', 'Finalizar entregas', array('class' => 'btn btn-primary')); ?>
+            <?php echo Form::submit('end', 'Finalizar entrega(s)', array('class' => 'btn btn-primary')); ?>
             <?php echo Html::anchor('entrega/list', '<i class="icon-trash icon-white"></i> Cancelar esta entrega', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('¿Estás seguro?')")); ?>
         </div>
 	</fieldset>

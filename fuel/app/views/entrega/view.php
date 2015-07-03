@@ -1,11 +1,17 @@
+<?php
+    $idalbaran=Model_Albaran::find('first', array(
+        'where' => array(
+            array('IdAlbaran',$entrega->albaran),
+        )))->get('id');
+?>
 <h2>Mostrando detalle de <span class='muted'>entrega de mercancía</span>:</h2>
 
 <p>
 	<strong>Fecha de la entrega:</strong>
-	<?php echo $entrega->fecha; ?></p>
+	<?php echo date_conv($entrega->fecha); ?></p>
 <p>
 	<strong>Núm. Albaran:</strong>
-	<?php echo Html::anchor('albaran/view/'.$entrega->albaran, str_pad($entrega->albaran,5,'0',STR_PAD_LEFT),array('target'=>'_blank')); ?></p>
+	<?php echo Html::anchor('albaran/view/'.$idalbaran, $entrega->albaran,array('target'=>'_blank')); ?></p>
 <p>
 	<strong>Variedad de aceituna registrada:</strong>
 	<?php echo Model_Variedad::find($entrega->variedad)->get('nombre'); ?></p>

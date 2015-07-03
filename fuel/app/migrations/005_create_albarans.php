@@ -11,6 +11,7 @@ class Create_albarans
 			'IdAlbaran' => array('constraint' => 11, 'type' => 'int'),
 			'IdEntrega' => array('constraint' => 11, 'type' => 'int'),
 			'IdProveedor' => array('constraint' => 11, 'type' => 'int'),
+            'comentario' => array('constraint' => 255, 'type' => 'varchar', 'null' => true),
 			'created_at' => array('constraint' => 11, 'type' => 'int', 'null' => true),
 			'updated_at' => array('constraint' => 11, 'type' => 'int', 'null' => true),
 

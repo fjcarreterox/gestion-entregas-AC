@@ -24,7 +24,7 @@ else{
 	<tbody>
 <?php foreach ($entregas as $item): ?>		<tr>
 
-			<td><?php echo $item->fecha; ?></td>
+			<td><?php echo date_conv($item->fecha); ?></td>
             <td><?php echo Model_Proveedor::find(Model_Albaran::find('first', array('where' => array('IdAlbaran' => $item->albaran)))->get('idproveedor'))->get('nombre');
                  ?></td>
             <td><?php echo $item->albaran; ?></td>

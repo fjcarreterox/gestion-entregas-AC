@@ -1,7 +1,7 @@
-<h2>Editing <span class='muted'>Albaran</span></h2>
+<h2>Editando datos del <span class='muted'>albarán</span> seleccionado:</h2>
 <br>
 
 <?php echo render('albaran/_form'); ?>
 <p>
-	<?php echo Html::anchor('albaran/view/'.$albaran->id, 'View'); ?> |
-	<?php echo Html::anchor('albaran', 'Back'); ?></p>
+	<?php echo Html::anchor('albaran/view/'.$albaran->id, 'Ver datos'); ?> |
+	<?php echo Html::anchor('albaran/list', 'Volver'); ?></p>

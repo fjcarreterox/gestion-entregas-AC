@@ -2,7 +2,7 @@
 
 <p>
 	<strong>Núm Albarán:</strong>
-	<?php echo str_pad($albaran->idalbaran,5,'0',STR_PAD_LEFT); ?></p>
+	<?php echo $albaran->idalbaran; ?></p>
 <p>
     <strong>Fecha:</strong>
     <?php echo date('d-m-Y',$albaran->created_at); ?></p>
@@ -12,6 +12,9 @@
 <p>
 	<strong>Proveedor:</strong>
 	<?php echo Model_Proveedor::find($albaran->idproveedor)->get('nombre'); ?></p>
+<p>
+    <strong>Comentario:</strong>
+    <?php echo $albaran->comentario; ?></p>
 
 <?php echo Html::anchor('albaran/edit/'.$albaran->id, 'Editar'); ?> |
-<?php echo Html::anchor('albaran', 'Volver'); ?>
+<?php echo Html::anchor('albaran/list', 'Volver al listado completo'); ?>

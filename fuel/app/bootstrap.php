@@ -2,7 +2,6 @@
 // Bootstrap the framework DO NOT edit this
 require COREPATH.'bootstrap.php';
 
-
 Autoloader::add_classes(array(
 	// Add classes you want to override here
 	// Example: 'View' => APPPATH.'classes/view.php',
@@ -23,3 +22,6 @@ Fuel::$env = (isset($_SERVER['FUEL_ENV']) ? $_SERVER['FUEL_ENV'] : Fuel::DEVELOP
 
 // Initialize the framework with the config file.
 Fuel::init('config.php');
+
+// Helpers functions
+require COREPATH.'helpers.php';

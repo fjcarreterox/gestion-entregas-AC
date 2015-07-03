@@ -14,7 +14,7 @@
 	<tbody>
 <?php foreach ($albarans as $item): ?>		<tr>
 
-			<td><?php echo str_pad($item->idalbaran,5,'0',STR_PAD_LEFT); ?></td>
+			<td><?php echo $item->idalbaran; ?></td>
 			<td><?php echo $item->identrega; ?><a href="../entrega/view/<?php echo $item->identrega; ?>">(detalle)</a></td>
             <!--<td><?php /*echo Model_Entrega::find($item->identrega)['fecha'];*/?></td>-->
             <td><?php echo date('d-m-Y',$item->created_at);?></td>
