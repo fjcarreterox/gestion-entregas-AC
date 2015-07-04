@@ -1,4 +1,4 @@
-<h2>Viewing <span class='muted'>#<?php echo $variedad->id; ?></span></h2>
+<h2>Mostrando detalle de la variedad seleccionada:</h2>
 
 <p>
 	<strong>Nombre:</strong>
@@ -7,5 +7,5 @@
 	<strong>En anticipo:</strong>
 	<?php echo $variedad->en_anticipo; ?></p>
 
-<?php echo Html::anchor('variedad/edit/'.$variedad->id, 'Edit'); ?> |
-<?php echo Html::anchor('variedad', 'Back'); ?>
+<?php echo Html::anchor('variedad/edit/'.$variedad->id, 'Editar datos'); ?> |
+<?php echo Html::anchor('variedad', 'Volver'); ?>

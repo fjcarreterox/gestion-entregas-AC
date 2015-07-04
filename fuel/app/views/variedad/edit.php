@@ -1,7 +1,7 @@
-<h2>Editing <span class='muted'>Variedad</span></h2>
+<h2>Editando los datos de la <span class='muted'>variedad</span> seleccionada:</h2>
 <br>
 
 <?php echo render('variedad/_form'); ?>
 <p>
-	<?php echo Html::anchor('variedad/view/'.$variedad->id, 'View'); ?> |
-	<?php echo Html::anchor('variedad', 'Back'); ?></p>
+	<?php echo Html::anchor('variedad/view/'.$variedad->id, 'Ver Datos'); ?> |
+	<?php echo Html::anchor('variedad', 'Volver'); ?></p>
