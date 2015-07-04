@@ -36,7 +36,10 @@
 					<div class="btn-group">
 						<?php echo Html::anchor('proveedor/view/'.$item->id, '<i class="icon-eye-open"></i> Ver ficha completa', array('class' => 'btn btn-small')); ?>
                         <?php echo Html::anchor('proveedor/edit/'.$item->id, '<i class="icon-wrench"></i> Editar', array('class' => 'btn btn-small')); ?>
-                        <?php echo Html::anchor('proveedor/delete/'.$item->id, '<i class="icon-trash icon-white"></i> Borrar', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('¿Estás seguro de esto?')")); ?>					</div>
+                        <?php /*echo Html::anchor('proveedor/delete/'.$item->id, '<i class="icon-trash icon-white"></i> Borrar', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('¿Estás seguro de esto?')"));*/ ?>
+                        <?php echo Html::anchor('proveedor/ficha_final/'.$item->id, '<i class="icon-trash icon-white"></i> Ficha final', array('class' => 'btn btn-small btn-success')); ?>
+                        <?php echo Html::anchor('anticipo/list_prov/'.$item->id, '<i class="icon-trash icon-white"></i> Anticipos', array('class' => 'btn btn-small btn-info')); ?>
+                    </div>
 				</div>
 			</td>
 		</tr>

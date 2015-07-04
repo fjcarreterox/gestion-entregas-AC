@@ -27,7 +27,7 @@
                 <ul>
                     <li><a href="entrega">Registrar nueva entrega</a></li>
                     <li><a href="puesto">Entrada diaria</a></li>
-                    <li><a href="anticipo">Anticipos</a></li>
+                    <li><a href="anticipo">Cálculo de anticipos</a></li>
 
                 </ul>
 			</div>

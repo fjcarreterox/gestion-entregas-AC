@@ -5,7 +5,6 @@ class Controller_Anticipo extends Controller_Template
 	public function action_index()
 	{
         $data['proveedores'] = Model_Proveedor::find('all',array('order_by' => 'nombre'));
-		//$data['anticipos'] = Model_Anticipo::find('all');
 		$this->template->title = "Calcular Anticipo";
 		$this->template->content = View::forge('anticipo/index', $data);
 
@@ -14,9 +13,25 @@ class Controller_Anticipo extends Controller_Template
     public function action_list()
     {
         $data['anticipos'] = Model_Anticipo::find('all');
-        $this->template->title = "Anticipos";
+        $this->template->title = "Anticipos: todos los registrados";
         $this->template->content = View::forge('anticipo/list', $data);
+    }
 
+    public function action_list_prov($idprov = null)
+    {
+        is_null($idprov) and Response::redirect('anticipo/list');
+
+        if ( ! $data['prov'] = Model_Proveedor::find($idprov))
+        {
+            Session::set_flash('error', 'No se ha encontrado proveedor con ese identificador (#'.$idprov.')');
+            Response::redirect('anticipo/list');
+        }
+        else {
+            $data['nombre_prov'] = Model_Proveedor::find($idprov)->get('nombre');
+            $data['anticipos'] = Model_Anticipo::find('all',array('where'=>array(array("idprov",$idprov))));
+            $this->template->title = "Anticipos de un proveedor";
+            $this->template->content = View::forge('anticipo/list_prov', $data);
+        }
     }
 
     public function action_calculo()

@@ -1,11 +1,11 @@
-<h2>Listado de <span class='muted'>todos los anticipos</span> registrados en el sistema</h2>
+<h2>Listado de <span class='muted'>anticipos</span> registrados en el sistema para <strong><?php echo $nombre_prov; ?></strong>.</h2>
 <br>
-<?php if ($anticipos): ?>
+<?php
+if ($anticipos): ?>
 <table class="table table-striped">
 	<thead>
 		<tr>
 			<th>Fecha</th>
-			<th>Proveedor</th>
 			<th>Núm. Cheque</th>
 			<th>Banco</th>
 			<th>Cuantía</th>
@@ -17,7 +17,6 @@
 <?php foreach ($anticipos as $item): ?>		<tr>
 
 			<td><?php echo date_conv($item->fecha); ?></td>
-			<td><?php echo Model_Proveedor::find($item->idprov)->get('nombre'); ?></td>
 			<td><?php echo $item->numcheque; ?></td>
 			<td><?php echo Model_Banco::find($item->idbanco)->get('nombre'); ?></td>
 			<td><?php echo $item->cuantia; ?> &euro;</td>
@@ -40,7 +39,7 @@
 </table>
 
 <?php else: ?>
-<p>No Anticipos.</p>
+<p>No se han registrado anticipos aún para este proveedor.</p>
 
 <?php endif; ?><p>
 	<?php echo Html::anchor('anticipo/index', 'Registrar un nuevo anticipo', array('class' => 'btn btn-success')); ?>
