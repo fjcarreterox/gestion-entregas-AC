@@ -1,23 +1,28 @@
-<h2>Viewing <span class='muted'>#<?php echo $anticipo->id; ?></span></h2>
+<h2>Mostrando detalle del <span class='muted'>anticipo</span> seleccionado.</h2>
 
 <p>
-	<strong>Fecha:</strong>
-	<?php echo $anticipo->fecha; ?></p>
+	<strong>Fecha de registro:</strong>
+	<?php echo date_conv($anticipo->fecha); ?></p>
 <p>
-	<strong>Idprov:</strong>
-	<?php echo $anticipo->idprov; ?></p>
+	<strong>Proveedor:</strong>
+	<?php echo Model_Proveedor::find($anticipo->idprov)->get('nombre'); ?></p>
 <p>
-	<strong>Numcheque:</strong>
+	<strong>Núm. Cheque:</strong>
 	<?php echo $anticipo->numcheque; ?></p>
 <p>
-	<strong>Idbanco:</strong>
-	<?php echo $anticipo->idbanco; ?></p>
+	<strong>Banco:</strong>
+	<?php echo Model_Banco::find($anticipo->idbanco)->get('nombre'); ?></p>
 <p>
-	<strong>Cuantia:</strong>
-	<?php echo $anticipo->cuantia; ?></p>
+	<strong>Cuantía:</strong>
+	<?php echo $anticipo->cuantia; ?> &euro;</p>
 <p>
-	<strong>Recogido:</strong>
-	<?php echo $anticipo->recogido; ?></p>
+	<strong>Recogido por el proveedor:</strong>
+	<?php
+        if($anticipo->recogido)
+            echo "SÍ";
+        else
+            echo "NO";
+    ?></p>
 
-<?php echo Html::anchor('anticipo/edit/'.$anticipo->id, 'Edit'); ?> |
-<?php echo Html::anchor('anticipo', 'Back'); ?>
+<?php echo Html::anchor('anticipo/edit/'.$anticipo->id, 'Editar'); ?> |
+<?php echo Html::anchor('anticipo', 'Volver'); ?>

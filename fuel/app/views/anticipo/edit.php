@@ -1,7 +1,8 @@
-<h2>Editing <span class='muted'>Anticipo</span></h2>
+<h2>Editando el <span class='muted'>anticipo</span> seleccionado:</h2>
 <br>
-
-<?php echo render('anticipo/_form'); ?>
+<?php
+$data['bancos']=$bancos;
+echo render('anticipo/_form',$data); ?>
 <p>
-	<?php echo Html::anchor('anticipo/view/'.$anticipo->id, 'View'); ?> |
-	<?php echo Html::anchor('anticipo', 'Back'); ?></p>
+<?php echo Html::anchor('anticipo/view/'.$anticipo->id, 'Ver detalle'); ?> |
+<?php echo Html::anchor('anticipo', 'Volver'); ?></p>

@@ -1,6 +1,6 @@
-<h2>Calcular un nuevo <span class='muted'>anticipo</span>:</h2>
+<h2>Calcular un nuevo <span class='muted'>anticipo</span></h2>
 <br>
-<p>Seleccione al proveedor que quiera calcularle el anticipo:</p>
+<p>Seleccione el proveedor al que quieres calcular el siguiente anticipo:</p>
 
 <?php if( isset($_POST['submit'])){
     \Fuel\Core\Session::_init();
@@ -22,7 +22,7 @@ else {
 
         <fieldset>
             <div class="form-group">
-                <?php echo Form::label('Nombre de usuario', 'username', array('class' => 'control-label')); ?>
+                <?php echo Form::label('Nombre del proveedor', 'username', array('class' => 'control-label')); ?>
                 <?php echo Form::select('username', '', $provs, array('class' => 'col-md-4 form-control')); ?>
             </div>
             <br/>

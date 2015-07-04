@@ -44,6 +44,7 @@ class Controller_Anticipo extends Controller_Template
 
 	public function action_create()
 	{
+        $data["bancos"]=Model_Banco::find('all');
 		if (Input::method() == 'POST')
 		{
 			$val = Model_Anticipo::validate('create');
@@ -59,26 +60,23 @@ class Controller_Anticipo extends Controller_Template
 					'recogido' => Input::post('recogido'),
 				));
 
-				if ($anticipo and $anticipo->save())
-				{
-					Session::set_flash('success', 'Added anticipo #'.$anticipo->id.'.');
-
-					Response::redirect('anticipo');
+				if ($anticipo and $anticipo->save()){
+                    \Fuel\Core\Session::delete('ses_anticipo_prov');
+                    \Fuel\Core\Session::delete('ses_anticipo_cuantia');
+					Session::set_flash('success', 'Anticipo añadido al sistema (#'.$anticipo->id.').');
+					Response::redirect('anticipo/list');
 				}
-
-				else
-				{
-					Session::set_flash('error', 'Could not save anticipo.');
+				else{
+					Session::set_flash('error', 'No se pudo guardar el anticipo.');
 				}
 			}
-			else
-			{
+			else{
 				Session::set_flash('error', $val->error());
 			}
 		}
 
 		$this->template->title = "Anticipos";
-		$this->template->content = View::forge('anticipo/create');
+		$this->template->content = View::forge('anticipo/create',$data);
 
 	}
 
@@ -92,6 +90,7 @@ class Controller_Anticipo extends Controller_Template
 			Response::redirect('anticipo');
 		}
 
+        $data["bancos"]=Model_Banco::find('all');
 		$val = Model_Anticipo::validate('edit');
 
 		if ($val->run())
@@ -103,19 +102,13 @@ class Controller_Anticipo extends Controller_Template
 			$anticipo->cuantia = Input::post('cuantia');
 			$anticipo->recogido = Input::post('recogido');
 
-			if ($anticipo->save())
-			{
-				Session::set_flash('success', 'Updated anticipo #' . $id);
-
-				Response::redirect('anticipo');
-			}
-
-			else
-			{
-				Session::set_flash('error', 'Could not update anticipo #' . $id);
+			if ($anticipo->save()){
+				Session::set_flash('success', 'Anticipo actualizado (#' . $id.').');
+				Response::redirect('anticipo/list');
+			}else{
+				Session::set_flash('error', 'No se pudo actualizar el anticipo seleccionado');
 			}
 		}
-
 		else
 		{
 			if (Input::method() == 'POST')
@@ -134,7 +127,7 @@ class Controller_Anticipo extends Controller_Template
 		}
 
 		$this->template->title = "Anticipos";
-		$this->template->content = View::forge('anticipo/edit');
+		$this->template->content = View::forge('anticipo/edit',$data);
 
 	}
 
