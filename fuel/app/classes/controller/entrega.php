@@ -95,6 +95,9 @@ class Controller_Entrega extends Controller_Template
                         Response::redirect('entrega/create');
                     }
                     else{
+                        \Fuel\Core\Session::delete('ses_prov');
+                        \Fuel\Core\Session::delete('ses_idalbaran');
+                        \Fuel\Core\Session::delete('ses_idalbaran_ID');
                         Response::redirect('entrega/list');
                     }
 				}

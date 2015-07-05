@@ -7,9 +7,14 @@
 
     //calculando el total de kg de todas las entregas del proveedor seleccionado
     $alb_a = Model_Albaran::find('all',array('where'=>array(array("IdProveedor",\Fuel\Core\Session::get('ses_anticipo_prov')))));
-    foreach($alb_a as $alb){
+    foreach($alb_a as $alb) {
         $id_ent = $alb->get('identrega');
-        $totalKg+=Model_Entrega::find($id_ent)->get('total');
+        $parcial = Model_Entrega::find($id_ent)->get('total');
+        //Filtramos las aceitunas de molino que no entran en el cómputo
+        $variedad = Model_Entrega::find($id_ent)->get('variedad');
+        if (Model_Variedad::find($variedad)->get('en_anticipo')) {
+            $totalKg += $parcial;
+        }
     }
 
     $ant_a = Model_Anticipo::find('all',array('where'=>array(array("idprov",\Fuel\Core\Session::get('ses_anticipo_prov')))));
