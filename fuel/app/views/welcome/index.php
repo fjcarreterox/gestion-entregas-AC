@@ -19,7 +19,8 @@
 		<div class="jumbotron">
 			<h1>Aceitunas Coria S.L.</h1>
 			<p>Área de gestión. ¡Qué tal, <b><?php echo \Fuel\Core\Session::get('username'); ?></b>!</p>
-            <p><a href="logout">Salir del sistema</a></p>
+            <p><small><a href="welcome/guide">Guía de uso básico de la aplicación</a></small></p>
+            <p><small><a href="logout">Salir del sistema</a></small></p>
 		</div>
 		<div class="row">
 			<div class="col-md-4">

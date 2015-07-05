@@ -1,3 +1,13 @@
+@media print {
+    a[href]:after {
+        content: none !important;
+    }
+    .container tr a.btn:after{
+        display: none;
+        content: none !important;
+    }
+}
+
 body {
     margin: 0px 0px 40px 0px;
     font-size: 2em;

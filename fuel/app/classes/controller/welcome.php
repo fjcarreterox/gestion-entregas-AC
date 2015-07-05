@@ -40,6 +40,17 @@ class Controller_Welcome extends Controller
         }
 	}
 
+    public function action_guide()
+    {
+        $user = Session::get('username');
+        if ( $user == "" ){
+            return Response::redirect('welcome/login');
+        }
+        else{
+            return Response::forge(View::forge('welcome/guide'));
+        }
+    }
+
     public function action_login()
     {
         if (Input::method() == 'POST'){
