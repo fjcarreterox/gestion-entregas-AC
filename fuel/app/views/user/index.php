@@ -25,7 +25,7 @@
 					<div class="btn-group">
 						<?php echo Html::anchor('user/view/'.$item->id, '<i class="icon-eye-open"></i> Ver Ficha', array('class' => 'btn btn-small')); ?>
                         <?php echo Html::anchor('user/edit/'.$item->id, '<i class="icon-wrench"></i> Editar', array('class' => 'btn btn-small')); ?>
-                        <?php echo Html::anchor('user/new_pass/'.$item->id, '<i class="icon-trash icon-white"></i> Cambiar contraseña', array('class' => 'btn btn-small btn-warning')); ?>
+                        <?php echo Html::anchor('user/new_pass/'.$item->id, '<i class="icon-trash icon-white"></i> Cambiar contraseña', array('class' => 'btn btn-small btn-info right-separator')); ?>&nbsp;&nbsp;
                         <?php echo Html::anchor('user/delete/'.$item->id, '<i class="icon-trash icon-white"></i> Borrar', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('¿Estás seguro de esto?')")); ?>
                     </div>
 				</div>

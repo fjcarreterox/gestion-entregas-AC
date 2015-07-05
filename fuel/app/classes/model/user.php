@@ -32,11 +32,11 @@ class Model_User extends Model
 		return $val;
 	}
 
-    public static function validate_pass($factory)
+    public static function validate_new_pass($factory)
     {
         $val = Validation::forge($factory);
-        $val->add_field('pass', 'Contraseña', 'required|max_length[50]');
-
+        //$val->add_field('pass', 'Contraseña')->add_rule('match_collection', array('pass2'));
+        $val->add_field('pass', 'Contraseña','required');
         return $val;
     }
 }

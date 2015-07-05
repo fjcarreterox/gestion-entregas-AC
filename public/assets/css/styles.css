@@ -87,3 +87,7 @@ h1{
 a.no-decoration:hover{
     text-decoration: none;
 }
+
+.right-separator{
+    margin-right: 10px !important;
+}
