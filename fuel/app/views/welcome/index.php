@@ -35,7 +35,7 @@
 			<div class="col-md-4">
 				<h2>Facturación e informes</h2>
 				<ul>
-                    <li><a href="factura">Generar nueva factura</a></li>
+                    <li><a href="factura/create">Generar nueva factura</a></li>
                     <li><a href="entrega/list">Ver todas las entregas hasta la fecha</a></li>
                     <li><a href="albaran/list">Ver todos los albaranes hasta la fecha</a></li>
                     <li><a href="proveedor/final">Ficha final del proveedor</a></li>

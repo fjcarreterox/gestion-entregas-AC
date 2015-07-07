@@ -16,6 +16,13 @@ class Controller_Factura extends Controller_Template
         $this->template->content = View::forge('factura/list', $data);
     }
 
+    public function action_lines()
+    {
+        //$data['facturas'] = Model_Factura::find('all');
+        $this->template->title = "Sistema automático de facturación de ACEITUNAS CORIA S.L.";
+        $this->template->content = View::forge('factura/lines');
+    }
+
 	public function action_view($id = null)
 	{
 		is_null($id) and Response::redirect('factura');
@@ -47,9 +54,9 @@ class Controller_Factura extends Controller_Template
 
 				if ($factura and $factura->save())				{
 					Session::set_flash('success', 'Factura núm. '.$factura->id.' registrada en el sistema.');
-					Response::redirect('factura/list');
+                    Session::set_flash('idprov',Input::post('idprov'));
+					Response::redirect('factura/lines');
 				}
-
 				else
 				{
 					Session::set_flash('error', 'No se ha podido guardar la factura.');

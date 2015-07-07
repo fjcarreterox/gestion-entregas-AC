@@ -43,14 +43,13 @@ class Controller_User extends Controller_Template
 
 				if ($user and $user->save())
 				{
-					Session::set_flash('success', 'Added user #'.$user->id.'.');
-
+					Session::set_flash('success', 'Usuario añadido.');
 					Response::redirect('user');
 				}
 
 				else
 				{
-					Session::set_flash('error', 'Could not save user.');
+					Session::set_flash('error', 'No se pudo crear el nuevo usuario.');
 				}
 			}
 			else
@@ -61,7 +60,6 @@ class Controller_User extends Controller_Template
 
 		$this->template->title = "Usuarios";
 		$this->template->content = View::forge('user/create');
-
 	}
 
     public function action_new_pass($id = null)

@@ -5,9 +5,12 @@
 	<title><?php echo $title; ?></title>
 	<?php echo Asset::css('bootstrap.css'); ?>
     <?php echo Asset::css('styles.css'); ?>
+    <?php echo Asset::css('invoice-style.css', array(), null, false); ?>
+    <?php echo Asset::css('invoice-print.css', array("media"=>"print"), null, false); ?>
     <?php echo Asset::js('jquery.js') ?>
     <?php echo Asset::js('bootstrap.js') ?>
     <?php echo Asset::js('anticipo.js') ?>
+    <?php echo Asset::js('invoice.js') ?>
 	<style>
 		body { margin: 40px; }
 	</style>
