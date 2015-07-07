@@ -5,52 +5,27 @@ foreach($provs as $prov){
     $tipos[$prov->get('id')]=$prov->get('tipo');
 }
 
-$ivas = array(
-    4 => '4%',
-    12 => '12%'
-);
-
 echo Form::open(array("class"=>"form-horizontal")); ?>
 
 	<fieldset>
 		<div class="form-group">
 			<?php echo Form::label('Selecciona proveedor', 'idprov', array('class'=>'control-label')); ?>
-
 				<?php echo Form::select('idprov', isset($factura) ? $factura->idprov : '' , $options, array('class' => 'col-md-4 form-control', 'placeholder'=>'')); ?>
-
 		</div>
 		<div class="form-group">
-			<?php echo Form::label('Concepto', 'concepto', array('class'=>'control-label')); ?>
-
-				<?php echo Form::input('concepto', Input::post('concepto', isset($factura) ? $factura->concepto : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Concepto de la factura')); ?>
-
-		</div>
-		<div class="form-group">
-			<?php echo Form::label('Base imponible &euro;', 'base_imponible', array('class'=>'control-label')); ?>
-
-				<?php echo Form::input('base_imponible', Input::post('base_imponible', isset($factura) ? $factura->base_imponible : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Base imponible')); ?>
-
-		</div>
-		<div class="form-group">
-			<?php echo Form::label('%IVA', 'iva', array('class'=>'control-label')); ?>
-
-				<?php echo Form::select('iva', isset($factura) ? $factura->iva : '', $ivas, array('class' => 'col-md-4 form-control', 'placeholder'=>'Iva')); ?>
-
-		</div>
-		<div class="form-group">
-			<?php echo Form::label('Retención aplicable (%)', 'retencion', array('class'=>'control-label')); ?>
-
-				<?php echo Form::input('retencion', Input::post('retencion', isset($factura) ? $factura->retencion : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Retención a aplicar')); ?>
-
+			<?php echo Form::label('Fecha de emisión', 'fecha', array('class'=>'control-label')); ?>
+				<?php echo Form::input('fecha', Input::post('fecha', isset($factura) ? $factura->fecha : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Fecha', 'type' => 'date')); ?>
 		</div>
 		<div class="form-group">
 			<?php echo Form::label('Total &euro;', 'total', array('class'=>'control-label')); ?>
-
-				<?php echo Form::input('total', Input::post('total', isset($factura) ? $factura->total : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Total a facturar')); ?>
-
+				<?php echo Form::input('total', Input::post('total', isset($factura) ? $factura->total : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Total a facturar (se rellena automáticamente)','readonly'=>'readonly' )); ?>
 		</div>
+        <div class="form-group">
+            <?php echo Form::label('Comentario', 'comentario', array('class'=>'control-label')); ?>
+            <?php echo Form::input('comentario', Input::post('comentario', isset($factura) ? $factura->comentario : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Comentario sobre la factura')); ?>
+        </div>
 		<div class="form-group">
 			<label class='control-label'>&nbsp;</label>
-			<?php echo Form::submit('submit', 'Emitir factura', array('class' => 'btn btn-primary')); ?>		</div>
+			<?php echo Form::submit('submit', 'Completar líneas de factura', array('class' => 'btn btn-primary')); ?>		</div>
 	</fieldset>
 <?php echo Form::close(); ?>

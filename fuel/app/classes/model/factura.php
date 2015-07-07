@@ -6,11 +6,9 @@ class Model_Factura extends Model
 	protected static $_properties = array(
 		'id',
 		'idprov',
-		'concepto',
-		'base_imponible',
-		'iva',
-		'retencion',
+		'fecha',
 		'total',
+        'comentario',
 		'created_at',
 		'updated_at',
 	);
@@ -30,11 +28,9 @@ class Model_Factura extends Model
 	{
 		$val = Validation::forge($factory);
 		$val->add_field('idprov', 'Idprov', 'required|valid_string[numeric]');
-		$val->add_field('concepto', 'Concepto', 'required|max_length[255]');
-		$val->add_field('base_imponible', 'Base Imponible', 'required');
-		$val->add_field('iva', 'Iva', 'required|valid_string[numeric]');
-		$val->add_field('retencion', 'Retencion', 'required|valid_string[numeric]');
-		$val->add_field('total', 'Total', 'required|valid_string[numeric]');
+        $val->add_field('fecha', 'Fecha', 'required');
+		$val->add_field('total', 'Total', 'valid_string[numeric]');
+        $val->add_field('comentario', 'Comentario', 'max_length[255]');
 
 		return $val;
 	}

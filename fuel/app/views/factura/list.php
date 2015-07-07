@@ -15,8 +15,8 @@
 <?php foreach ($facturas as $item): ?>		<tr>
             <td><?php echo $item->id; ?></td>
 			<td><?php echo Model_Proveedor::find($item->idprov)->get('nombre'); ?></td>
-			<td><?php echo $item->fecha; ?></td>
-			<td><?php echo $item->total; ?></td>
+			<td><?php echo date_conv($item->fecha); ?></td>
+            <td><?php echo $item->total; ?></td>
 			<td>
 				<div class="btn-toolbar">
 					<div class="btn-group">
@@ -33,7 +33,7 @@
 </table>
 
 <?php else: ?>
-<p>No se han encontrado facturas registradas.</p>
+<p>No se han encontrado facturas hasta ahora.</p>
 
 <?php endif; ?><p>
 	<?php echo Html::anchor('factura/create', 'Emitir nueva factura', array('class' => 'btn btn-success')); ?>

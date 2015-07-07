@@ -9,6 +9,12 @@ class Controller_Factura extends Controller_Template
 		$this->template->content = View::forge('factura/index', $data);
 
 	}
+    public function action_list()
+    {
+        $data['facturas'] = Model_Factura::find('all');
+        $this->template->title = "Facturas registradas en el sistema";
+        $this->template->content = View::forge('factura/list', $data);
+    }
 
 	public function action_view($id = null)
 	{
@@ -16,13 +22,12 @@ class Controller_Factura extends Controller_Template
 
 		if ( ! $data['factura'] = Model_Factura::find($id))
 		{
-			Session::set_flash('error', 'Could not find factura #'.$id);
+			Session::set_flash('error', 'No se ha podido encontrar la factura núm. '.$id);
 			Response::redirect('factura');
 		}
 
 		$this->template->title = "Factura";
 		$this->template->content = View::forge('factura/view', $data);
-
 	}
 
 	public function action_create()
@@ -35,23 +40,19 @@ class Controller_Factura extends Controller_Template
 			{
 				$factura = Model_Factura::forge(array(
 					'idprov' => Input::post('idprov'),
-					'concepto' => Input::post('concepto'),
-					'base_imponible' => Input::post('base_imponible'),
-					'iva' => Input::post('iva'),
-					'retencion' => Input::post('retencion'),
+					'fecha' => Input::post('fecha'),
 					'total' => Input::post('total'),
+                    'comentario' => Input::post('comentario'),
 				));
 
-				if ($factura and $factura->save())
-				{
-					Session::set_flash('success', 'Added factura #'.$factura->id.'.');
-
-					Response::redirect('factura');
+				if ($factura and $factura->save())				{
+					Session::set_flash('success', 'Factura núm. '.$factura->id.' registrada en el sistema.');
+					Response::redirect('factura/list');
 				}
 
 				else
 				{
-					Session::set_flash('error', 'Could not save factura.');
+					Session::set_flash('error', 'No se ha podido guardar la factura.');
 				}
 			}
 			else
@@ -72,7 +73,7 @@ class Controller_Factura extends Controller_Template
 
 		if ( ! $factura = Model_Factura::find($id))
 		{
-			Session::set_flash('error', 'Could not find factura #'.$id);
+			Session::set_flash('error', 'No se ha podido encontrar la factura núm.'.$id);
 			Response::redirect('factura');
 		}
 
@@ -81,45 +82,34 @@ class Controller_Factura extends Controller_Template
 		if ($val->run())
 		{
 			$factura->idprov = Input::post('idprov');
-			$factura->concepto = Input::post('concepto');
-			$factura->base_imponible = Input::post('base_imponible');
-			$factura->iva = Input::post('iva');
-			$factura->retencion = Input::post('retencion');
+			$factura->fecha = Input::post('fecha');
 			$factura->total = Input::post('total');
+            $factura->comentario = Input::post('comentario');
 
 			if ($factura->save())
 			{
-				Session::set_flash('success', 'Updated factura #' . $id);
-
-				Response::redirect('factura');
+				Session::set_flash('success', 'Factura núm. ' . $id . ' actualizada correctamente.');
+				Response::redirect('factura/list');
 			}
-
 			else
 			{
-				Session::set_flash('error', 'Could not update factura #' . $id);
+				Session::set_flash('error', 'No se ha podido actualizar la factura núm. ' . $id);
 			}
 		}
-
 		else
 		{
 			if (Input::method() == 'POST')
 			{
 				$factura->idprov = $val->validated('idprov');
-				$factura->concepto = $val->validated('concepto');
-				$factura->base_imponible = $val->validated('base_imponible');
-				$factura->iva = $val->validated('iva');
-				$factura->retencion = $val->validated('retencion');
+				$factura->fecha = $val->validated('fecha');
 				$factura->total = $val->validated('total');
-
+                $factura->comentario = $val->validated('comentario');
 				Session::set_flash('error', $val->error());
 			}
-
 			$this->template->set_global('factura', $factura, false);
 		}
-
 		$this->template->title = "Facturas";
 		$this->template->content = View::forge('factura/edit');
-
 	}
 
 	public function action_delete($id = null)
@@ -129,17 +119,14 @@ class Controller_Factura extends Controller_Template
 		if ($factura = Model_Factura::find($id))
 		{
 			$factura->delete();
-
-			Session::set_flash('success', 'Deleted factura #'.$id);
+			Session::set_flash('success', 'Factura núm. '.$id . ' borrada del sistema.');
 		}
-
 		else
 		{
-			Session::set_flash('error', 'Could not delete factura #'.$id);
+			Session::set_flash('error', 'No se ha podido borrar la factura núm. '.$id);
 		}
 
-		Response::redirect('factura');
-
+		Response::redirect('factura/list');
 	}
 
 }
