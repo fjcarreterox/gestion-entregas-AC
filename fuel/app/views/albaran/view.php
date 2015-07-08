@@ -1,5 +1,5 @@
 <h2>Mostrando detalle de <span class='muted'>albarán:</span></h2>
-
+<br/>
 <p>
 	<strong>Núm Albarán:</strong>
 	<?php echo $albaran->idalbaran; ?></p>

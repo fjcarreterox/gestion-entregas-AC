@@ -39,7 +39,6 @@ class Model_Entrega extends Model
 	{
 		$val = Validation::forge($factory);
 		$val->add_field('fecha', 'Fecha', 'required');
-		$val->add_field('albaran', 'Albaran', 'required|valid_string[numeric]');
 		$val->add_field('variedad', 'Variedad', 'required|valid_string[numeric]');
 		$val->add_field('tam', 'Tam', 'valid_string[numeric]');
 		$val->add_field('total', 'Total', 'required|valid_string[numeric]');

@@ -1,10 +1,21 @@
 <?php echo Form::open(array("class"=>"form-horizontal")); ?>
 
 <?php
+
 $vars=Model_Variedad::find('all');
+$provs=Model_Proveedor::find('all');
+
+$options_vars=array();
+$options_provs=array();
+
 foreach($vars as $var){
-    $options[$var->get('id')]=$var->get('nombre');
+    $options_vars[$var->get('id')]=$var->get('nombre');
 }
+
+foreach ($provs as $p) {
+    $options_provs[$p->get('id')] = $p->get('nombre');
+}
+
 $percents=array(
     0=>'0%',
     5=>'5%',
@@ -37,31 +48,25 @@ $puesto = Model_Puesto::find($idpuesto)->get('nombre');
         <div class="form-group">
             <?php echo Form::hidden('idpuesto', Input::post('idpuesto', isset($entrega) ? $entrega->idpuesto : $idpuesto), array('class' => 'col-md-4 form-control', 'placeholder'=>'Puesto','readonly'=>'readonly')); ?>
         </div>
+        <div class="form-group">
+            <?php echo Form::label('Proveedor que hace la entrega', 'idprov', array('class'=>'control-label')); ?>
+            <?php echo Form::select('idprov', '', $options_provs, array('class' => 'col-md-4 form-control', 'placeholder'=>'Proveedor')); ?>
+        </div>
 		<div class="form-group">
 			<?php echo Form::label('Fecha de la entrega', 'fecha', array('class'=>'control-label')); ?>
 			<?php echo Form::input('fecha', Input::post('fecha', isset($entrega) ? $entrega->fecha : ''), array('type' => 'date','class' => 'col-md-4 form-control', 'placeholder'=>'Fecha')); ?>
 		</div>
 		<div class="form-group">
-			<?php echo Form::label('Núm. Albaran asignado', 'albaran', array('class'=>'control-label')); ?>
-			<?php echo Form::input('albaran', Input::post('albaran', isset($entrega) ? $entrega->albaran : \Fuel\Core\Session::get('ses_idalbaran')), array('class' => 'col-md-4 form-control', 'placeholder'=>'Albaran','readonly'=>'readonly')); ?>
-		</div>
-		<div class="form-group">
 			<?php echo Form::label('Variedad entregada', 'variedad', array('class'=>'control-label')); ?>
-
-				<?php echo Form::select('variedad', '', $options, array('class' => 'col-md-4 form-control', 'placeholder'=>'Variedad')); ?>
-
+			<?php echo Form::select('variedad', '', $options_vars, array('class' => 'col-md-4 form-control', 'placeholder'=>'Variedad')); ?>
 		</div>
 		<div class="form-group">
 			<?php echo Form::label('Tamaño', 'tam', array('class'=>'control-label')); ?>
-
-				<?php echo Form::input('tam', Input::post('tam', isset($entrega) ? $entrega->tam : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Tamaño')); ?>
-
+			<?php echo Form::input('tam', Input::post('tam', isset($entrega) ? $entrega->tam : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Tamaño')); ?>
 		</div>
 		<div class="form-group">
 			<?php echo Form::label('Total pesados (kgrs.)', 'total', array('class'=>'control-label')); ?>
-
-				<?php echo Form::input('total', Input::post('total', isset($entrega) ? $entrega->total : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Total Kg pesados')); ?>
-
+			<?php echo Form::input('total', Input::post('total', isset($entrega) ? $entrega->total : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Total Kg pesados')); ?>
 		</div>
         <p>Consiguientes porcentajes de:</p>
 		<div class="form-group">

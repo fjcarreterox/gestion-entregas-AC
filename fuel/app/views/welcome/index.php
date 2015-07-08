@@ -26,7 +26,7 @@
 			<div class="col-md-4">
                 <h2>Acciones más frecuentes</h2>
                 <ul>
-                    <li><a href="entrega">Registrar nueva entrega</a></li>
+                    <li><a href="entrega/create">Registrar nueva entrega</a></li>
                     <li><a href="puesto">Entrada diaria</a></li>
                     <li><a href="anticipo">Cálculo de anticipos</a></li>
 

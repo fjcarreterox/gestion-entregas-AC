@@ -8,7 +8,7 @@ else{
 ?>
 
 <br>
-<p><?php echo Html::anchor('entrega/index', 'Añadir nueva entrega', array('class' => 'btn btn-success')); ?></p>
+<p><?php echo Html::anchor('entrega/create', 'Añadir nueva entrega', array('class' => 'btn btn-success')); ?></p>
 <?php if ($entregas): ?>
 <table class="table table-striped">
 	<thead>
@@ -22,11 +22,12 @@ else{
 		</tr>
 	</thead>
 	<tbody>
-<?php foreach ($entregas as $item): ?>		<tr>
-
+<?php
+foreach ($entregas as $item):?>
+    <tr>
 			<td><?php echo date_conv($item->fecha); ?></td>
-            <td><?php echo Model_Proveedor::find(Model_Albaran::find('first', array('where' => array('IdAlbaran' => $item->albaran)))->get('idproveedor'))->get('nombre');
-                 ?></td>
+            <td><?php echo Model_Proveedor::find(Model_Albaran::find('first', array('where' => array('id' => $item->albaran)))->get('idproveedor'))->get('nombre'); ?>
+            </td>
             <td><?php echo $item->albaran; ?></td>
 			<td><?php echo Model_Variedad::find($item->variedad)->get('nombre');?></td>
 			<td><?php echo $item->tam; ?> / <?php echo $item->total; ?></td>
@@ -47,6 +48,6 @@ else{
 <p>No se han registrado aún entregas.</p>
 
 <?php endif; ?><p>
-	<?php echo Html::anchor('entrega/index', 'Añadir nueva entrega', array('class' => 'btn btn-success')); ?>
+	<?php echo Html::anchor('entrega/create', 'Añadir nueva entrega', array('class' => 'btn btn-success')); ?>
 
 </p>

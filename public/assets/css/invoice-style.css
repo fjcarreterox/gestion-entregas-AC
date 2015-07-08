@@ -4,13 +4,11 @@
 	 http://css-tricks.com
 */
 
-* { margin: 0; padding: 0; }
-body { font: 18px/1.4 Trebuchet, serif; }
 #page-wrap { width: 800px; margin: 0 auto; }
 
 textarea { border: 0; font: 16px Trebuchet, Serif; overflow: hidden; resize: none; }
-table { border-collapse: collapse; }
-table td, table th { border: 1px solid black; padding: 5px; }
+#page-wrap table { border-collapse: collapse; }
+#page-wrap table td,#page-wrap table th { border: 1px solid black; padding: 5px; }
 
 .smaller{ font-size: 0.9em;}
 .smallest{ font-size: 0.6em;}

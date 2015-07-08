@@ -1,15 +1,13 @@
 <?php
 class Controller_Entrega extends Controller_Template
 {
-
 	public function action_index()
 	{
-		$data['proveedores'] = Model_Proveedor::find('all',array('order_by' => 'nombre'));
+		//$data['proveedores'] = Model_Proveedor::find('all',array('order_by' => 'nombre'));
         $q = Model_Albaran::query()->select('idalbaran')->order_by('idalbaran');
         $data['idAlbaran']=$q->max('idalbaran');
 		$this->template->title = "Registrar nueva entrega";
 		$this->template->content = View::forge('entrega/index', $data);
-
 	}
 
     public function action_list($idpuesto = null){
@@ -57,18 +55,26 @@ class Controller_Entrega extends Controller_Template
 
 	public function action_create()
 	{
-
-        $albaran = Model_Albaran::find(\Fuel\Core\Session::get('ses_idalbaran_ID'));
-
 		if (Input::method() == 'POST')
 		{
 			$val = Model_Entrega::validate('create');
 
 			if ($val->run())
 			{
+                $last_albaran=Model_Albaran::find('last');
+
+                if(!$last_albaran) {
+                    $last_albaran_id = 1;
+                    $last_albaran_num = 1;
+                }
+                else {
+                    $last_albaran_id = $last_albaran->get('id');
+                    $last_albaran_num = $last_albaran->get('idalbaran');
+                }
+
 				$entrega = Model_Entrega::forge(array(
 					'fecha' => Input::post('fecha'),
-					'albaran' => Input::post('albaran'),
+					'albaran' => $last_albaran_id+1,
 					'variedad' => Input::post('variedad'),
 					'tam' => Input::post('tam'),
 					'total' => Input::post('total'),
@@ -86,20 +92,23 @@ class Controller_Entrega extends Controller_Template
 
 				if ($entrega and $entrega->save())
 				{
-					Session::set_flash('success', 'Entrega añadida (núm. '.$entrega->id.').');
+                    $albaran = Model_Albaran::forge(array(
+                        'id'=> $last_albaran_id+1,
+                        'idalbaran' => $last_albaran_num+1,
+                        'identrega' => $entrega->id,
+                        'idproveedor' => Input::post('idprov'),
+                        'comentario' => "",
+                    ));
 
-                    $albaran->identrega = $entrega->id;
-                    $albaran->idproveedor = \Fuel\Core\Session::get('ses_prov');
-                    $albaran->save();
-                    if(isset($_POST['more'])) {
+                    if($albaran->save()){
+                        Session::set_flash('success', 'Entrega añadida (núm. '.$entrega->id.'). Albarán añadido (núm. '.$albaran->id.').');
+                    }
+                    /*if(isset($_POST['more'])) {
                         Response::redirect('entrega/create');
                     }
-                    else{
-                        \Fuel\Core\Session::delete('ses_prov');
-                        \Fuel\Core\Session::delete('ses_idalbaran');
-                        \Fuel\Core\Session::delete('ses_idalbaran_ID');
+                    else{*/
                         Response::redirect('entrega/list');
-                    }
+                    //}
 				}
 
 				else
@@ -113,7 +122,7 @@ class Controller_Entrega extends Controller_Template
 			}
 		}
 
-		$this->template->title = "Entregas";
+		$this->template->title = "Registrar nueva entrega";
 		$this->template->content = View::forge('entrega/create');
 
 	}
