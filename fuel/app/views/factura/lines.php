@@ -1,18 +1,24 @@
+<?php
+$prov = Model_Proveedor::find(\Fuel\Core\Session::get('idprov'));
+?>
 <div id="page-wrap">
     <textarea id="header">FACTURA</textarea>
     <div id="identity">
         <div id="address">
             <p>ACEITUNAS CORIA, S.L.</p>
-            <p class="smaller">N.I.F. B-91030692</p><br/>
+            <p class="smaller">N.I.F. B-91030692</p>
             <p class="smallest">Avda. Andalucía, 189 - Teléfono 954 77 19 29<br/>
                 41100 CORIA DEL RIO (Sevilla)</p>
         </div>
-            <textarea id="customer-title">DATOS DEL PROVEEDOR
-
-Panduro Cuscurro S.L.
-c/ Virgen de regla roja, 18
-CORIA
-B-91234567</textarea>
+        <div class="customer">
+        <p>DATOS DEL PROVEEDOR</p>
+            <textarea id="customer-title">
+<?php echo $prov->get('nombre')."\r\n";?>
+<?php echo $prov->get('domicilio')."\r\n";?>
+<?php echo $prov->get('poblacion')."\r\n";?>
+<?php echo $prov->get('nifcif')."\r\n";?>
+</textarea>
+        </div>
     </div>
 
     <div style="clear:both"></div>
@@ -20,16 +26,16 @@ B-91234567</textarea>
         <table id="meta">
             <tr>
                 <td class="meta-head">Factura Núm.</td>
-                <td><textarea>XXXX</textarea></td>
+                <td><?php echo \Fuel\Core\Session::get('idfactura');?></td>
             </tr>
             <tr>
 
                 <td class="meta-head">Fecha</td>
-                <td><textarea id="date"></textarea></td>
+                <td><?php echo date_conv(\Fuel\Core\Session::get('fecha'));?></td>
             </tr>
             <tr>
                 <td class="meta-head">Total factura</td>
-                <td><div class="due">XXXX</div></td>
+                <td><div class="due">0</div></td>
             </tr>
         </table>
     </div>
@@ -44,8 +50,8 @@ B-91234567</textarea>
         </tr>
 
         <tr class="item-row">
-            <td class="item-name"><div class="delete-wpr"><textarea>__Concepto__</textarea><a class="delete" href="javascript:;" title="Remove row">X</a></div></td>
-            <td class="description"><textarea>__Descripción__</textarea></td>
+            <td class="item-name"><div class="delete-wpr"><textarea>_Concepto_</textarea><a class="delete" href="javascript:;" title="Remove row">X</a></div></td>
+            <td class="description"><textarea>_Descripción_</textarea></td>
             <td><textarea class="cost">0.00&euro;</textarea></td>
             <td><textarea class="qty">1</textarea></td>
             <td><span class="price">0.00&euro;</span></td>
@@ -58,28 +64,38 @@ B-91234567</textarea>
         <tr>
             <td colspan="2" class="blank"> </td>
             <td colspan="2" class="total-line">Importe</td>
-            <td class="total-value"><div id="subtotal">XX.XX &euro;</div></td>
+            <td class="total-value"><div id="subtotal">0.00 &euro;</div></td>
         </tr>
         <tr>
 
             <td colspan="2" class="blank"> </td>
             <td colspan="2" class="total-line">Compensación</td>
-            <td class="total-value"><div id="total">XX.XX &euro;</div></td>
+            <td class="total-value"><div id="total">0.00 &euro;</div></td>
         </tr>
         <tr>
             <td colspan="2" class="blank"> </td>
             <td colspan="2" class="total-line">Suma</td>
-            <td class="total-value"><textarea id="paid">XX.XX &euro;</textarea></td>
+            <td class="total-value"><textarea id="paid">0.00 &euro;</textarea></td>
         </tr>
         <tr>
             <td colspan="2" class="blank"> </td>
             <td colspan="2" class="total-line balance">TOTAL EUROS</td>
-            <td class="total-value balance"><div class="due">XX.XX &euro;</div></td>
+            <td class="total-value balance"><div class="due">0.00 &euro;</div></td>
         </tr>
     </table>
-
-    <div id="terms">
-        <h5>Firma</h5>
-        <textarea>.....COMMENT?.......</textarea>
+    <div class="comment">
+        <p>Comentario:</p><textarea><?php echo \Fuel\Core\Session::get('comment'); ?></textarea>
     </div>
+    <div id="terms">
+        <h5>Firma:</h5><br/><br/>
+    </div>
+
+    <?php echo Form::open(array("class"=>"form-horizontal")); ?>
+    <?php echo Form::input('total_factura',0 , array('class' => 'col-md-4 form-control', 'type'=>'hidden' )); ?>
+    <?php echo Form::input('comentario','', array('class' => 'col-md-4 form-control', 'type'=>'hidden' )); ?>
+            <div class="form-group">
+            <label class='control-label'>&nbsp;</label>
+            <?php echo Form::submit('submit_lines', 'Guardar factura', array('class' => 'btn btn-primary')); ?>
+        </div>
+    <?php echo Form::close(); ?>
 </div>

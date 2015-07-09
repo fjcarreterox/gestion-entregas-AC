@@ -1,8 +1,7 @@
 <?php
-$provs = Model_Proveedor::find('all',array('select' => array('id', 'nombre', 'tipo'),'order_by' => 'nombre'));
+$provs = Model_Proveedor::find('all',array('select' => array('id', 'nombre'),'order_by' => 'nombre'));
 foreach($provs as $prov){
     $options[$prov->get('id')]=$prov->get('nombre');
-    $tipos[$prov->get('id')]=$prov->get('tipo');
 }
 
 echo Form::open(array("class"=>"form-horizontal")); ?>
@@ -16,10 +15,7 @@ echo Form::open(array("class"=>"form-horizontal")); ?>
 			<?php echo Form::label('Fecha de emisión', 'fecha', array('class'=>'control-label')); ?>
 				<?php echo Form::input('fecha', Input::post('fecha', isset($factura) ? $factura->fecha : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Fecha', 'type' => 'date')); ?>
 		</div>
-		<div class="form-group">
-			<?php echo Form::label('Total &euro;', 'total', array('class'=>'control-label')); ?>
-				<?php echo Form::input('total', Input::post('total', isset($factura) ? $factura->total : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Total a facturar (se rellena automáticamente)','readonly'=>'readonly' )); ?>
-		</div>
+        <?php echo Form::input('total', Input::post('total', isset($factura) ? $factura->total : 0), array('class' => 'col-md-4 form-control','type'=>'hidden' )); ?>
         <div class="form-group">
             <?php echo Form::label('Comentario', 'comentario', array('class'=>'control-label')); ?>
             <?php echo Form::input('comentario', Input::post('comentario', isset($factura) ? $factura->comentario : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Comentario sobre la factura')); ?>

@@ -18,9 +18,37 @@ class Controller_Factura extends Controller_Template
 
     public function action_lines()
     {
-        //$data['facturas'] = Model_Factura::find('all');
-        $this->template->title = "Sistema automático de facturación de ACEITUNAS CORIA S.L.";
-        $this->template->content = View::forge('factura/lines');
+        if (Input::method() == 'POST')
+        {
+            $id=\Fuel\Core\Session::get('idfactura');
+            if ( ! $factura = Model_Factura::find($id))
+            {
+                Session::set_flash('error', 'No se ha podido encontrar la factura núm.'.$id);
+                Response::redirect('factura/list');
+            }
+
+            $factura->fecha = \Fuel\Core\Session::get('fecha');
+            $factura->total = Input::post('total_factura');
+            $factura->comentario = Input::post('comentario');
+
+            if ($factura->save())
+            {
+                Session::set_flash('success', 'Factura núm. ' . $id . ' almacenada correctamente.');
+                \Fuel\Core\Session::delete('idfactura');
+                \Fuel\Core\Session::delete('idprov');
+                \Fuel\Core\Session::delete('comment');
+                \Fuel\Core\Session::delete('fecha');
+                Response::redirect('factura/list');
+            }
+            else{
+                Session::set_flash('error', 'No se ha podido almacenar la factura núm. ' . $id);
+            }
+
+        }else {
+            $data['fecha'] = Input::post('fecha');
+            $this->template->title = "Sistema automático de facturación de ACEITUNAS CORIA S.L.";
+            $this->template->content = View::forge('factura/lines', $data);
+        }
     }
 
 	public function action_view($id = null)
@@ -52,13 +80,16 @@ class Controller_Factura extends Controller_Template
                     'comentario' => Input::post('comentario'),
 				));
 
-				if ($factura and $factura->save())				{
+				if ($factura and $factura->save()){
 					Session::set_flash('success', 'Factura núm. '.$factura->id.' registrada en el sistema.');
-                    Session::set_flash('idprov',Input::post('idprov'));
+                    //Session::set_flash('idprov',Input::post('idprov'));
+                    \Fuel\Core\Session::set('idfactura',$factura->id);
+                    \Fuel\Core\Session::set('fecha',Input::post('fecha'));
+                    \Fuel\Core\Session::set('idprov',Input::post('idprov'));
+                    \Fuel\Core\Session::set('comment',Input::post('comentario'));
 					Response::redirect('factura/lines');
 				}
-				else
-				{
+				else{
 					Session::set_flash('error', 'No se ha podido guardar la factura.');
 				}
 			}

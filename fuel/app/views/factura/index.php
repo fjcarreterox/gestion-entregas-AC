@@ -1,41 +1,27 @@
-<h2>Listado global de <span class='muted'>facturas</span> emitidas:</h2>
-<br>
-<?php if ($facturas): ?>
-<table class="table table-striped">
-	<thead>
-		<tr>
-            <th>Nº Factura</th>
-			<th>Proveedor</th>
-			<th>Fecha</th>
-			<th>Total &euro;</th>
-			<th>&nbsp;</th>
-		</tr>
-	</thead>
-	<tbody>
-<?php foreach ($facturas as $item): ?>		<tr>
-            <td><?php echo $item->id; ?></td>
-			<td><?php echo Model_Proveedor::find($item->idprov)->get('nombre'); ?></td>
-			<td><?php echo $item->fecha; ?></td>
-			<td><?php echo $item->total; ?></td>
-			<td>
-				<div class="btn-toolbar">
-					<div class="btn-group">
-						<?php echo Html::anchor('factura/view/'.$item->id, '<i class="icon-eye-open"></i> Ver Detalle', array('class' => 'btn btn-small')); ?>
-                        <?php echo Html::anchor('factura/edit/'.$item->id, '<i class="icon-wrench"></i> Editar', array('class' => 'btn btn-small btn-success')); ?>
-                        <?php echo Html::anchor('factura/print/'.$item->id, '<i class="icon-wrench"></i> Imprimir', array('class' => 'btn btn-small btn-info')); ?>
-                        <?php echo Html::anchor('factura/delete/'.$item->id, '<i class="icon-trash icon-white"></i> Eliminar', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('¿Estás seguro de querer borrar esta factura?')")); ?>
-                    </div>
-				</div>
+<?php
+$provs = Model_Proveedor::find('all',array('select' => array('id', 'nombre'),'order_by' => 'nombre'));
+foreach($provs as $prov){
+    $options[$prov->get('id')]=$prov->get('nombre');
+}
 
-			</td>
-		</tr>
-<?php endforeach; ?>	</tbody>
-</table>
+echo Form::open(array("class"=>"form-horizontal","action"=>"factura/lines")); ?>
 
-<?php else: ?>
-<p>No se han encontrado facturas registradas.</p>
-
-<?php endif; ?><p>
-	<?php echo Html::anchor('factura/create', 'Emitir nueva factura', array('class' => 'btn btn-success')); ?>
-
-</p>
+    <fieldset>
+        <div class="form-group">
+            <?php echo Form::label('Selecciona proveedor', 'idprov', array('class'=>'control-label')); ?>
+            <?php echo Form::select('idprov', isset($factura) ? $factura->idprov : '' , $options, array('class' => 'col-md-4 form-control', 'placeholder'=>'')); ?>
+        </div>
+        <div class="form-group">
+            <?php echo Form::label('Fecha de emisión', 'fecha', array('class'=>'control-label')); ?>
+            <?php echo Form::input('fecha', Input::post('fecha', isset($factura) ? $factura->fecha : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Fecha', 'type' => 'date')); ?>
+        </div>
+        <?php echo Form::input('total', 0, array('type'=>'hidden','class' => 'col-md-4 form-control', 'placeholder'=>'Total a facturar (se rellena automáticamente)','readonly'=>'readonly' )); ?>
+        <div class="form-group">
+            <?php echo Form::label('Comentario', 'comentario', array('class'=>'control-label')); ?>
+            <?php echo Form::input('comentario', Input::post('comentario', isset($factura) ? $factura->comentario : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Comentario sobre la factura')); ?>
+        </div>
+        <div class="form-group">
+            <label class='control-label'>&nbsp;</label>
+            <?php echo Form::submit('submit', 'Completar líneas de factura', array('class' => 'btn btn-primary')); ?>		</div>
+    </fieldset>
+<?php echo Form::close(); ?>

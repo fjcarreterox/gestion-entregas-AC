@@ -78,7 +78,8 @@ function update_total() {
 function update_balance() {
   var due = $("#total").html().replace("€","") - $("#paid").val().replace("€","");
   due = roundNumber(due,2);
-  $('.due').html("$"+due);
+  $('.due').html(due+"&euro;");
+  $("input[name='total_factura']").val(due);
 }
 
 function update_price() {
@@ -102,7 +103,12 @@ $(document).ready(function() {
   });
 
   $("#paid").blur(update_balance);
-   
+
+    $('body').on('click',"input[name='submit_lines']", function(){
+        var comment = $(".comment textarea").val();
+        $("input[name='comentario']").val(comment);
+    });
+
   $("#addrow").click(function(){
     $(".item-row:last").after('<tr class="item-row"><td class="item-name"><div class="delete-wpr"><textarea>___Concepto___</textarea><a class="delete" href="javascript:;" title="Remove row">X</a></div></td><td class="description"><textarea>___Descripción___</textarea></td><td><textarea class="cost">0&euro;</textarea></td><td><textarea class="qty">0</textarea></td><td><span class="price">0</span></td></tr>');
     if ($(".delete").length > 0) $(".delete").show();
