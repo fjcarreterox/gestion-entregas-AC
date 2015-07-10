@@ -20,6 +20,9 @@
 if(Session::get('username')==""){
     return \Fuel\Core\Response::redirect('/');
 }
+else{
+    $vars=Session::get();
+}
 ?>
 	<div class="container">
 		<div class="col-md-12">
@@ -48,7 +51,9 @@ if(Session::get('username')==""){
 <?php echo $content; ?>
 		</div>
 		<footer>
-			<p class="pull-right"><small>Contenido cargado en {exec_time}s usando {mem_usage}mb de memoria.</small></p>
+			<!--<p class="pull-right"><small>Contenido cargado en {exec_time}s usando {mem_usage}mb de memoria.</small></p>-->
+			<p class="pull-right"><small>Sesión iniciada como <b><?php echo $vars['username'];?></b> en el puesto de recogida de
+                    <u><?php echo Model_Puesto::find($vars['puesto'])->get('nombre');?>.</u></small></p>
 			<!--<p>
 				<a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.<br>
 				Version: <?php /*echo e(Fuel::VERSION);*/ ?></small>

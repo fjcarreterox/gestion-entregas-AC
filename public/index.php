@@ -83,8 +83,7 @@ catch (HttpNotFoundException $e)
 		throw $e;
 	}
 }
-$vars=Session::get();
-print_r($vars);
+
 // Render the output
 $response->body((string) $response);
 

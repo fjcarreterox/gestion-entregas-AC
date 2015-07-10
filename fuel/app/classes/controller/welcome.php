@@ -67,7 +67,6 @@ class Controller_Welcome extends Controller
                 }
                 else{
                     Session::set_flash('error', 'Error en el acceso');
-                error_log("ERROR!");
                     //return Response::forge(View::forge('welcome/login'));
                     Response::redirect('welcome/login');
                 }
