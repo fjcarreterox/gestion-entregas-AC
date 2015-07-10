@@ -101,3 +101,13 @@ a.no-decoration:hover{
 .right-separator{
     margin-right: 10px !important;
 }
+
+table.table.table-striped.percents {
+    width: 20%;
+    border: 1px #bbb solid;
+}
+
+table.table.table-striped.percents tr > td {
+    font-weight: bold;
+    border: 1px #aaa solid;
+}

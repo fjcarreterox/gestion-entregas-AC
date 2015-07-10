@@ -4,13 +4,13 @@
             array('IdAlbaran',$entrega->albaran),
         )))->get('id');
 ?>
-<h2>Mostrando detalle de <span class='muted'>entrega de mercancía</span>:</h2>
-
+<h2>Mostrando detalle de la <span class='muted'>entrega de mercancía</span> seleccionada:</h2>
+<br/>
 <p>
 	<strong>Fecha de la entrega:</strong>
 	<?php echo date_conv($entrega->fecha); ?></p>
 <p>
-	<strong>Núm. Albaran:</strong>
+	<strong>Núm. Albaran en la que aparece la entrega:</strong>
 	<?php echo Html::anchor('albaran/view/'.$idalbaran, $entrega->albaran,array('target'=>'_blank')); ?></p>
 <p>
 	<strong>Variedad de aceituna registrada:</strong>
@@ -19,35 +19,49 @@
 	<strong>Tamaño de la muestra:</strong>
 	<?php echo $entrega->tam; ?></p>
 <p>
-	<strong>Total pasada:</strong>
+	<strong>Total peso de la muestra:</strong>
 	<?php echo $entrega->total; ?> kgrs.</p>
 <p>
-	<strong>Porcentaje de picado:</strong>
-	<?php echo $entrega->rate_picado; ?>%</p>
-<p>
-	<strong>Porcentaje de molestado:</strong>
-	<?php echo $entrega->rate_molestado; ?>%</p>
-<p>
-	<strong>Porcentaje de morado:</strong>
-	<?php echo $entrega->rate_morado; ?>%</p>
-<p>
-	<strong>Porcentaje de mosca:</strong>
-	<?php echo $entrega->rate_mosca; ?>%</p>
-<p>
-	<strong>Porcentaje de azofairón:</strong>
-	<?php echo $entrega->rate_azofairon; ?>%</p>
-<p>
-	<strong>Porcentaje de agostado:</strong>
-	<?php echo $entrega->rate_agostado; ?>%</p>
-<p>
-	<strong>Porcentaje de granizado:</strong>
-	<?php echo $entrega->rate_granizado; ?>%</p>
-<p>
-	<strong>Porcentaje de perdigón:</strong>
-	<?php echo $entrega->rate_perdigon; ?>%</p>
-<p>
-	<strong>Porcentaje de taladro:</strong>
-	<?php echo $entrega->rate_taladro; ?>%</p>
+	<strong>Tabla de porcentajes:</strong></p>
+
+	<table summary="Porcentajes observados" class="table table-striped percents">
+        <tr>
+            <td>Picado</td>
+            <td><?php echo $entrega->rate_picado; ?>%</td>
+        </tr>
+        <tr>
+            <td>Molestado</td>
+            <td><?php echo $entrega->rate_molestado; ?>%</td>
+        </tr>
+        <tr>
+            <td>Morado</td>
+            <td><?php echo $entrega->rate_morado; ?>%</td>
+        </tr>
+        <tr>
+            <td>Mosca</td>
+            <td><?php echo $entrega->rate_mosca; ?>%</td>
+        </tr>
+        <tr>
+            <td>Azofairón</td>
+            <td><?php echo $entrega->rate_azofairon; ?>%</td>
+        </tr>
+        <tr>
+            <td>Agostado</td>
+            <td><?php echo $entrega->rate_agostado; ?>%</td>
+        </tr>
+        <tr>
+            <td>Granizado</td>
+            <td><?php echo $entrega->rate_granizado; ?>%</td>
+        </tr>
+        <tr>
+            <td>Perdigón</td>
+            <td><?php echo $entrega->rate_perdigon; ?>%</td>
+        </tr>
+        <tr>
+            <td>Taladro</td>
+            <td><?php echo $entrega->rate_taladro; ?>%</td>
+        </tr>
+    </table>
 
 <?php echo Html::anchor('entrega/edit/'.$entrega->id, 'Editar'); ?> |
 <?php echo Html::anchor('entrega/list', 'Volver'); ?>
