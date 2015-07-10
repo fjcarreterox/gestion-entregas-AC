@@ -11,8 +11,32 @@ class Controller_Proveedor extends Controller_Template
 
     public function action_search()
     {
-        $this->template->title = "Buscar un proveedor";
-        $this->template->content = View::forge('proveedor/_form_search');
+        if (Input::method() == 'POST'){
+            $this->template->title = "Resultados de la búsqueda de proveedores";
+            $str=\Fuel\Core\Input::post('searchq');
+
+            if(strlen($str)<3){
+                Session::set_flash('error', 'Debes escribir al menos tres letras para que la búsqueda sea efectiva.');
+                Response::redirect('proveedor/search');
+            }
+            else{
+                $provs = Model_Proveedor::find('all',array("where"=>array(array('nombre', 'LIKE', '%'.$str.'%'))));
+                if(count($provs)>0) {
+                    $data['proveedores'] = $provs;
+                    $data['searchq'] = $str;
+                    Session::set_flash('success', 'Resultados encontrados: ' . count($provs) . '.');
+                    $this->template->content = View::forge('proveedor/resultados', $data);
+                }
+                else{
+                    Session::set_flash('error', 'Resultados encontrados con "'.$str.'": ' . count($provs) . ' proveedores. Inténtalo con otra cadena.');
+                    Response::redirect('proveedor/search');
+                }
+            }
+        }
+        else {
+            $this->template->title = "Buscar un proveedor";
+            $this->template->content = View::forge('proveedor/_form_search');
+        }
     }
 
 	public function action_view($id = null)
