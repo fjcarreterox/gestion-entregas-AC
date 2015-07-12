@@ -13,7 +13,7 @@ class Controller_Entrega extends Controller_Template
     public function action_list($idpuesto = null){
 
         if(is_null($idpuesto)) {
-            $data['entregas'] = Model_Entrega::find('all', array('order_by' => array('Fecha' => 'desc')));
+            $data['entregas'] = Model_Entrega::find('all', array('order_by' => array('Fecha' => 'desc'),'order_by' => array('id' => 'desc')));
             $this->template->title = "Listado de Entregas";
         }
         else{
@@ -49,7 +49,7 @@ class Controller_Entrega extends Controller_Template
 			Response::redirect('entrega');
 		}
 
-		$this->template->title = "Entrega";
+		$this->template->title = "Detalle de Entrega";
 		$this->template->content = View::forge('entrega/view', $data);
 	}
 
@@ -92,23 +92,33 @@ class Controller_Entrega extends Controller_Template
 
 				if ($entrega and $entrega->save())
 				{
+                    $current_albaran_num=$last_albaran_num+1;
+                    if(\Fuel\Core\Session::get('num_alb')){
+                        $current_albaran_num=\Fuel\Core\Session::get('num_alb');
+                    }
+
                     $albaran = Model_Albaran::forge(array(
                         'id'=> $last_albaran_id+1,
-                        'idalbaran' => $last_albaran_num+1,
+                        'idalbaran' => $current_albaran_num,
                         'identrega' => $entrega->id,
                         'idproveedor' => Input::post('idprov'),
                         'comentario' => "",
                     ));
 
                     if($albaran->save()){
-                        Session::set_flash('success', 'Entrega añadida (núm. '.$entrega->id.'). Albarán añadido (núm. '.$albaran->id.').');
+                        Session::set_flash('success', 'Entrega añadida (núm. '.$entrega->id.'). Albarán añadido (núm. '.$albaran->idalbaran.').');
                     }
-                    /*if(isset($_POST['more'])) {
+                    if(isset($_POST['more'])) {
+                        \Fuel\Core\Session::set('idprov',Input::post('idprov'));
+                        \Fuel\Core\Session::set('num_alb',$albaran->idalbaran);
                         Response::redirect('entrega/create');
                     }
-                    else{*/
+                    else{
+                        //eliminamos variables de sesion que ya no nos sirven
+                        \Fuel\Core\Session::delete('idprov');
+                        \Fuel\Core\Session::delete('num_alb');
                         Response::redirect('entrega/list');
-                    //}
+                    }
 				}
 
 				else

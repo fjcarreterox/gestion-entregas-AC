@@ -3,7 +3,7 @@
 <?php
 
 $vars=Model_Variedad::find('all');
-$provs=Model_Proveedor::find('all');
+$provs=Model_Proveedor::find('all',array("order_by"=>"nombre"));
 
 $options_vars=array();
 $options_provs=array();
@@ -42,6 +42,11 @@ $percents=array(
 
 $idpuesto = Model_Puesto::find(\Fuel\Core\Session::get('puesto'))->get('id');
 $puesto = Model_Puesto::find($idpuesto)->get('nombre');
+
+$idprov=\Fuel\Core\Session::get('idprov');
+if($idprov==""){
+    $idprov='';
+}
 ?>
     <p>Puesto donde se hace la entrega: <strong><?php echo $puesto; ?></strong></p>
 	<fieldset>
@@ -50,7 +55,7 @@ $puesto = Model_Puesto::find($idpuesto)->get('nombre');
         </div>
         <div class="form-group">
             <?php echo Form::label('Proveedor que hace la entrega', 'idprov', array('class'=>'control-label')); ?>
-            <?php echo Form::select('idprov', '', $options_provs, array('class' => 'col-md-4 form-control', 'placeholder'=>'Proveedor')); ?>
+            <?php echo Form::select('idprov', $idprov, $options_provs, array('class' => 'col-md-4 form-control', 'placeholder'=>'Proveedor')); ?>
         </div>
 		<div class="form-group">
 			<?php echo Form::label('Fecha de la entrega', 'fecha', array('class'=>'control-label')); ?>
@@ -125,9 +130,16 @@ $puesto = Model_Puesto::find($idpuesto)->get('nombre');
 		</div>
 		<div class="form-group">
 			<label class='control-label'>&nbsp;</label>
-			<?php echo Form::submit('more', 'Agregar más entregas', array('class' => 'btn btn-primary')); ?>
-            <?php echo Form::submit('end', 'Finalizar entrega(s)', array('class' => 'btn btn-primary')); ?>
-            <?php echo Html::anchor('entrega/list', '<i class="icon-trash icon-white"></i> Cancelar esta entrega', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('¿Estás seguro?')")); ?>
+            <?php
+            if(\Fuel\Core\Request::active()->action=="edit"){
+                echo Form::submit('save', 'Guardar cambios', array('class' => 'btn btn-primary'));
+            }
+            else{
+                echo Form::submit('more', 'Agregar más entregas', array('class' => 'btn btn-primary'));
+                echo Form::submit('end', 'Finalizar entrega(s)', array('class' => 'btn btn-primary'));
+                echo Html::anchor('entrega/list', '<i class="icon-trash icon-white"></i> Cancelar esta entrega', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('¿Estás seguro?')"));
+            }
+            ?>
         </div>
 	</fieldset>
 <?php echo Form::close(); ?>

@@ -22,13 +22,22 @@ class Controller_Albaran extends Controller_Template
 	{
 		is_null($id) and Response::redirect('albaran');
 
-		if ( ! $data['albaran'] = Model_Albaran::find($id))
+		if ( ! $alb = Model_Albaran::find($id))
 		{
 			Session::set_flash('error', 'Could not find albaran #'.$id);
 			Response::redirect('albaran/list');
 		}
+        $entregas=array();
+        $albaranes= Model_Albaran::find('all',array("where" => array("idalbaran"=>$alb->get('idalbaran'))));
 
-		$this->template->title = "Albaran";
+        foreach($albaranes as $a){
+            $entregas[]=$a->get('identrega');
+        }
+
+        $data['entregas']=$entregas;
+        $data['albaran']=$alb;
+
+		$this->template->title = "Detalle de Albarán";
 		$this->template->content = View::forge('albaran/view', $data);
 
 	}

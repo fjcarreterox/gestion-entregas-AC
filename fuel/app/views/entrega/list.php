@@ -15,7 +15,7 @@ else{
 		<tr>
 			<th>Fecha</th>
             <th>Proveedor</th>
-			<th>Albaran</th>
+			<th>Núm. Albarán</th>
 			<th>Variedad</th>
 			<th>Tamaño / Total Kg</th>
 			<th>&nbsp;</th>
@@ -28,7 +28,7 @@ foreach ($entregas as $item):?>
 			<td><?php echo date_conv($item->fecha); ?></td>
             <td><?php echo Model_Proveedor::find(Model_Albaran::find('first', array('where' => array('id' => $item->albaran)))->get('idproveedor'))->get('nombre'); ?>
             </td>
-            <td><?php echo $item->albaran; ?></td>
+            <td><?php echo Model_Albaran::find($item->albaran)->get('idalbaran'); ?></td>
 			<td><?php echo Model_Variedad::find($item->variedad)->get('nombre');?></td>
 			<td><?php echo $item->tam; ?> / <?php echo $item->total; ?></td>
 			<td>
