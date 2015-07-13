@@ -12,6 +12,7 @@ foreach($vars as $var){
     $options_vars[$var->get('id')]=$var->get('nombre');
 }
 
+$options_provs[0]="-- SELECCIONA UN PROVEEDOR --";
 foreach ($provs as $p) {
     $options_provs[$p->get('id')] = $p->get('nombre');
 }

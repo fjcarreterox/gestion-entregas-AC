@@ -14,6 +14,7 @@
     <?php echo Asset::js('anticipo.js') ?>
     <?php echo Asset::js('invoice.js') ?>
     <?php echo Asset::js('delivernote.js') ?>
+    <?php echo Asset::js('main.js') ?>
 	<style>
 		body { margin: 20px; }
 	</style>

@@ -34,6 +34,7 @@ a:hover{
 }
 .btn{
     font-size: 18px;
+    margin: 4px;
 }
 
 .btn.btn-primary{
