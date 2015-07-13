@@ -15,9 +15,10 @@ else{
 		<tr>
 			<th>Fecha</th>
             <th>Proveedor</th>
+            <th>NIF/CIF</th>
 			<th>Núm. Albarán</th>
 			<th>Variedad</th>
-			<th>Tamaño / Total Kg</th>
+			<th>Total Kg</th>
 			<th>&nbsp;</th>
 		</tr>
 	</thead>
@@ -26,11 +27,11 @@ else{
 foreach ($entregas as $item):?>
     <tr>
 			<td><?php echo date_conv($item->fecha); ?></td>
-            <td><?php echo Model_Proveedor::find(Model_Albaran::find('first', array('where' => array('id' => $item->albaran)))->get('idproveedor'))->get('nombre'); ?>
-            </td>
+            <td><?php echo Model_Proveedor::find(Model_Albaran::find('first', array('where' => array('id' => $item->albaran)))->get('idproveedor'))->get('nombre'); ?></td>
+            <td><?php echo Model_Proveedor::find(Model_Albaran::find('first', array('where' => array('id' => $item->albaran)))->get('idproveedor'))->get('nifcif'); ?></td>
             <td><?php echo Model_Albaran::find($item->albaran)->get('idalbaran'); ?></td>
 			<td><?php echo Model_Variedad::find($item->variedad)->get('nombre');?></td>
-			<td><?php echo $item->tam; ?> / <?php echo $item->total; ?></td>
+			<td><?php echo $item->total; ?></td>
 			<td>
 				<div class="btn-toolbar">
 					<div class="btn-group">

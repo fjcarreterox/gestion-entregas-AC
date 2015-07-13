@@ -45,7 +45,10 @@ $idpuesto = Model_Puesto::find(\Fuel\Core\Session::get('puesto'))->get('id');
 $puesto = Model_Puesto::find($idpuesto)->get('nombre');
 
 $idprov=\Fuel\Core\Session::get('idprov');
-if($idprov==""){
+if($idprov=="" && isset($entrega)){
+    $idprov=Model_Albaran::find($entrega->albaran)->get('idproveedor');
+}
+else{
     $idprov='';
 }
 ?>
