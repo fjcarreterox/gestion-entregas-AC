@@ -11,6 +11,6 @@
         </div>
 	</fieldset>
 <p><small><u>NOTA:</u> Aunque los proveedores se hayan almacenado con letras mayúsculas, esta pantalla de búsqueda permite buscar
-proveedores escribiendo sus nombres en minúscula. Sólo se busca por <strong>nombre</strong> del proveedor. Tampoco es necesario
-        buscar con tildes.</small></p>
+proveedores escribiendo sus nombres en minúscula.  Tampoco es necesario
+        buscar con tildes. Sólo se busca por <strong>nombre</strong> del proveedor.</small></p>
 <?php echo Form::close(); ?>

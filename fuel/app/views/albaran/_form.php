@@ -7,16 +7,12 @@
 				<?php echo Form::input('idalbaran', Input::post('idalbaran', isset($albaran) ? $albaran->idalbaran : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Idalbaran','readonly'=>'readonly')); ?>
 
 		</div>
-		<!--<div class="form-group">
-			<?php /*echo Form::label('Entregas relacionadas', 'identrega', array('class'=>'control-label'));*/ ?>
-			<?php /*echo Form::input('identrega', Input::post('identrega', isset($albaran) ? $albaran->identrega : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Identrega'));*/ ?>
+		<?php echo Form::input('identrega', Input::post('identrega', isset($albaran) ? $albaran->identrega : ''), array('class' => 'col-md-4 form-control', 'type'=>'hidden')); ?>
 
-		</div>-->
 		<div class="form-group">
 			<?php echo Form::label('Proveedor', 'idproveedor', array('class'=>'control-label')); ?>
-
-				<?php echo Form::input('idproveedor', Input::post('idproveedor', isset($albaran) ? Model_Proveedor::find($albaran->idproveedor)->get('nombre') : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Idproveedor','readonly'=>'readonly')); ?>
-
+				<?php echo Form::input('idproveedor', Input::post('idproveedor', isset($albaran) ? $albaran->idproveedor : ''), array('class' => 'col-md-4 form-control', 'type'=>'hidden')); ?>
+				<?php echo Form::input('idproveedor_name', Input::post('idproveedor_name', isset($albaran) ? Model_Proveedor::find($albaran->idproveedor)->get('nombre') : ''), array('class' => 'col-md-4 form-control', 'readonly'=>'readonly')); ?>
 		</div>
         <div class="form-group">
             <?php echo Form::label('Comentario', 'comentario', array('class'=>'control-label')); ?>

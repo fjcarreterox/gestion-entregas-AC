@@ -58,7 +58,7 @@ $prov = Model_Proveedor::find(\Fuel\Core\Session::get('idprov'));
         </tr>
 
         <tr id="hiderow">
-            <td colspan="5"><a id="addrow" href="javascript:;" title="Nueva línea de factura"><img src="../assets/img/plus.png" alt="Nueva línea de factura"/></a></td>
+            <td colspan="5"><a id="addrow_bill" href="javascript:;" title="Nueva línea de factura"><img src="../assets/img/plus.png" alt="Nueva línea de factura"/></a></td>
         </tr>
 
         <tr>

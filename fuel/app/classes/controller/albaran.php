@@ -1,21 +1,44 @@
 <?php
 class Controller_Albaran extends Controller_Template
 {
-
 	public function action_index()
 	{
 		$data['albarans'] = Model_Albaran::find('all');
 		$this->template->title = "Albarans";
 		$this->template->content = View::forge('albaran/index', $data);
-
 	}
 
     public function action_list()
     {
-        $data['albarans'] = Model_Albaran::find('all');
+        $res=DB::select('idalbaran')->from('albarans')->distinct()->order_by('idalbaran','desc')->execute();
+        foreach($res as $r){
+            $albaranes[]=Model_Albaran::find('first',array("where"=>array("idalbaran"=>$r["idalbaran"])));
+        }
+        $data['albarans'] = $albaranes;
         $this->template->title = "Albaranes hasta la fecha";
         $this->template->content = View::forge('albaran/list', $data);
+    }
 
+    public function action_print($id = null)
+    {
+        is_null($id) and Response::redirect('albaran');
+
+        if (!$alb = Model_Albaran::find($id)) {
+            Session::set_flash('error', 'No se ha encontrado el albarán núm. ' . $id);
+            Response::redirect('albaran/list');
+        }
+        $entregas=array();
+        $albaranes= Model_Albaran::find('all',array("where" => array("idalbaran"=>$alb->get('idalbaran'))));
+
+        foreach($albaranes as $a){
+            $entregas[]=$a->get('identrega');
+        }
+
+        $data['entregas']=$entregas;
+        $data['albaran']=$alb;
+
+        $this->template->title = "Imprimir Albarán";
+        $this->template->content = View::forge('albaran/print', $data);
     }
 
 	public function action_view($id = null)
@@ -24,7 +47,7 @@ class Controller_Albaran extends Controller_Template
 
 		if ( ! $alb = Model_Albaran::find($id))
 		{
-			Session::set_flash('error', 'Could not find albaran #'.$id);
+			Session::set_flash('error', 'No se ha encontrado el albarán núm. '.$id);
 			Response::redirect('albaran/list');
 		}
         $entregas=array();
@@ -99,11 +122,17 @@ class Controller_Albaran extends Controller_Template
             $albaran->comentario = Input::post('comentario');
 
 			if ($albaran->save()){
+
+                $result = DB::update('albarans')
+                    ->value("comentario", Input::post('comentario'))
+                    ->where('idalbaran', '=',Input::post('idalbaran') )
+                    ->execute();
+
 				Session::set_flash('success', 'Albarán núm. ' . $id .' actualizado.');
 				Response::redirect('albaran/list');
 			}
 			else{
-				Session::set_flash('error', 'Could not update albaran #' . $id);
+				Session::set_flash('error', 'No se ha podido actualizar el albarán núm. ' . $id);
 			}
 		}
 

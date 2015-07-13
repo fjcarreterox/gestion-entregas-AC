@@ -25,5 +25,6 @@
     <?php echo $albaran->comentario; ?></p>
 
 <?php echo Html::anchor('albaran/edit/'.$albaran->id, 'Editar'); ?> |
+<?php echo Html::anchor('albaran/print/'.$albaran->id, 'Imprimir'); ?> |
 <?php echo Html::anchor('albaran/list', 'Volver al listado completo');?>
 

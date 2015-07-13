@@ -78,8 +78,7 @@ function update_total() {
 function update_balance() {
   var due = $("#total").html().replace("€","") - $("#paid").val().replace("€","");
   due = roundNumber(due,2);
-  $('.due').html(due+"&euro;");
-  $("input[name='total_factura']").val(due);
+  $('.due').html("$"+due);
 }
 
 function update_price() {
@@ -103,26 +102,21 @@ $(document).ready(function() {
   });
 
   $("#paid").blur(update_balance);
-
-    $('body').on('click',"input[name='submit_lines']", function(){
-        var comment = $(".comment textarea").val();
-        $("input[name='comentario']").val(comment);
-    });
-
-  $("#addrow_bill").click(function(){
-    $(".item-row:last").after('<tr class="item-row"><td class="item-name"><div class="delete-wpr"><textarea>___Concepto___</textarea><a class="delete" href="javascript:;" title="Remove row">X</a></div></td><td class="description"><textarea>___Descripción___</textarea></td><td><textarea class="cost">0&euro;</textarea></td><td><textarea class="qty">0</textarea></td><td><span class="price">0</span></td></tr>');
+   
+  $("#addrow_deliver").click(function(){
+    $(".item-row:last").after('<tr class="item-row"><td class="item-name"><div class="delete-wpr"><textarea>_Variedad_</textarea><a class="delete" href="javascript:;" title="Remove row">X</a></div></td><td class="description"><textarea>0</textarea></td><td><textarea class="cost">0</textarea></td><td><textarea class="qty">_Commentario_</textarea></td></tr>');
     if ($(".delete").length > 0) $(".delete").show();
     bind();
   });
   
   bind();
-
-    $('body').on('click',".delete",function(){
+  
+  /*$(".delete").live('click',function(){
     $(this).parents('.item-row').remove();
     update_total();
     if ($(".delete").length < 2) $(".delete").hide();
-  });
+  });*/
   
-  $("#date").val(print_today());
+  //$("#date").val(print_today());
   
 });
