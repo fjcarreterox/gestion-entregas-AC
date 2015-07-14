@@ -62,3 +62,7 @@ a#addrow_bill img{
     width:32px;
     height:32px;
 }
+
+textarea#iva{
+    width: 40px;
+}

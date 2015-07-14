@@ -90,9 +90,13 @@ $prov=Model_Proveedor::find($albaran->get('idproveedor'));
             </tr>
 
 		</table>
-        <div class="comment">
-            <p>Comentario:</p><?php echo $albaran->comentario; ?>
+    <?php if(strcmp($albaran->comentario,"")!=0) {  ?>
+        <div class="comment" >
+            <p > Comentario:</p ><?php echo $albaran->comentario; ?>
         </div>
+    <?php
+        }
+    ?>
 		<div id="terms">
 		  <h5>Conforme,</h5><br/><br/>
 		</div>

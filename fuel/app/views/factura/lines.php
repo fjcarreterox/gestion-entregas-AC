@@ -69,8 +69,8 @@ $prov = Model_Proveedor::find(\Fuel\Core\Session::get('idprov'));
         <tr>
 
             <td colspan="2" class="blank"> </td>
-            <td colspan="2" class="total-line">Compensación</td>
-            <td class="total-value"><div id="total">0.00 &euro;</div></td>
+            <td colspan="2" class="total-line">IVA</td>
+            <td class="total-value"><textarea id="iva">0</textarea> %</td>
         </tr>
         <tr>
             <td colspan="2" class="blank"> </td>

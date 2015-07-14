@@ -3,7 +3,7 @@
 textarea { border: 0; font: 16px Trebuchet, Serif; overflow: hidden; resize: none; }
 
 .smaller{ font-size: 0.9em;}
-.smallest{ font-size: 0.6em;}
+.smallest{ font-size: 0.5em;}
 
 #header { height: 30px; width: 100%; margin: 20px 0; background: #222; text-align: center; color: white; font: bold 16px Helvetica, Sans-Serif; text-decoration: uppercase; letter-spacing: 20px; padding: 8px 0px; }
 

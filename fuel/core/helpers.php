@@ -18,8 +18,9 @@ function get_percents($entrega){
     if($entrega->rate_perdigon>0){$str.=$entrega->rate_perdigon."% perdigón, ";}
     if($entrega->rate_taladro>0){$str.=$entrega->rate_taladro."% taladro";}
 
-    /*foreach($entrega['data_'] as $field){
-        echo $field;
-    }*/
+    if(strcmp($str,"Con ")==0){
+        $str="Sin porcentajes asociados.";
+    }
+
     return $str;
 }
