@@ -117,7 +117,7 @@ class Controller_Entrega extends Controller_Template
                         //eliminamos variables de sesion que ya no nos sirven
                         \Fuel\Core\Session::delete('idprov');
                         \Fuel\Core\Session::delete('num_alb');
-                        Response::redirect('entrega/list');
+                        Response::redirect('albaran/print/'.$albaran->id);
                     }
 				}
 
