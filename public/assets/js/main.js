@@ -10,4 +10,11 @@ $( document ).ready(function() {
         return true;
     });
 
+    $("#form_anticipo_submit").click(function( event ) {
+        if($("#form_provider")[0].value=="0") {
+            alert("Por favor, selecciona el proveedor al que quieres calcular el anticipo.");
+            return false;
+        }
+        return true;
+    });
 });

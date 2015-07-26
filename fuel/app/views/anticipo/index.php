@@ -2,9 +2,9 @@
 <br>
 <p>Seleccione el proveedor al que quieres calcular el siguiente anticipo:</p>
 
-<?php if( isset($_POST['submit'])){
+<?php if( isset($_POST['anticipo_submit'])){
     \Fuel\Core\Session::_init();
-    \Fuel\Core\Session::set('ses_anticipo_prov',$_POST['username']);
+    \Fuel\Core\Session::set('ses_anticipo_prov',$_POST['provider']);
     Response::redirect('anticipo/calculo');
 }
 else {
@@ -13,7 +13,7 @@ else {
 
     <?php
     if ($proveedores):
-
+        $provs[0]="-- SELECCIONA UN PROVEEDOR --";
         foreach ($proveedores as $p) {
             $provs[$p->get('id')] = $p->get('nombre');
         }
@@ -22,15 +22,15 @@ else {
 
         <fieldset>
             <div class="form-group">
-                <?php echo Form::label('Nombre del proveedor', 'username', array('class' => 'control-label')); ?>
-                <?php echo Form::select('username', '', $provs, array('class' => 'col-md-4 form-control')); ?>
+                <?php echo Form::label('Nombre del proveedor', 'provider', array('class' => 'control-label')); ?>
+                <?php echo Form::select('provider', '', $provs, array('class' => 'col-md-4 form-control')); ?>
             </div>
             <br/>
             <br/>
 
             <div class="form-group">
                 <label class='control-label'>&nbsp;</label>
-                <?php echo Form::submit('submit', 'Calcular anticipo para este proveedor', array('class' => 'btn btn-primary')); ?>
+                <?php echo Form::submit('anticipo_submit', 'Calcular anticipo para este proveedor', array('class' => 'btn btn-primary')); ?>
             </div>
         </fieldset>
         <?php echo Form::close();
