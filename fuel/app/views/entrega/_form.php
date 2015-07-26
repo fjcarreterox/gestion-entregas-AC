@@ -62,7 +62,7 @@ else{
         </div>
 		<div class="form-group">
 			<?php echo Form::label('Fecha de la entrega', 'fecha', array('class'=>'control-label')); ?>
-			<?php echo Form::input('fecha', Input::post('fecha', isset($entrega) ? $entrega->fecha : ''), array('type' => 'date','class' => 'col-md-4 form-control', 'placeholder'=>'Fecha')); ?>
+			<?php echo Form::input('fecha', Input::post('fecha', isset($entrega) ? $entrega->fecha : date('Y-m-d')), array('type' => 'date','class' => 'col-md-4 form-control', 'placeholder'=>'Fecha')); ?>
 		</div>
 		<div class="form-group">
 			<?php echo Form::label('Variedad entregada', 'variedad', array('class'=>'control-label')); ?>
