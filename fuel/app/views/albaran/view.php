@@ -7,7 +7,7 @@
     <strong>Fecha:</strong>
     <?php echo date('d-m-Y',$albaran->created_at); ?></p>
 <p>
-	<strong>Entrega(s):</strong></p>
+	<strong>Detalle de entrega(s)</strong></p>
     <table class="table table-striped">
         <tr>
 	<?php

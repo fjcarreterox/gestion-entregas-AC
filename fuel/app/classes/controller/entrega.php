@@ -14,12 +14,21 @@ class Controller_Entrega extends Controller_Template
 
         if(is_null($idpuesto)) {
             $data['entregas'] = Model_Entrega::find('all', array('order_by' => array('Fecha' => 'desc'),'order_by' => array('id' => 'desc')));
-            $this->template->title = "Listado de Entregas";
+            $this->template->title = "Listado de todas las entregas realizadas";
         }
         else{
-            $data['puesto']=Model_Puesto::find($idpuesto)->get('nombre');
-            $data['entregas'] = Model_Entrega::find('all',array('where' => array('idpuesto' => $idpuesto),'order_by' => array('Fecha' => 'desc')));
-            $this->template->title = "Entrega diaria";
+            $data['fecha']=date('Y-m-d');
+            $nombre_puesto = Model_Puesto::find($idpuesto)->get('nombre');
+            $data['puesto'] = $nombre_puesto;
+            //$data['entregas'] = Model_Entrega::find('all',array('where' => array('idpuesto' => $idpuesto),'order_by' => array('Fecha' => 'desc')));
+            $data['entregas'] = Model_Entrega::find('all',
+                array('where' => array(
+                        array('idpuesto' => $idpuesto),
+                        //'AND' => array(
+                            array('fecha','>', date('Y-m-d'))
+                        //)
+                ),'order_by' => array('Fecha' => 'desc')));
+            $this->template->title = "Entrega diaria para el puesto: ".$nombre_puesto;
         }
         $this->template->content = View::forge('entrega/list', $data);
     }
@@ -169,13 +178,13 @@ class Controller_Entrega extends Controller_Template
 
 			if ($entrega->save())
 			{
-				Session::set_flash('success', 'Updated entrega #' . $id);
-				Response::redirect('entrega');
+				Session::set_flash('success', 'Datos de la entrega actualizados.');
+				Response::redirect('entrega/list');
 			}
 
 			else
 			{
-				Session::set_flash('error', 'Could not update entrega #' . $id);
+				Session::set_flash('error', 'No se ha podido actualizar la entrega.');
 			}
 		}
 
@@ -201,33 +210,21 @@ class Controller_Entrega extends Controller_Template
 
 				Session::set_flash('error', $val->error());
 			}
-
 			$this->template->set_global('entrega', $entrega, false);
 		}
 
 		$this->template->title = "Entregas";
 		$this->template->content = View::forge('entrega/edit');
-
 	}
 
-	public function action_delete($id = null)
-	{
+	public function action_delete($id = null){
 		is_null($id) and Response::redirect('entrega');
-
-		if ($entrega = Model_Entrega::find($id))
-		{
+		if ($entrega = Model_Entrega::find($id)){
 			$entrega->delete();
-
-			Session::set_flash('success', 'Deleted entrega #'.$id);
+			Session::set_flash('success', 'Entrega borrada.');
+		}else{
+			Session::set_flash('error', 'No se ha podido borrar la entrega solicitada.');
 		}
-
-		else
-		{
-			Session::set_flash('error', 'Could not delete entrega #'.$id);
-		}
-
-		Response::redirect('entrega');
-
+		Response::redirect('entrega/list');
 	}
-
 }

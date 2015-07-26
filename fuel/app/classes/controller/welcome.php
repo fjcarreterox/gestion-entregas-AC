@@ -36,6 +36,9 @@ class Controller_Welcome extends Controller
             return Response::redirect('welcome/login');
         }
         else{
+            if(\Fuel\Core\Session::get('ses_anticipo_prov')!==null){
+                \Fuel\Core\Session::delete('ses_anticipo_prov');
+            }
             return Response::forge(View::forge('welcome/index'));
         }
 	}
