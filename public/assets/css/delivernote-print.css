@@ -6,3 +6,17 @@
 p.pull-right{
     display: none;
 }
+
+#print-deliverynote{
+    display: none;
+}
+
+#header{
+    border: 1px solid #666;
+}
+
+/* GENERAL */
+
+a.btn{
+    display: none;
+}
