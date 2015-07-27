@@ -220,8 +220,11 @@ class Controller_Entrega extends Controller_Template
 	public function action_delete($id = null){
 		is_null($id) and Response::redirect('entrega');
 		if ($entrega = Model_Entrega::find($id)){
+            //Deleting the associated line on Albaran model.
+            $albaran = Model_Albaran::find($entrega->albaran);
 			$entrega->delete();
-			Session::set_flash('success', 'Entrega borrada.');
+            $albaran->delete();
+			Session::set_flash('success', 'Entrega borrada y albarán asociado actualizado.');
 		}else{
 			Session::set_flash('error', 'No se ha podido borrar la entrega solicitada.');
 		}
