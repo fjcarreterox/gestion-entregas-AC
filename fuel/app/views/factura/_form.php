@@ -1,5 +1,6 @@
 <?php
 $provs = Model_Proveedor::find('all',array('select' => array('id', 'nombre'),'order_by' => 'nombre'));
+$options[0]="-- SELECCIONA UN PROVEEDOR --";
 foreach($provs as $prov){
     $options[$prov->get('id')]=$prov->get('nombre');
 }
