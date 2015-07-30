@@ -1,5 +1,5 @@
 #hiderow,
-.delete {
+.delete, .alert{
   display: none;
 }
 
