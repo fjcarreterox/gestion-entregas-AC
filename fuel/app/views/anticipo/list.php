@@ -1,6 +1,9 @@
 <h2>Listado de <span class='muted'>todos los anticipos</span> registrados en el sistema</h2>
 <br>
-<?php if ($anticipos): ?>
+<?php if ($anticipos):
+$total = 0;
+$total_recogido = 0;
+?>
 <table class="table table-striped">
 	<thead>
 		<tr>
@@ -20,9 +23,11 @@
 			<td><?php echo Model_Proveedor::find($item->idprov)->get('nombre'); ?></td>
 			<td><?php echo $item->numcheque; ?></td>
 			<td><?php echo Model_Banco::find($item->idbanco)->get('nombre'); ?></td>
-			<td><?php echo $item->cuantia; ?> &euro;</td>
-			<td><?php if($item->recogido)
+			<td><?php $total += $item->cuantia;echo $item->cuantia; ?> &euro;</td>
+			<td><?php if($item->recogido) {
                     echo "SÍ";
+                    $total_recogido += $item->cuantia;
+                }
                 else
                     echo "NO"; ?></td>
 			<td>
@@ -38,9 +43,26 @@
 		</tr>
 <?php endforeach; ?>	</tbody>
 </table>
+<p>Mostramos una tabla resumen del acumulado:</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Anticipos totales (&euro;)</th>
+            <th>Anticipos totales recogidos (&euro;)</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><?php echo $total; ?>&euro;</td>
+        <td><?php echo $total_recogido; ?>&euro;</td>
+    </tr>
+    </tbody>
+</table>
+    <br/>
+    <br/>
 
 <?php else: ?>
-<p>No Anticipos.</p>
+<p>No se han encontrado anticipos.</p>
 
 <?php endif; ?><p>
 	<?php echo Html::anchor('anticipo/index', 'Registrar un nuevo anticipo', array('class' => 'btn btn-success')); ?>
