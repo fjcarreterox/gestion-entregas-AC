@@ -19,7 +19,7 @@ function get_percents($entrega){
     if($entrega->rate_taladro>0){$str.=$entrega->rate_taladro."% taladro";}
 
     if(strcmp($str,"Con ")==0){
-        $str="Sin porcentajes asociados.";
+        $str="Sin porcentajes asociados";
     }
 
     $str=rtrim($str,", ");

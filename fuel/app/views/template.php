@@ -15,9 +15,6 @@
     <?php echo Asset::js('invoice.js') ?>
     <?php echo Asset::js('delivernote.js') ?>
     <?php echo Asset::js('main.js') ?>
-	<style>
-		body { margin: 20px; }
-	</style>
 </head>
 <body>
 <?php
@@ -28,6 +25,7 @@ else{
     $vars=Session::get();
 }
 ?>
+<header></header>
 	<div class="container">
 		<div class="col-md-12">
 			<!--<h1><?php /*echo $title;*/ ?></h1>-->
