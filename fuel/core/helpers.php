@@ -22,5 +22,7 @@ function get_percents($entrega){
         $str="Sin porcentajes asociados.";
     }
 
-    return $str;
+    $str=rtrim($str,", ");
+
+    return $str.".";
 }
