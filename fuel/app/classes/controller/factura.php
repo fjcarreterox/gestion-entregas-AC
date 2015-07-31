@@ -7,12 +7,33 @@ class Controller_Factura extends Controller_Template
 		$data['facturas'] = Model_Factura::find('all');
 		$this->template->title = "Facturas";
 		$this->template->content = View::forge('factura/index', $data);
-
 	}
+
+    public function action_init()
+    {
+        $this->template->title = "Selección de proveedor";
+        $this->template->content = View::forge('factura/init');
+    }
+
     public function action_list()
     {
-        $data['facturas'] = Model_Factura::find('all');
+        $data['facturas'] = Model_Factura::find('all',array('order_by' => array('fecha' => 'desc')));
+        $data['titulo'] = "";
         $this->template->title = "Facturas registradas en el sistema";
+        $this->template->content = View::forge('factura/list', $data);
+    }
+
+    public function action_list_prov($idprov)
+    {
+        //$data['facturas'] = Model_Factura::find('all')->;
+        $data['facturas'] = Model_Factura::find('all', array(
+            'where' => array(
+                array('idprov', $idprov),
+            ),
+            'order_by' => array('fecha' => 'desc'),
+        ));
+        $data['titulo'] = "para el proveedor: ".Model_Proveedor::find($idprov)->get('nombre');
+        $this->template->title = "Facturas emitidas para el proveedor";
         $this->template->content = View::forge('factura/list', $data);
     }
 

@@ -55,7 +55,7 @@
                 <ul>
                     <li><a href="factura/create">Generar nueva factura</a></li>
                     <li><a href="factura/list">Ver todas las facturas hasta la fecha</a></li>
-
+                    <li><a href="factura/init">Facturas emitidas por proveedor</a></li>
                 </ul>
             </div>
             <div class="col-md-4">

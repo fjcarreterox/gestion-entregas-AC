@@ -1,21 +1,27 @@
-<h2>Listado global de <span class='muted'>facturas</span> emitidas:</h2>
-<br>
+<h2>Listado global de <span class='muted'>facturas</span> emitidas <?php echo $titulo; ?></h2>
+<br/>
 <?php if ($facturas): ?>
 <table class="table table-striped">
 	<thead>
 		<tr>
             <th>Nº Factura</th>
-			<th>Proveedor</th>
-			<th>Fecha</th>
-			<th>Total &euro;</th>
+            <th>Fecha</th>
+            <?php if ($titulo=="") {
+                echo "<th>Proveedor</th>";
+            }?>
+
+			<th>Importe total (&euro;)</th>
 			<th>&nbsp;</th>
 		</tr>
 	</thead>
 	<tbody>
 <?php foreach ($facturas as $item): ?>		<tr>
             <td><?php echo $item->id; ?></td>
-			<td><?php echo Model_Proveedor::find($item->idprov)->get('nombre'); ?></td>
-			<td><?php echo date_conv($item->fecha); ?></td>
+            <td><?php echo date_conv($item->fecha); ?></td>
+        <?php if ($titulo=="") {
+			echo "<td>".Model_Proveedor::find($item->idprov)->get('nombre')."</td>";
+            }?>
+
             <td><?php echo $item->total; ?></td>
 			<td>
 				<div class="btn-toolbar">
