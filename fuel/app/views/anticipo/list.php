@@ -17,8 +17,8 @@ $total_recogido = 0;
 		</tr>
 	</thead>
 	<tbody>
-<?php foreach ($anticipos as $item): ?>		<tr>
-
+<?php foreach ($anticipos as $item): ?>
+    <tr>
 			<td><?php echo date_conv($item->fecha); ?></td>
 			<td><?php echo Model_Proveedor::find($item->idprov)->get('nombre'); ?></td>
 			<td><?php echo $item->numcheque; ?></td>

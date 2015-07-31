@@ -5,4 +5,4 @@ $data['bancos']=$bancos;
 echo render('anticipo/_form',$data); ?>
 <p>
 <?php echo Html::anchor('anticipo/view/'.$anticipo->id, 'Ver detalle'); ?> |
-<?php echo Html::anchor('anticipo', 'Volver'); ?></p>
+<?php echo Html::anchor('anticipo/list', 'Volver'); ?></p>

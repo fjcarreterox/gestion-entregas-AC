@@ -53,7 +53,7 @@ echo Form::open(array("class"=>"form-horizontal")); ?>
 		</div>
 		<div class="form-group">
 			<?php echo Form::label('Recogido', 'recogido', array('class'=>'control-label')); ?>
-				<?php echo Form::select('recogido', isset($recogido) ? $recogido: '',$recogido_ops, array('class' => 'col-md-4 form-control', 'placeholder'=>'Recogido')); ?>
+				<?php echo Form::select('recogido', isset($anticipo) ? $recogido_sel: '',$recogido_ops, array('class' => 'col-md-4 form-control', 'placeholder'=>'Recogido')); ?>
 
 		</div>
 		<div class="form-group">
