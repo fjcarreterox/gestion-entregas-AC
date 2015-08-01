@@ -99,6 +99,7 @@ $prov = Model_Proveedor::find(\Fuel\Core\Session::get('idprov'));
             <div class="form-group">
             <label class='control-label'>&nbsp;</label>
             <?php echo Form::submit('submit_lines', 'Guardar factura', array('class' => 'btn btn-primary')); ?>
+            <?php echo Html::anchor('javascript:window.print()', '<i class="icon-trash icon-white"></i> Imprimir factura', array('class' => 'btn btn-small btn-info','id'=>'print-invoice')); ?>
         </div>
     <?php echo Form::close(); ?>
 </div>

@@ -3,6 +3,6 @@
   display: none;
 }
 
-p.pull-right{
+p.pull-right, .btn{
     display: none;
 }
