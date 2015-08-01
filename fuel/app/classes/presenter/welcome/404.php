@@ -16,7 +16,7 @@ class Presenter_Welcome_404 extends Presenter
 	 */
 	public function view()
 	{
-		$messages = array('Aw, crap!', 'Bloody Hell!', 'Uh Oh!', 'Cagon dió...', 'Pero qué mierd...','Cachis en la má...');
+		$messages = array('Pssss...ya estamos otra vez...', '¿Pero esto funciona?', 'Uh Oh!', 'Cáspita...', 'Pero qué mierd...','Cachis en la má...');
 		$this->title = $messages[array_rand($messages)];
 	}
 }

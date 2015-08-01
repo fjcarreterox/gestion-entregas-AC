@@ -38,8 +38,8 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<h1><?php echo $title; ?> <small>No encontramos la página que buscas...</small></h1>
-                <p>Vuelve a intentarlo desde la <a href="index">página de inicio.</a></p>
+				<h1><?php echo $title; ?> <small>No encontramos la página que buscas.</small></h1>
+                <p>Vuelve a intentarlo desde la <a href="http://localhost/fuel/public/">página de inicio.</a></p>
 			</div>
 		</div>
 		<footer>

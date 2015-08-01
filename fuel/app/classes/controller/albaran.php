@@ -37,7 +37,7 @@ class Controller_Albaran extends Controller_Template
         $data['entregas']=$entregas;
         $data['albaran']=$alb;
 
-        $this->template->title = "Imprimir Albarán";
+        $this->template->title = "Albarán Núm. ".$alb->get('idalbaran');
         $this->template->content = View::forge('albaran/print', $data);
     }
 
