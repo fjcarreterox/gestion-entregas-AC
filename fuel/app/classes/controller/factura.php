@@ -37,7 +37,7 @@ class Controller_Factura extends Controller_Template
         $this->template->content = View::forge('factura/list', $data);
     }
 
-    public function action_lines()
+    public function action_print()
     {
         if (Input::method() == 'POST')
         {
@@ -68,7 +68,7 @@ class Controller_Factura extends Controller_Template
         }else {
             $data['fecha'] = Input::post('fecha');
             $this->template->title = "Sistema automático de facturación de ACEITUNAS CORIA S.L.";
-            $this->template->content = View::forge('factura/lines', $data);
+            $this->template->content = View::forge('factura/print', $data);
         }
     }
 
@@ -108,7 +108,7 @@ class Controller_Factura extends Controller_Template
                     \Fuel\Core\Session::set('fecha',Input::post('fecha'));
                     \Fuel\Core\Session::set('idprov',Input::post('idprov'));
                     \Fuel\Core\Session::set('comment',Input::post('comentario'));
-					Response::redirect('factura/lines');
+					Response::redirect('factura/print');
 				}
 				else{
 					Session::set_flash('error', 'No se ha podido guardar la factura.');

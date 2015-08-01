@@ -35,7 +35,7 @@ $prov = Model_Proveedor::find(\Fuel\Core\Session::get('idprov'));
             </tr>
             <tr>
                 <td class="meta-head">Total factura</td>
-                <td><div class="due">0</div></td>
+                <td><div class="total_fac">0</div></td>
             </tr>
         </table>
     </div>
@@ -43,18 +43,16 @@ $prov = Model_Proveedor::find(\Fuel\Core\Session::get('idprov'));
     <table id="items">
         <tr>
             <th>Concepto</th>
-            <th>Descripción</th>
             <th>Precio</th>
-            <th>Cantidad</th>
+            <th>Kg.</th>
             <th>Importe</th>
         </tr>
 
         <tr class="item-row">
-            <td class="item-name"><div class="delete-wpr"><textarea>_Concepto_</textarea><a class="delete" href="javascript:;" title="Remove row">X</a></div></td>
-            <td class="description"><textarea>_Descripción_</textarea></td>
-            <td><textarea class="cost">0.00&euro;</textarea></td>
-            <td><textarea class="qty">1</textarea></td>
-            <td><span class="price">0.00&euro;</span></td>
+            <td class="item-concept"><div class="delete-wpr"><textarea>_Concepto_</textarea><a class="delete" href="javascript:;" title="Remove row">X</a></div></td>
+            <td><textarea class="coste">0.00 &euro;</textarea></td>
+            <td><textarea class="kg">1</textarea></td>
+            <td><span class="precio">0.00 &euro;</span></td>
         </tr>
 
         <tr id="hiderow">
@@ -62,25 +60,30 @@ $prov = Model_Proveedor::find(\Fuel\Core\Session::get('idprov'));
         </tr>
 
         <tr>
-            <td colspan="2" class="blank"> </td>
-            <td colspan="2" class="total-line">Importe</td>
+            <td colspan="1" class="blank"> </td>
+            <td colspan="2" class="total-line">Importe total</td>
             <td class="total-value"><div id="subtotal">0.00 &euro;</div></td>
         </tr>
         <tr>
 
-            <td colspan="2" class="blank"> </td>
+            <td colspan="1" class="blank"> </td>
             <td colspan="2" class="total-line">IVA</td>
-            <td class="total-value"><textarea id="iva">0</textarea> %</td>
+            <td class="total-value"><textarea id="iva">12</textarea> %</td>
         </tr>
         <tr>
-            <td colspan="2" class="blank"> </td>
+            <td colspan="1" class="blank"> </td>
             <td colspan="2" class="total-line">Suma</td>
-            <td class="total-value"><textarea id="paid">0.00 &euro;</textarea></td>
+            <td class="total-value"><div id="parcial">0.00 &euro;</div></td>
         </tr>
         <tr>
-            <td colspan="2" class="blank"> </td>
+            <td colspan="1" class="blank"> </td>
+            <td colspan="2" class="total-line">Retención</td>
+            <td class="total-value"><textarea id="retencion">2</textarea> %</td>
+        </tr>
+        <tr>
+            <td colspan="1" class="blank"> </td>
             <td colspan="2" class="total-line balance">TOTAL EUROS</td>
-            <td class="total-value balance"><div class="due">0.00 &euro;</div></td>
+            <td class="total-value balance"><div class="total_fac">0.00 &euro;</div></td>
         </tr>
     </table>
     <div class="comment">

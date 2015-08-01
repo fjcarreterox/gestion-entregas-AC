@@ -13,6 +13,6 @@
     <strong>Comentario:</strong>
     <?php echo $factura->comentario; ?></p>
 
-<?php echo Html::anchor('factura/lineas/'.$factura->id, 'Ver sus líneas facturadas'); ?> |
+<?php echo Html::anchor('factura/print/'.$factura->id, 'Imprimir factura'); ?> |
 <?php echo Html::anchor('factura/edit/'.$factura->id, 'Editar'); ?> |
 <?php echo Html::anchor('factura/list', 'Volver'); ?>

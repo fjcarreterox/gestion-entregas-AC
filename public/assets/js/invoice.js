@@ -60,69 +60,87 @@ function roundNumber(number,decimals) {
   return newString; // Output the result to the form field (change for your purposes)
 }
 
-function update_total() {
-  var total = 0;
-  $('.price').each(function(i){
-    //price = $(this).html().replace("","€");
-    price = $(this).html();
-    if (!isNaN(price)) total += Number(price);
-  });
+function update_parcial() {
+    var subtotal = 0;
+    $('.precio').each(function(i){
+        precio = $(this).html().replace(" €","");
+        //precio = $(this).html();
+        if (!isNaN(precio)) subtotal += Number(precio);
+    });
 
-  total = roundNumber(total,2);
+    subtotal = roundNumber(subtotal,2);
+    $('#subtotal').html(subtotal+" &euro;");
 
-  $('#subtotal').html(total+"&euro;");
-  $('#total').html(total+"&euro;");
-  update_balance();
+    iva = $("#iva").val();
+
+    parcial = Number(subtotal) + ((subtotal * iva) / 100 );
+    parcial = roundNumber(parcial,2);
+
+    $('#parcial').html(parcial+" &euro;");
+    //$('.total_fac').html(total+" &euro;");
+    update_total_fac();
 }
 
-function update_balance() {
-  var due = $("#total").html().replace("€","") - $("#paid").val().replace("€","");
-  due = roundNumber(due,2);
-  $('.due').html(due+"&euro;");
-  $("input[name='total_factura']").val(due);
+function update_total_fac() {
+    var parcial = $("#parcial").html().replace(" €","");
+    var total_fac = $(".total_fac").html().replace(" €","");
+    var retencion = $("#retencion").val();
+
+    total_fac= Number(parcial) - ((Number(parcial) * retencion) / 100);
+    total_fac = roundNumber(total_fac,2);
+
+    $('.total_fac').html(total_fac+" &euro;");
+    $("input[name='total_factura']").val(total_fac);
 }
 
-function update_price() {
-  var row = $(this).parents('.item-row');
-  var price = row.find('.cost').val().replace("€","") * row.find('.qty').val();
-  price = roundNumber(price,2);
-  isNaN(price) ? row.find('.price').html("N/A") : row.find('.price').html(price);
-  
-  update_total();
+function update_precio() {
+    var row = $(this).parents('.item-row');
+    var precio = row.find('.coste').val().replace("€","") * row.find('.kg').val();
+    precio = roundNumber(precio,2);
+    isNaN(precio) ? row.find('.precio').html("N/D") : row.find('.precio').html(precio + " &euro;");
+    update_parcial();
 }
 
-function bind() {
-  $(".cost").blur(update_price);
-  $(".qty").blur(update_price);
+function bind_bill() {
+  $(".coste").blur(update_precio);
+  $(".kg").blur(update_precio);
 }
 
 $(document).ready(function() {
 
-  $('input').click(function(){
-    $(this).select();
-  });
+    $('input').click(function(){
+        $(this).select();
+    });
 
-  $("#paid").blur(update_balance);
+    //$("#parcial").blur(update_sum);
 
     $('body').on('click',"input[name='submit_lines']", function(){
         var comment = $(".comment textarea").val();
         $("input[name='comentario']").val(comment);
     });
 
-  $("#addrow_bill").click(function(){
-    $(".item-row:last").after('<tr class="item-row"><td class="item-name"><div class="delete-wpr"><textarea>___Concepto___</textarea><a class="delete" href="javascript:;" title="Remove row">X</a></div></td><td class="description"><textarea>___Descripción___</textarea></td><td><textarea class="cost">0&euro;</textarea></td><td><textarea class="qty">0</textarea></td><td><span class="price">0</span></td></tr>');
-    if ($(".delete").length > 0) $(".delete").show();
-    bind();
-  });
-  
-  bind();
+    $("#addrow_bill").click(function(){
+        $(".item-row:last").after('<tr class="item-row"><td class="item-concept"><div class="delete-wpr"><textarea>___Concepto___</textarea><a class="delete" href="javascript:;" title="Remove row">X</a></div></td><td><textarea class="coste">0.00 &euro;</textarea></td><td><textarea class="kg">1</textarea></td><td><span class="precio">0.00 &euro;</span></td></tr>');
+        if ($(".delete").length > 0) $(".delete").show();
+        bind_bill();
+    });
+
+    bind_bill();
 
     $('body').on('click',".delete",function(){
-    $(this).parents('.item-row').remove();
-    update_total();
-    if ($(".delete").length < 2) $(".delete").hide();
-  });
-  
-  $("#date").val(print_today());
+        $(this).parents('.item-row').remove();
+        update_parcial();
+        if ($(".delete").length < 2) $(".delete").hide();
+    });
+
+    $('body').on('blur',"#iva",function(){
+        update_parcial();
+    });
+
+    $('body').on('blur',"#retencion",function(){
+        update_total_fac();
+    });
+
+    $("#date").val(print_today());
   
 });
