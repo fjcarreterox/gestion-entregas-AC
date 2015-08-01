@@ -63,7 +63,7 @@ else {
             </div>
             <div class="form-group">
                 <?php echo Form::label('Acumulado de anticipos recogidos', 'acum', array('class' => 'control-label')); ?>
-                <?php echo Form::input('acum', $acum, array('class' => 'col-md-4 form-control')); ?>
+                <?php echo Form::input('acum', $acum, array('class' => 'col-md-4 form-control','readonly'=>'readonly')); ?>
             </div>
             <div class="form-group">
                 <?php echo Form::label('Anticipo calculado automáticamente (es la que se registrará en el sistema)', 'anticipo', array('class' => 'control-label')); ?>
