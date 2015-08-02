@@ -15,6 +15,7 @@ return array (
         6 => '007_create_anticipos',
         7 => '008_create_bancos',
         8 => '009_create_facturas',
+        9 => '010_create_lineas',
       ),
     ),
     'module' => 
