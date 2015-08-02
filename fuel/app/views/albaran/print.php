@@ -103,3 +103,4 @@ $prov=Model_Proveedor::find($albaran->get('idproveedor'));
 	
 	</div>
 <?php echo Html::anchor('javascript:window.print()', '<i class="icon-trash icon-white"></i> Imprimir albarán', array('class' => 'btn btn-small btn-info','id'=>'print-deliverynote')); ?>
+<?php echo Html::anchor('albaran/list', '<i class="icon-trash icon-white"></i> Volver al listado', array('class' => 'btn btn-small btn-success')); ?>

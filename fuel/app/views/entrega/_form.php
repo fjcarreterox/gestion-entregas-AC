@@ -78,7 +78,7 @@ if($idprov==""){
 		</div>
 		<div class="form-group">
 			<?php echo Form::label('Variedad entregada', 'variedad', array('class'=>'control-label')); ?>
-			<?php echo Form::select('variedad', '', $options_vars, array('class' => 'col-md-4 form-control', 'placeholder'=>'Variedad')); ?>
+			<?php echo Form::select('variedad',Input::post('variedad', isset($entrega) ? $entrega->variedad : ''), $options_vars, array('class' => 'col-md-4 form-control', 'placeholder'=>'Variedad')); ?>
 		</div>
 		<div class="form-group">
 			<?php echo Form::label('Tamaño', 'tam', array('class'=>'control-label')); ?>
