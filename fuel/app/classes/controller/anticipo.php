@@ -8,6 +8,13 @@ class Controller_Anticipo extends Controller_Template
 		$this->template->content = View::forge('anticipo/index', $data);
 	}
 
+    public function action_init()
+    {
+        $data['proveedores'] = Model_Proveedor::find('all',array('order_by' => 'nombre'));
+        $this->template->title = "Anticipo de un proveedor concreto";
+        $this->template->content = View::forge('anticipo/init', $data);
+    }
+
     public function action_list()
     {
         $data['anticipos'] = Model_Anticipo::find('all',array('order_by' => array('fecha'=>'desc')));

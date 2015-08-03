@@ -33,13 +33,13 @@
             <div class="col-md-4">
                 <h2>Entregas y albaranes</h2>
                 <ul>
-                    <li><a href="entrega/list">Ver todas las entregas hasta la fecha</a></li>
-                    <li><a href="albaran/list">Ver todos los albaranes hasta la fecha</a></li>
+                    <li><a href="entrega/list">Listado completo de entregas</a></li>
+                    <li><a href="albaran/list">Listado completo de albaranes</a></li>
                 </ul>
             </div>
             <div class="col-md-4">
                 <h2>Informes</h2>
-                <li><a href="proveedor/final">Ficha final del proveedor</a></li>
+                <li><a href="entrega/init">Ficha final del proveedor</a></li>
             </div>
         </div>
         <div class="row">
@@ -48,6 +48,7 @@
                 <ul>
                     <li><a href="anticipo">Cálculo de anticipos</a></li>
                     <li><a href="anticipo/list">Resumen de anticipos</a></li>
+                    <li><a href="anticipo/init">Anticipos por proveedor</a></li>
                 </ul>
             </div>
             <div class="col-md-4">
