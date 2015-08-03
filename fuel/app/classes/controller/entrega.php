@@ -10,6 +10,40 @@ class Controller_Entrega extends Controller_Template
 		$this->template->content = View::forge('entrega/index', $data);
 	}
 
+    public function action_init()
+    {
+        $data['proveedores'] = Model_Proveedor::find('all',array('order_by' => 'nombre'));
+        $this->template->title = "Ficha final de proveedor";
+        $this->template->content = View::forge('entrega/init',$data);
+    }
+
+    public function action_list_prov($idprov = null){
+
+        is_null($idprov) and Response::redirect('entrega/list');
+
+        if ( !Model_Proveedor::find($idprov)) {
+            Session::set_flash('error', 'No se ha podido encontrar el proveedor indicado');
+            Response::redirect('entrega/list');
+        }else{
+            $albaranes = Model_Albaran::find('all', array(
+                'where' => array(
+                    array('idproveedor', $idprov),
+                ),
+                'order_by' => array('identrega' => 'desc'),
+            ));
+            $entregas = array();
+            foreach($albaranes as $a){
+                $entregas[] = Model_Entrega::find($a->identrega);
+            }
+            $data['anticipos'] = Model_Anticipo::find('all',array('order_by'=>array('fecha'=>'desc')));
+            $data['entregas'] = $entregas;
+            $data['nombre_prov'] = Model_Proveedor::find($idprov)->get('nombre');
+        }
+
+        $this->template->title = "Ficha final de proveedor";
+        $this->template->content = View::forge('entrega/list_prov',$data);
+    }
+
     public function action_list($idpuesto = null){
 
         if(is_null($idpuesto)) {
@@ -21,13 +55,16 @@ class Controller_Entrega extends Controller_Template
             $nombre_puesto = Model_Puesto::find($idpuesto)->get('nombre');
             $data['puesto'] = $nombre_puesto;
             //$data['entregas'] = Model_Entrega::find('all',array('where' => array('idpuesto' => $idpuesto),'order_by' => array('Fecha' => 'desc')));
+            //$data['entregas'] = Model_Entrega::find('all', array('where' => array(array('fecha', '>', date('Y-m-d')), array('idpuesto', '=', $idpuesto))));
+            DB::query('SELECT * FROM `Entregas` WHERE `idpuesto` = 2')->as_object('Model_Entrega')->execute();
+/*
             $data['entregas'] = Model_Entrega::find('all',
                 array('where' => array(
                         array('idpuesto' => $idpuesto),
-                        //'AND' => array(
-                            array('fecha','>', date('Y-m-d'))
-                        //)
-                ),'order_by' => array('Fecha' => 'desc')));
+                    array(
+                        'AND' => array('fecha','>', date('Y-m-d')
+                        ))
+                ),'order_by' => array('Fecha' => 'desc')));*/
             $this->template->title = "Entrega diaria para el puesto: ".$nombre_puesto;
         }
         $this->template->content = View::forge('entrega/list', $data);
