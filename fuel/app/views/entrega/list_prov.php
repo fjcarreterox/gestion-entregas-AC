@@ -75,7 +75,7 @@ foreach ($entregas as $item):?>
     <?php endforeach;?>
     </tbody>
     </table>
-    <p>En total suman: <b><?php echo $sumakg; ?> Kg.</b></p>
+    <p>En total suman: <?php echo $sumakg; ?> Kg.</p>
     <br/>
     <h3><u>Listado de anticipos entregados</u></h3>
     <p>Número total de anticipos recogidos: <b><?php echo count($anticipos) ?></b> durante toda la campaña.</p>
@@ -101,7 +101,7 @@ foreach ($entregas as $item):?>
         <?php endforeach;?>
         </tbody>
     </table>
-    <p>En total suman: <b><?php echo number_format($suma,2); ?> &euro;.</b></p>
+    <p class="total">En total suman: <span class="totaleuros"><?php echo number_format($suma,2); ?> &euro;.</span></p>
     <br/>
 <?php else: ?>
 <p>No se han registrado aún entregas.</p>
@@ -109,3 +109,7 @@ foreach ($entregas as $item):?>
 <?php endif; ?><p>
     <?php echo Html::anchor('javascript:window.print()', '<i class="icon-trash icon-white"></i> Imprimir ficha final', array('class' => 'btn btn-small btn-info','id'=>'print-deliverynote')); ?>
 </p>
+<script type="text/javascript">
+    var total = $("p.total");
+    $($("h3")[2]).next().append("<br/><br/>").append(total);
+</script>

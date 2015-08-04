@@ -67,7 +67,7 @@ else {
             </div>
             <div class="form-group">
                 <?php echo Form::label('Anticipo calculado automáticamente (es la que se registrará en el sistema)', 'anticipo', array('class' => 'control-label')); ?>
-                <?php echo Form::input('anticipo', ($totalKg*$precio)-$acum, array('class' => 'col-md-4 form-control')); ?>
+                <?php echo Form::input('anticipo', ($totalKg*$precio)-$acum, array('class' => 'totaleuros col-md-4 form-control')); ?>
             </div>
             <br/>
             <br/>

@@ -113,3 +113,8 @@ table.table.table-striped.percents tr > td {
 .gris{
     color:grey;
 }
+
+.totaleuros{
+    color:red;
+    font-weight: bolder;
+}
