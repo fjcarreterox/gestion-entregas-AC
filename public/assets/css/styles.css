@@ -109,3 +109,7 @@ table.table.table-striped.percents tr > td {
     font-weight: bold;
     border: 1px #aaa solid;
 }
+
+.gris{
+    color:grey;
+}

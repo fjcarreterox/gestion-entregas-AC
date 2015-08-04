@@ -18,7 +18,7 @@ else{*/
                 <th>Fecha</th>
                 <th>Núm. Albarán</th>
                 <th>Variedad</th>
-                <th>Tamaño</th>
+                <th class="gris">Tamaño</th>
                 <th>Total Kg</th>
                 <th>&nbsp;</th>
             </tr>
@@ -31,7 +31,7 @@ foreach ($entregas as $item):?>
 			<td><?php echo date_conv($item->fecha); ?></td>
             <td><?php echo Model_Albaran::find($item->albaran)->get('idalbaran'); ?></td>
 			<td><?php echo Model_Variedad::find($item->variedad)->get('nombre');?></td>
-            <td><?php echo $item->tam; ?></td>
+            <td class="gris"><?php echo $item->tam; ?></td>
 			<td><?php echo $item->total;
                 if(isset($total_variedades[$item->variedad])) {
                     $total_variedades[$item->variedad] += $item->total;
@@ -65,16 +65,20 @@ foreach ($entregas as $item):?>
     </tr>
     </thead>
     <tbody>
-    <?php foreach ($total_variedades as $v => $value):?>
+    <?php
+        $sumakg = 0;
+        foreach ($total_variedades as $v => $value):?>
         <tr>
             <td><?php echo Model_Variedad::find($v)->get('nombre'); ?></td>
-            <td><?php echo $value; ?> Kg.</td>
+            <td><?php echo $value; $sumakg += $value; ?> Kg.</td>
         </tr>
     <?php endforeach;?>
     </tbody>
     </table>
+    <p>En total suman: <b><?php echo $sumakg; ?> Kg.</b></p>
     <br/>
     <h3><u>Listado de anticipos entregados</u></h3>
+    <p>Número total de anticipos recogidos: <b><?php echo count($anticipos) ?></b> durante toda la campaña.</p>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -82,27 +86,26 @@ foreach ($entregas as $item):?>
             <th>Núm. cheque</th>
             <th>Banco</th>
             <th>Cuantía</th>
-            <th>Recogido</th>
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($anticipos as $a):?>
+        <?php
+        $suma = 0;
+        foreach ($anticipos as $a):?>
             <tr>
                 <td><?php echo date_conv($a->fecha); ?></td>
                 <td><?php echo $a->numcheque; ?></td>
                 <td><?php echo Model_Banco::find($a->idbanco)->get('nombre'); ?></td>
-                <td><?php echo $a->cuantia; ?></td>
-                <td><?php
-                    if($a->recogido) echo "SI";
-                    else{echo "NO";}
-                    ?></td>
+                <td><?php echo $a->cuantia; $suma += $a->cuantia;?> &euro;</td>
             </tr>
         <?php endforeach;?>
         </tbody>
     </table>
+    <p>En total suman: <b><?php echo number_format($suma,2); ?> &euro;.</b></p>
+    <br/>
 <?php else: ?>
 <p>No se han registrado aún entregas.</p>
 
 <?php endif; ?><p>
-    <?php echo Html::anchor('javascript:window.print()', '<i class="icon-trash icon-white"></i> Imprimir entrada diaria', array('class' => 'btn btn-small btn-info','id'=>'print-deliverynote')); ?>
+    <?php echo Html::anchor('javascript:window.print()', '<i class="icon-trash icon-white"></i> Imprimir ficha final', array('class' => 'btn btn-small btn-info','id'=>'print-deliverynote')); ?>
 </p>
