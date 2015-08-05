@@ -17,6 +17,27 @@ class Controller_Entrega extends Controller_Template
         $this->template->content = View::forge('entrega/init',$data);
     }
 
+    public function action_fechas($idpuesto)
+    {
+        is_null($idpuesto) and Response::redirect('entrega/list');
+
+        if ( !Model_Puesto::find($idpuesto)) {
+            Session::set_flash('error', 'No se ha podido encontrar el puesto de entrega indicado');
+            Response::redirect('entrega/list');
+        }else{
+            $data["idpuesto"] = $idpuesto;
+            $data["entregas"] = array();
+            if (Input::method() == 'POST'){
+                $start = Input::post('start');
+                $end = Input::post('end');
+                $data["entregas"] = Model_Entrega::find('all',array('where' => array(array('idpuesto', '=', $idpuesto),
+                    array('Fecha', '>=', $start),array('Fecha', '<=', $end))),array('order_by' => array('Fecha' => 'desc')));
+            }
+            $this->template->title = "Entrega diaria en rango de fechas";
+            $this->template->content = View::forge('entrega/fechas',$data);
+        }
+    }
+
     public function action_list_prov($idprov = null){
 
         is_null($idprov) and Response::redirect('entrega/list');
@@ -53,26 +74,12 @@ class Controller_Entrega extends Controller_Template
         else{
             $data['fecha']=date('Y-m-d');
             $nombre_puesto = Model_Puesto::find($idpuesto)->get('nombre');
+            $data['idpuesto'] = $idpuesto;
             $data['puesto'] = $nombre_puesto;
             $data['entregas'] = Model_Entrega::find('all',array('where' => array(array('idpuesto', '=', $idpuesto), array('Fecha', '=', date('Y-m-d')))),array('order_by' => array('Fecha' => 'desc')));
             $this->template->title = "Entrega diaria para el puesto: ".$nombre_puesto;
         }
         $this->template->content = View::forge('entrega/list', $data);
-    }
-
-    public function action_diaria()
-    {
-        if (Input::method() == 'POST'){
-            $data['idpuesto']=\Fuel\Core\Input::post('idpuesto');
-            $data['fecha']=date('Y-m-d');
-            $this->template->title = "Entregas del día de hoy";
-            $this->template->content = View::forge('entrega/list', $data);
-        }
-        else{
-            $data['puestos'] = Model_Puesto::find('all');
-            $this->template->title = "Listado de Entregas por puesto";
-            $this->template->content = View::forge('entrega/_diaria', $data);
-        }
     }
 
 	public function action_view($id = null)
@@ -84,7 +91,6 @@ class Controller_Entrega extends Controller_Template
 			Session::set_flash('error', 'Could not find entrega #'.$id);
 			Response::redirect('entrega');
 		}
-
 		$this->template->title = "Detalle de Entrega";
 		$this->template->content = View::forge('entrega/view', $data);
 	}

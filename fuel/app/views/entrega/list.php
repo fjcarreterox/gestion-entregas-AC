@@ -55,5 +55,5 @@ foreach ($entregas as $item):?>
 
 <?php endif; ?><p>
     <?php echo Html::anchor('javascript:window.print()', '<i class="icon-trash icon-white"></i> Imprimir entrada diaria', array('class' => 'btn btn-small btn-info','id'=>'print-deliverynote')); ?>
-    <?php echo Html::anchor('entrega/fechas', 'Consultar entrada en otra fecha', array('class' => 'btn btn-success')); ?>
+    <?php echo Html::anchor('entrega/fechas/'.$idpuesto, 'Consultar entrada en otra fecha', array('class' => 'btn btn-success')); ?>
 </p>
