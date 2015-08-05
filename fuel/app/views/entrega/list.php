@@ -1,16 +1,18 @@
 <?php
 if(isset($puesto)){
     echo "<h2>Entrega diaria para el puesto <span class='muted'>$puesto.</span></h2>";
-    echo "<h3>Día: <span class='muted'>".date_conv($fecha)."</span></h3>";
+    echo "<h3>Día: <span class='muted'>".date_conv($fecha)."</span></h3><br/>";
+
 }
 else{
     echo "<h2><span class='muted'>Entregas</span> realizadas durante la campaña 2015.</h2>";
+    echo "<br><p>".Html::anchor('entrega/create', 'Añadir nueva entrega', array('class' => 'btn btn-success'))."</p>";
 }
 ?>
 
-<br>
-<p><?php echo Html::anchor('entrega/create', 'Añadir nueva entrega', array('class' => 'btn btn-success')); ?></p>
 <?php if ($entregas): ?>
+    <h4>Número de entregas registradas hoy: <span class='muted'><?php echo count($entregas); ?></span></h4>
+    <br/>
 <table class="table table-striped">
 	<thead>
 		<tr>
@@ -37,19 +39,21 @@ foreach ($entregas as $item):?>
 				<div class="btn-toolbar">
 					<div class="btn-group">
 						<?php echo Html::anchor('entrega/view/'.$item->id, '<i class="icon-eye-open"></i> Ver detalle', array('class' => 'btn btn-small')); ?>
-                        <?php echo Html::anchor('entrega/edit/'.$item->id, '<i class="icon-wrench"></i> Editar', array('class' => 'btn btn-small')); ?>
-                        <?php echo Html::anchor('entrega/delete/'.$item->id, '<i class="icon-trash icon-white"></i> Borrar', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('¿Estás seguro de esto?')")); ?>					</div>
+                        <?php /*echo Html::anchor('entrega/edit/'.$item->id, '<i class="icon-wrench"></i> Editar', array('class' => 'btn btn-small'));*/ ?>
+                        <?php /*echo Html::anchor('entrega/delete/'.$item->id, '<i class="icon-trash icon-white"></i> Borrar', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('¿Estás seguro de esto?')"));*/ ?>
+                    </div>
 				</div>
 
 			</td>
 		</tr>
-<?php endforeach; ?>	</tbody>
+<?php endforeach; ?>
+    </tbody>
 </table>
 
 <?php else: ?>
 <p>No se han registrado aún entregas.</p>
 
 <?php endif; ?><p>
-	<?php echo Html::anchor('entrega/create', 'Añadir nueva entrega', array('class' => 'btn btn-success')); ?>
     <?php echo Html::anchor('javascript:window.print()', '<i class="icon-trash icon-white"></i> Imprimir entrada diaria', array('class' => 'btn btn-small btn-info','id'=>'print-deliverynote')); ?>
+    <?php echo Html::anchor('entrega/fechas', 'Consultar entrada en otra fecha', array('class' => 'btn btn-success')); ?>
 </p>

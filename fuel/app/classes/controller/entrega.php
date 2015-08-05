@@ -54,17 +54,7 @@ class Controller_Entrega extends Controller_Template
             $data['fecha']=date('Y-m-d');
             $nombre_puesto = Model_Puesto::find($idpuesto)->get('nombre');
             $data['puesto'] = $nombre_puesto;
-            //$data['entregas'] = Model_Entrega::find('all',array('where' => array('idpuesto' => $idpuesto),'order_by' => array('Fecha' => 'desc')));
-            //$data['entregas'] = Model_Entrega::find('all', array('where' => array(array('fecha', '>', date('Y-m-d')), array('idpuesto', '=', $idpuesto))));
-            DB::query('SELECT * FROM `Entregas` WHERE `idpuesto` = 2')->as_object('Model_Entrega')->execute();
-/*
-            $data['entregas'] = Model_Entrega::find('all',
-                array('where' => array(
-                        array('idpuesto' => $idpuesto),
-                    array(
-                        'AND' => array('fecha','>', date('Y-m-d')
-                        ))
-                ),'order_by' => array('Fecha' => 'desc')));*/
+            $data['entregas'] = Model_Entrega::find('all',array('where' => array(array('idpuesto', '=', $idpuesto), array('Fecha', '=', date('Y-m-d')))),array('order_by' => array('Fecha' => 'desc')));
             $this->template->title = "Entrega diaria para el puesto: ".$nombre_puesto;
         }
         $this->template->content = View::forge('entrega/list', $data);
