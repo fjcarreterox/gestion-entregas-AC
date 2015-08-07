@@ -19,7 +19,7 @@
 						<?php echo Html::anchor('puesto/view/'.$item->id, '<i class="icon-eye-open"></i> Ver Ficha', array('class' => 'btn btn-small')); ?>
                         <?php echo Html::anchor('puesto/edit/'.$item->id, '<i class="icon-wrench"></i> Editar', array('class' => 'btn btn-small')); ?>
                         <?php echo Html::anchor('entrega/list/'.$item->id, '<i class="icon-eye-open"></i> Entrada diaria', array('class' => 'btn btn-small btn-info')); ?>
-                        <?php echo Html::anchor('puesto/delete/'.$item->id, '<i class="icon-trash icon-white"></i> Borrar', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('¿Estás seguro de querer borrar este puesto?')")); ?>
+                        <?php /*echo Html::anchor('puesto/delete/'.$item->id, '<i class="icon-trash icon-white"></i> Borrar', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('¿Estás seguro de querer borrar este puesto?')"));*/ ?>
                     </div>
 				</div>
 

@@ -56,7 +56,7 @@ class Controller_Entrega extends Controller_Template
             foreach($albaranes as $a){
                 $entregas[] = Model_Entrega::find($a->identrega);
             }
-            $data['anticipos'] = Model_Anticipo::find('all',array('where'=>array('recogido'=>'1'),'order_by'=>array('fecha'=>'desc')));
+            $data['anticipos'] = Model_Anticipo::find('all',array('where'=>array(array('recogido'=>'1'),array('idprov'=> $idprov)),'order_by'=>array('fecha'=>'desc')));
             $data['entregas'] = $entregas;
             $data['nombre_prov'] = Model_Proveedor::find($idprov)->get('nombre');
         }

@@ -79,6 +79,7 @@ foreach ($entregas as $item):?>
     <br/>
     <h3><u>Listado de anticipos entregados</u></h3>
     <p>Número total de anticipos recogidos: <b><?php echo count($anticipos) ?></b> durante toda la campaña.</p>
+    <?php if(count($anticipos)>0):?>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -102,6 +103,9 @@ foreach ($entregas as $item):?>
         </tbody>
     </table>
     <p class="total">En total suman: <span class="totaleuros"><?php echo number_format($suma,2); ?> &euro;.</span></p>
+    <?php else: ?>
+        <p>No se han registrado aún anticipos para este proveedor.</p>
+    <?php endif; ?>
     <br/>
 <?php else: ?>
 <p>No se han registrado aún entregas.</p>
