@@ -71,12 +71,13 @@ function update_parcial() {
     subtotal = roundNumber(subtotal,2);
     $('#subtotal').html(subtotal+" &euro;");
 
-    iva = $("#iva").val();
-
-    parcial = Number(subtotal) + ((subtotal * iva) / 100 );
+    iva = $.trim($("#iva").val());
+    total_iva = roundNumber(((subtotal * Number(iva)) / 100 ),2);
+    parcial = Number(subtotal) + Number(total_iva);
     parcial = roundNumber(parcial,2);
 
     $('#parcial').html(parcial+" &euro;");
+    $('.total-iva').html(total_iva+" &euro;");
     //$('.total_fac').html(total+" &euro;");
     update_total_fac();
 }
@@ -85,11 +86,12 @@ function update_total_fac() {
     var parcial = $("#parcial").html().replace(" €","");
     var total_fac = $(".total_fac").html().replace(" €","");
     var retencion = $("#retencion").val();
-
-    total_fac= Number(parcial) - ((Number(parcial) * retencion) / 100);
+    var total_retencion = roundNumber((Number(parcial) * retencion) / 100,2);
+    total_fac= Number(parcial) - total_retencion;
     total_fac = roundNumber(total_fac,2);
 
     $('.total_fac').html(total_fac+" &euro;");
+    $('.total-retencion').html(total_retencion+" &euro;");
     $("input[name='total_factura']").val(total_fac);
 }
 
@@ -106,13 +108,25 @@ function bind_bill() {
   $(".kg").blur(update_precio);
 }
 
+function update_row(){
+    $.ajax({
+        data:  parametros,
+        url:   'ejemplo_ajax_proceso.php',
+        type:  'post',
+        beforeSend: function () {
+            $("#resultado").html("Procesando, espere por favor...");
+        },
+        success:  function (response) {
+            $("#resultado").html(response);
+        }
+    });
+}
+
 $(document).ready(function() {
 
     $('input').click(function(){
         $(this).select();
     });
-
-    //$("#parcial").blur(update_sum);
 
     $('body').on('click',"input[name='submit_lines']", function(){
         var comment = $(".comment textarea").val();
@@ -142,5 +156,5 @@ $(document).ready(function() {
     });
 
     $("#date").val(print_today());
-  
+    update_parcial();
 });

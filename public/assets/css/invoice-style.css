@@ -66,3 +66,12 @@ a#addrow_bill img{
 textarea#iva{
     width: 40px;
 }
+
+.total-iva, .total-retencion{
+    font-weight: bolder;
+    padding-left: 20px !important;
+}
+
+textarea#retencion{
+    width: 40px;
+}
