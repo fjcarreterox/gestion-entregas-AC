@@ -25,48 +25,84 @@ class Controller_Factura extends Controller_Template
 
     public function action_list_prov($idprov)
     {
-        //$data['facturas'] = Model_Factura::find('all')->;
-        $data['facturas'] = Model_Factura::find('all', array(
-            'where' => array(
-                array('idprov', $idprov),
-            ),
-            'order_by' => array('fecha' => 'desc'),
-        ));
-        $data['titulo'] = "para el proveedor: ".Model_Proveedor::find($idprov)->get('nombre');
+        is_null($idprov) and Response::redirect('factura/list');
+
+        if ( !Model_Proveedor::find($idprov)) {
+            Session::set_flash('error', 'No se ha podido encontrar el proveedor indicado');
+            Response::redirect('factura/list');
+        }else{
+            $data['facturas'] = Model_Factura::find('all', array(
+                'where' => array(
+                    array('idprov', $idprov),
+                ),
+                'order_by' => array('fecha' => 'desc'),
+            ));
+
+            $data['titulo'] = "para el proveedor: " . Model_Proveedor::find($idprov)->get('nombre');
+        }
         $this->template->title = "Facturas emitidas para el proveedor";
         $this->template->content = View::forge('factura/list', $data);
     }
 
-    public function action_print()
+    public function action_print($idfactura)
     {
+        is_null($idfactura) and Response::redirect('factura/list');
+
+        if ( ! $factura = Model_Factura::find($idfactura))
+        {
+            Session::set_flash('error', 'No se ha podido encontrar en el sistema la factura núm. '.$idfactura);
+            Response::redirect('factura/list');
+        }
+
         if (Input::method() == 'POST')
         {
-            $id=\Fuel\Core\Session::get('idfactura');
-            if ( ! $factura = Model_Factura::find($id))
-            {
-                Session::set_flash('error', 'No se ha podido encontrar la factura núm.'.$id);
-                Response::redirect('factura/list');
-            }
-
-            $factura->fecha = \Fuel\Core\Session::get('fecha');
+            $factura->fecha = Input::post('fecha');
             $factura->total = Input::post('total_factura');
             $factura->comentario = Input::post('comentario');
+            $lineas = Input::post('lineas');
 
             if ($factura->save())
             {
-                Session::set_flash('success', 'Factura núm. ' . $id . ' almacenada correctamente.');
-                \Fuel\Core\Session::delete('idfactura');
-                \Fuel\Core\Session::delete('idprov');
-                \Fuel\Core\Session::delete('comment');
-                \Fuel\Core\Session::delete('fecha');
-                Response::redirect('factura/list');
+                Session::set_flash('success', 'Factura núm. ' . $idfactura . ' almacenada correctamente.');
+
+                //Create all the lines on its model
+                foreach($lineas as $orden => $l){
+                    $parsed_l = explode('$$',$l);
+                    //New line on the invoce
+                    if($parsed_l[0]=="NL") {
+                        $linea = Model_Linea::forge(array(
+                            'idfactura' => $idfactura,
+                            'orden' => $orden + 1,
+                            'concepto' => $parsed_l[1],
+                            'precio' => $parsed_l[2],
+                            'kg' => $parsed_l[3],
+                            'importe' => number_format($parsed_l[2] * $parsed_l[3], 2),
+                        ));
+                        $linea->save();
+                    // Line ID exists, only update fields
+                    }else{
+                        $linea_up = Model_Linea::find($parsed_l[0]);
+                        $linea_up->orden = $orden+1;
+                        $linea_up->concepto = $parsed_l[1];
+                        $linea_up->precio = $parsed_l[2];
+                        $linea_up->kg = $parsed_l[3];
+                        $linea_up->importe = number_format($parsed_l[2]*$parsed_l[3],2);
+                        $linea_up->save();
+                    }
+                }
+                //\Fuel\Core\Session::delete('idfactura');
+                //\Fuel\Core\Session::delete('idprov');
+                //\Fuel\Core\Session::delete('comment');
+                //\Fuel\Core\Session::delete('fecha');
+                Response::redirect('factura/print/'.$idfactura);
             }
             else{
-                Session::set_flash('error', 'No se ha podido almacenar la factura núm. ' . $id);
+                Session::set_flash('error', 'No se ha podido almacenar la factura núm. ' . $idfactura);
             }
 
         }else {
-            $data['fecha'] = Input::post('fecha');
+            $data['factura'] = $factura;
+            $data['lineas'] = Model_Linea::find('all',array('where'=>array('idfactura'=>$idfactura),'order_by'=>'orden'));
             $this->template->title = "Sistema automático de facturación de ACEITUNAS CORIA S.L.";
             $this->template->content = View::forge('factura/print', $data);
         }
@@ -91,9 +127,7 @@ class Controller_Factura extends Controller_Template
 		if (Input::method() == 'POST')
 		{
 			$val = Model_Factura::validate('create');
-
-			if ($val->run())
-			{
+			if ($val->run()){
 				$factura = Model_Factura::forge(array(
 					'idprov' => Input::post('idprov'),
 					'fecha' => Input::post('fecha'),
@@ -104,25 +138,24 @@ class Controller_Factura extends Controller_Template
 				if ($factura and $factura->save()){
 					Session::set_flash('success', 'Factura núm. '.$factura->id.' registrada en el sistema.');
                     //Session::set_flash('idprov',Input::post('idprov'));
-                    \Fuel\Core\Session::set('idfactura',$factura->id);
-                    \Fuel\Core\Session::set('fecha',Input::post('fecha'));
-                    \Fuel\Core\Session::set('idprov',Input::post('idprov'));
-                    \Fuel\Core\Session::set('comment',Input::post('comentario'));
-					Response::redirect('factura/print');
+                    //\Fuel\Core\Session::set('idfactura',$factura->id);
+                    //\Fuel\Core\Session::set('fecha',Input::post('fecha'));
+                    //\Fuel\Core\Session::set('idprov',Input::post('idprov'));
+                    //\Fuel\Core\Session::set('comment',Input::post('comentario'));
+					Response::redirect('factura/print/'.$factura->id);
 				}
 				else{
 					Session::set_flash('error', 'No se ha podido guardar la factura.');
 				}
 			}
-			else
-			{
+			else{
 				Session::set_flash('error', $val->error());
 			}
 		}
 
-        $data['proveedores'] = Model_Proveedor::find('all',array('select' => array('id', 'nombre'),'order_by' => 'nombre'));
-		$this->template->title = "Facturas";
-		$this->template->content = View::forge('factura/create',$data);
+        //$data['proveedores'] = Model_Proveedor::find('all',array('select' => array('id', 'nombre'),'order_by' => 'nombre'));
+		$this->template->title = "Emisión de facturas";
+		$this->template->content = View::forge('factura/create');
 
 	}
 
