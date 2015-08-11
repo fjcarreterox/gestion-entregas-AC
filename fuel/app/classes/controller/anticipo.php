@@ -159,16 +159,12 @@ class Controller_Anticipo extends Controller_Template
 		{
 			$anticipo->delete();
 
-			Session::set_flash('success', 'Deleted anticipo #'.$id);
+			Session::set_flash('success', 'Anticipo borrado');
 		}
-
-		else
-		{
-			Session::set_flash('error', 'Could not delete anticipo #'.$id);
+		else{
+			Session::set_flash('error', 'No se ha podido borrar el anticipo');
 		}
-
-		Response::redirect('anticipo');
-
+		Response::redirect('anticipo/list');
 	}
 
 }

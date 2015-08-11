@@ -35,7 +35,7 @@ $total_recogido = 0;
 					<div class="btn-group">
 						<?php echo Html::anchor('anticipo/view/'.$item->id, '<i class="icon-eye-open"></i> Ver detalle', array('class' => 'btn btn-small')); ?>
                         <?php echo Html::anchor('anticipo/edit/'.$item->id, '<i class="icon-wrench"></i> Editar', array('class' => 'btn btn-small')); ?>
-                        <?php /*echo Html::anchor('anticipo/delete/'.$item->id, '<i class="icon-trash icon-white"></i> Delete', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('Are you sure?')"));*/ ?>
+                        <?php echo Html::anchor('anticipo/delete/'.$item->id, '<i class="icon-trash icon-white"></i> Borrar', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('¿Estás seguro de querer borrarlo?')")); ?>
                     </div>
 				</div>
 
@@ -53,8 +53,8 @@ $total_recogido = 0;
     </thead>
     <tbody>
     <tr>
-        <td><?php echo $total; ?>&euro;</td>
-        <td><?php echo $total_recogido; ?>&euro;</td>
+        <td><?php echo number_format($total,2); ?> &euro;</td>
+        <td><?php echo number_format($total_recogido,2); ?> &euro;</td>
     </tr>
     </tbody>
 </table>
