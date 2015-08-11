@@ -1,5 +1,5 @@
 <?php
-$prov = Model_Proveedor::find(\Fuel\Core\Session::get('idprov'));
+$prov = Model_Proveedor::find($factura->idprov);
 ?>
 <div id="page-wrap">
     <textarea id="header">FACTURA</textarea>
@@ -26,16 +26,16 @@ $prov = Model_Proveedor::find(\Fuel\Core\Session::get('idprov'));
         <table id="meta">
             <tr>
                 <td class="meta-head">Factura Núm.</td>
-                <td><?php echo \Fuel\Core\Session::get('idfactura');?></td>
+                <td><?php echo $factura->id; ?></td>
             </tr>
             <tr>
 
                 <td class="meta-head">Fecha</td>
-                <td><?php echo date_conv(\Fuel\Core\Session::get('fecha'));?></td>
+                <td><?php echo date_conv($factura->fecha); ?></td>
             </tr>
             <tr>
                 <td class="meta-head">Total factura</td>
-                <td><div class="total_fac">0</div></td>
+                <td><div class="total_fac"><?php echo $factura->total; ?></div></td>
             </tr>
         </table>
     </div>
@@ -47,28 +47,37 @@ $prov = Model_Proveedor::find(\Fuel\Core\Session::get('idprov'));
             <th>Kg.</th>
             <th>Importe</th>
         </tr>
-
-        <tr class="item-row">
-            <td class="item-concept"><div class="delete-wpr"><textarea>_Concepto_</textarea><a class="delete" href="javascript:;" title="Remove row">X</a></div></td>
-            <td><textarea class="coste">0.00 &euro;</textarea></td>
-            <td><textarea class="kg">1</textarea></td>
-            <td><span class="precio">0.00 &euro;</span></td>
-        </tr>
-
+        <?php if(!isset($lineas)): ?>
+            <tr class="item-row">
+                <td class="item-concept"><div class="delete-wpr"><textarea>_Concepto_</textarea><a class="delete" href="javascript:;" title="Remove row">X</a></div></td>
+                <td><textarea class="coste">0.00 &euro;</textarea></td>
+                <td><textarea class="kg">1</textarea></td>
+                <td><span class="precio">0.00 &euro;</span></td>
+            </tr>
+        <?php else:
+            foreach($lineas as $l){ ?>
+                <tr class="item-row">
+                    <td class="item-concept"><div class="delete-wpr"><textarea><?php echo $l->concepto; ?></textarea><a class="delete" href="javascript:;" title="Remove row">X</a></div></td>
+                    <td><textarea class="coste"><?php echo $l->precio; ?> &euro;</textarea></td>
+                    <td><textarea class="kg"><?php echo $l->kg; ?></textarea></td>
+                    <td><span class="precio"><?php echo number_format($l->precio*$l->kg,2); ?> &euro;</span></td>
+                </tr>
+        <?php }
+            endif; ?>
         <tr id="hiderow">
-            <td colspan="5"><a id="addrow_bill" href="javascript:;" title="Nueva línea de factura"><img src="../assets/img/plus.png" alt="Nueva línea de factura"/></a></td>
+            <td colspan="5"><a id="addrow_bill" href="javascript:;" title="Nueva línea de factura"><img src="../../assets/img/plus.png" alt="Nueva línea de factura"/></a></td>
         </tr>
 
         <tr>
             <td colspan="1" class="blank"> </td>
-            <td colspan="2" class="total-line">Importe total</td>
+            <td colspan="2" class="total-line">Base Imponible</td>
             <td class="total-value"><div id="subtotal">0.00 &euro;</div></td>
         </tr>
         <tr>
-
             <td colspan="1" class="blank"> </td>
-            <td colspan="2" class="total-line">IVA</td>
+            <td colspan="1" class="total-line">IVA</td>
             <td class="total-value"><textarea id="iva">12</textarea> %</td>
+            <td class="total-iva"> </td>
         </tr>
         <tr>
             <td colspan="1" class="blank"> </td>
@@ -77,8 +86,9 @@ $prov = Model_Proveedor::find(\Fuel\Core\Session::get('idprov'));
         </tr>
         <tr>
             <td colspan="1" class="blank"> </td>
-            <td colspan="2" class="total-line">Retención</td>
+            <td colspan="1" class="total-line">Retención</td>
             <td class="total-value"><textarea id="retencion">2</textarea> %</td>
+            <td class="total-retencion"> </td>
         </tr>
         <tr>
             <td colspan="1" class="blank"> </td>
@@ -87,19 +97,27 @@ $prov = Model_Proveedor::find(\Fuel\Core\Session::get('idprov'));
         </tr>
     </table>
     <div class="comment">
-        <p>Comentario:</p><textarea><?php echo \Fuel\Core\Session::get('comment'); ?></textarea>
+        <p>Comentario:</p><textarea><?php echo $factura->comentario; ?></textarea>
     </div>
     <div id="terms">
         <h5>Firma:</h5><br/><br/>
     </div>
 
     <?php echo Form::open(array("class"=>"form-horizontal")); ?>
-    <?php echo Form::input('total_factura',0 , array('class' => 'col-md-4 form-control', 'type'=>'hidden' )); ?>
-    <?php echo Form::input('comentario','', array('class' => 'col-md-4 form-control', 'type'=>'hidden' )); ?>
+    <?php echo Form::input('lineas[]','1$$Manzanilla$$3.00$$20', array('type'=>'hidden' )); //TODO: Generate this dinamically ?>
+    <?php echo Form::input('lineas[]','2$$Gordal$$0.50$$30', array('type'=>'hidden' )); ?>
+    <?php echo Form::input('lineas[]','3$$Molino$$2.50$$40', array('type'=>'hidden' )); ?>
+    <?php echo Form::input('lineas[]','NL$$Otra Manzanilla$$5.50$$10', array('type'=>'hidden' )); ?>
+
+    <?php echo Form::input('fecha',$factura->fecha, array('type'=>'hidden' )); ?>
+    <?php echo Form::input('total_factura',0 , array('type'=>'hidden' )); ?>
+    <?php echo Form::input('comentario','', array('type'=>'hidden' )); ?>
+
             <div class="form-group">
-            <label class='control-label'>&nbsp;</label>
-            <?php echo Form::submit('submit_lines', 'Guardar factura', array('class' => 'btn btn-primary')); ?>
-            <?php echo Html::anchor('javascript:window.print()', '<i class="icon-trash icon-white"></i> Imprimir factura', array('class' => 'btn btn-small btn-info','id'=>'print-invoice')); ?>
-        </div>
+                <label class='control-label'>&nbsp;</label>
+                <?php echo Form::submit('submit_lines', 'Guardar factura', array('class' => 'btn btn-primary')); ?>
+                <?php echo Html::anchor('javascript:window.print()', '<i class="icon-trash icon-white"></i> Imprimir factura', array('class' => 'btn btn-small btn-info','id'=>'print-invoice')); ?>
+                <?php echo Html::anchor('factura/list', '<i class="icon-trash icon-white"></i> Volver al listado', array('class' => 'btn btn-small btn-danger','id'=>'print-invoice', 'onclick' => "return confirm('¿Estás seguro de querer salir de esta factura? Perderá todos los cambios no guardados.')")); ?>
+            </div>
     <?php echo Form::close(); ?>
 </div>
