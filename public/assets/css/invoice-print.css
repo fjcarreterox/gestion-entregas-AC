@@ -6,3 +6,9 @@
 p.pull-right, .btn{
     display: none;
 }
+
+body{
+    font-size: small;
+    width:100%;
+    margin:0px;
+}

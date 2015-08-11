@@ -20,12 +20,14 @@ else{*/
                 <th>Variedad</th>
                 <th class="gris">Tamaño</th>
                 <th>Total Kg</th>
+                <th>Porcentajes</th>
                 <th>&nbsp;</th>
             </tr>
         </thead>
         <tbody>
 <?php
 $total_variedades = array();
+
 foreach ($entregas as $item):?>
     <tr>
 			<td><?php echo date_conv($item->fecha); ?></td>
@@ -39,7 +41,7 @@ foreach ($entregas as $item):?>
                     $total_variedades[$item->variedad] = $item->total;
                 }
                 ?></td>
-
+            <td><?php echo get_percents($item); ?></td>
 			<td>
 				<div class="btn-toolbar">
 					<div class="btn-group">
