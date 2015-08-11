@@ -31,7 +31,7 @@ class Model_Anticipo extends Model
 		$val = Validation::forge($factory);
 		$val->add_field('fecha', 'Fecha', 'required');
 		$val->add_field('idprov', 'Idprov', 'required|valid_string[numeric]');
-		$val->add_field('numcheque', 'Numcheque', 'required|valid_string[numeric]');
+		$val->add_field('numcheque', 'Numcheque', 'required');
 		$val->add_field('idbanco', 'Idbanco', 'required|valid_string[numeric]');
 		$val->add_field('cuantia', 'Cuantia', 'required');
 		$val->add_field('recogido', 'Recogido', 'required');
