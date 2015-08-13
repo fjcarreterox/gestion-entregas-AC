@@ -31,7 +31,7 @@ textarea { border: 0; font: 16px Trebuchet, Serif; overflow: hidden; resize: non
 #items td.total-kg { width: 90px; height: 50px; }
 #items tr.item-row {border-bottom: 1px solid;}
 #items tr.item-row td { border: 0; vertical-align: top; }
-#items td.comentario { width: 470px; }
+#items td.comentario { width: 320px; }
 #items td.item-name { width: 135px; }
 #items td.comentario textarea, #items td.item-name textarea { width: 100%; }
 #items td.total-line { border-right: 0; text-align: right; font-weight: bolder; }

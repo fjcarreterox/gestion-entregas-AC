@@ -71,7 +71,7 @@ $prov=Model_Proveedor::find($albaran->get('idproveedor'));
             <tr>
                 <td colspan="2" class="blank"> </td>
                 <td colspan="1" class="total-line">Total Manzanilla</td>
-                <td class="total-value"><div id="subtotal"><?php echo $total_manz;?> Kgrs.</div></td>
+                <td class="total-value"><div id="total"><?php echo $total_manz;?> Kgrs.</div></td>
             </tr>
             <tr>
                 <td colspan="2" class="blank"> </td>
@@ -83,11 +83,11 @@ $prov=Model_Proveedor::find($albaran->get('idproveedor'));
                 <td colspan="1" class="total-line">Total Molino</td>
                 <td class="total-value"><div id="total"><?php echo $total_molino;?> Kgrs.</div></td>
             </tr>
-            <tr>
+            <!--<tr>
                 <td colspan="2" class="blank"> </td>
                 <td colspan="1" class="total-line balance">TOTAL KILOS</td>
-                <td class="total-value balance"><div class="due"><?php echo $total_manz+$total_gordal+$total_molino;?> Kgrs.</div></td>
-            </tr>
+                <td class="total-value balance"><div class="due"><?php /*echo $total_manz+$total_gordal+$total_molino;*/?> Kgrs.</div></td>
+            </tr>-->
 
 		</table>
     <?php if(strcmp($albaran->comentario,"")!=0) {  ?>
