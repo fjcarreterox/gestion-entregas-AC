@@ -26,7 +26,7 @@ $prov = Model_Proveedor::find($factura->idprov);
         <table id="meta">
             <tr>
                 <td class="meta-head">Factura Núm.</td>
-                <td><?php echo $factura->id; ?></td>
+                <td class="idfactura""><?php echo $factura->id; ?></td>
             </tr>
             <tr>
 
@@ -56,9 +56,9 @@ $prov = Model_Proveedor::find($factura->idprov);
             </tr>
         <?php else:
             foreach($lineas as $l){ ?>
-                <tr class="item-row">
-                    <td class="item-concept"><div class="delete-wpr"><textarea><?php echo $l->concepto; ?></textarea><a class="delete" href="javascript:;" title="Remove row">X</a></div></td>
-                    <td><textarea class="coste"><?php echo $l->precio; ?> &euro;</textarea></td>
+                <tr class="item-row" data-id="<?php echo $l->id; ?>">
+                    <td class="item-concept"><div class="delete-wpr"><textarea><?php echo $l->concepto; ?></textarea><a class="delete" href="javascript:;" title="Borrar fila">X</a></div></td>
+                    <td><textarea class="coste"><?php echo $l->precio; ?></textarea> &euro;</td>
                     <td><textarea class="kg"><?php echo $l->kg; ?></textarea></td>
                     <td><span class="precio"><?php echo number_format($l->precio*$l->kg,2); ?> &euro;</span></td>
                 </tr>

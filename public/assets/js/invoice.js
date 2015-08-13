@@ -97,29 +97,28 @@ function update_total_fac() {
 
 function update_precio() {
     var row = $(this).parents('.item-row');
-    var precio = row.find('.coste').val().replace("€","") * row.find('.kg').val();
+    var row_id = $(this).parents('.item-row').attr("data-id");
+    var precio = row.find('.coste').val() * row.find('.kg').val();
     precio = roundNumber(precio,2);
     isNaN(precio) ? row.find('.precio').html("N/D") : row.find('.precio').html(precio + " &euro;");
-    update_parcial();
+    var values = {"id":row_id,"concepto":row.find('.item-concept textarea').val(),"precio":row.find('.coste').val(),"kg":row.find('.kg').val(),"importe":precio}
+
+    $.ajax({
+        type: "POST",
+        url: "../../lineas/edit",
+        data: values,
+        dataType: "json",
+        cache: false
+    }).done(function(data) {
+        update_parcial();
+    }).fail(function(data) {
+        alert("ERROR al actualizar la línea actual de factura. Por favor, inténtelo más tarde.");
+    });
 }
 
 function bind_bill() {
   $(".coste").blur(update_precio);
   $(".kg").blur(update_precio);
-}
-
-function update_row(){
-    $.ajax({
-        data:  parametros,
-        url:   'ejemplo_ajax_proceso.php',
-        type:  'post',
-        beforeSend: function () {
-            $("#resultado").html("Procesando, espere por favor...");
-        },
-        success:  function (response) {
-            $("#resultado").html(response);
-        }
-    });
 }
 
 $(document).ready(function() {
@@ -133,17 +132,46 @@ $(document).ready(function() {
         $("input[name='comentario']").val(comment);
     });
 
+    //Add a new line to the current invoice
     $("#addrow_bill").click(function(){
-        $(".item-row:last").after('<tr class="item-row"><td class="item-concept"><div class="delete-wpr"><textarea>___Concepto___</textarea><a class="delete" href="javascript:;" title="Remove row">X</a></div></td><td><textarea class="coste">0.00 &euro;</textarea></td><td><textarea class="kg">1</textarea></td><td><span class="precio">0.00 &euro;</span></td></tr>');
-        if ($(".delete").length > 0) $(".delete").show();
-        bind_bill();
+        var orden = $("tr.item-row").length+1;
+        var values = {"idfactura":$("td.idfactura").html(),"orden":orden,"concepto":"___Concepto___","precio":0.00,"kg":1};
+
+        $.ajax({
+            type: "POST",
+            url: "../../lineas/create",
+            data: values,
+            dataType: "json",
+            cache: false
+        }).done(function(data) {
+            $(".item-row:last").after('<tr class="item-row" data-id="'+data.id+'"><td class="item-concept"><div class="delete-wpr"><textarea>___Concepto___</textarea><a class="delete" href="javascript:;" title="Remove row">X</a></div></td><td><textarea class="coste">0.00 &euro;</textarea></td><td><textarea class="kg">1</textarea></td><td><span class="precio">0.00 &euro;</span></td></tr>');
+            if ($(".delete").length > 0) $(".delete").show();
+            bind_bill();
+        }).fail(function(data) {
+            alert("ERROR al insertar una nueva línea de factura. Por favor, inténtelo más tarde.");
+        });
     });
 
     bind_bill();
 
+    //Delete invoice line
     $('body').on('click',".delete",function(){
-        $(this).parents('.item-row').remove();
-        update_parcial();
+        var value = {"id":$(this).parents(".item-row").attr("data-id")};
+
+        $.ajax({
+            type: "POST",
+            url: "../../lineas/delete",
+            data: value,
+            dataType: "json",
+            cache: false
+        }).done(function(data) {
+            //$(this).parents('.item-row').remove();
+            $( "tr[data-id="+data.id+"]").remove();
+            update_parcial();
+        }).fail(function(data) {
+            alert("ERROR al borrar línea de factura seleccionada. Por favor, inténtelo más tarde.");
+        });
+
         if ($(".delete").length < 2) $(".delete").hide();
     });
 
@@ -155,6 +183,7 @@ $(document).ready(function() {
         update_total_fac();
     });
 
-    $("#date").val(print_today());
+    //$("#date").val(print_today());
+
     update_parcial();
 });

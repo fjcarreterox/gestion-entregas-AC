@@ -23,6 +23,7 @@ echo Form::open(array("class"=>"form-horizontal")); ?>
         </div>
 		<div class="form-group">
 			<label class='control-label'>&nbsp;</label>
-			<?php echo Form::submit('submit', 'Completar líneas de factura', array('class' => 'btn btn-primary')); ?>		</div>
+			<?php echo Form::submit('submit', 'Completar líneas de factura', array('class' => 'btn btn-primary')); ?>
+        </div>
 	</fieldset>
 <?php echo Form::close(); ?>

@@ -2,15 +2,15 @@
 class Controller_Lineas extends Controller_Template
 {
 
-	public function action_index()
+	public function action_index() //TODO: capar
 	{
 		$data['lineas'] = Model_Linea::find('all');
-		$this->template->title = "Lineas";
+		$this->template->title = "Lineas de la factura";
 		$this->template->content = View::forge('lineas/index', $data);
 
 	}
 
-	public function action_view($id = null)
+	public function action_view($id = null) //TODO: capar
 	{
 		is_null($id) and Response::redirect('lineas');
 
@@ -29,113 +29,71 @@ class Controller_Lineas extends Controller_Template
 	{
 		if (Input::method() == 'POST')
 		{
-			$val = Model_Linea::validate('create');
+            $linea = Model_Linea::forge(array(
+                'idfactura' => Input::post('idfactura'),
+                'orden' => Input::post('orden'),
+                'concepto' => Input::post('concepto'),
+                'precio' => Input::post('precio'),
+                'kg' => Input::post('kg'),
+                'importe' => Input::post('precio')*Input::post('kg'),
+            ));
 
-			if ($val->run())
-			{
-				$linea = Model_Linea::forge(array(
-					'idfactura' => Input::post('idfactura'),
-					'concepto' => Input::post('concepto'),
-					'precio' => Input::post('precio'),
-					'kg' => Input::post('kg'),
-					'importe' => Input::post('importe'),
-				));
-
-				if ($linea and $linea->save())
-				{
-					Session::set_flash('success', 'Added linea #'.$linea->id.'.');
-
-					Response::redirect('lineas');
-				}
-
-				else
-				{
-					Session::set_flash('error', 'Could not save linea.');
-				}
-			}
-			else
-			{
-				Session::set_flash('error', $val->error());
-			}
+            if ($linea and $linea->save())
+            {
+                $data["id"] = $linea->id;
+                $data["message"] = "TODO OK.";
+            }
+            else{
+                $data["id"] = $linea->id;
+                $data["message"] = "ERROR.";
+            }
+            $content_type = array('Content-type'=>'application/json');
+            return new \Response(json_encode($data),200,$content_type);
 		}
-
-		$this->template->title = "Lineas";
-		$this->template->content = View::forge('lineas/create');
-
 	}
 
 	public function action_edit($id = null)
 	{
-		is_null($id) and Response::redirect('lineas');
+		if(is_null($id)){
+          $id = $_POST['id'];
+        }
 
-		if ( ! $linea = Model_Linea::find($id))
-		{
-			Session::set_flash('error', 'Could not find linea #'.$id);
-			Response::redirect('lineas');
-		}
-
-		$val = Model_Linea::validate('edit');
-
-		if ($val->run())
-		{
-			$linea->idfactura = Input::post('idfactura');
+        $linea = Model_Linea::find($id);
+		if ($linea){
 			$linea->concepto = Input::post('concepto');
 			$linea->precio = Input::post('precio');
 			$linea->kg = Input::post('kg');
 			$linea->importe = Input::post('importe');
 
-			if ($linea->save())
-			{
-				Session::set_flash('success', 'Updated linea #' . $id);
-
-				Response::redirect('lineas');
+			if ($linea->save()){
+                $data["id"] = $id;
+                $data["message"] = "TODO OK.";
 			}
+			else{
+                $data["id"] = $id;
+                $data["message"] = "ERROR.";
+            }
 
-			else
-			{
-				Session::set_flash('error', 'Could not update linea #' . $id);
-			}
+            $content_type = array('Content-type'=>'application/json');
+            return new \Response(json_encode($data),200,$content_type);
 		}
-
-		else
-		{
-			if (Input::method() == 'POST')
-			{
-				$linea->idfactura = $val->validated('idfactura');
-				$linea->concepto = $val->validated('concepto');
-				$linea->precio = $val->validated('precio');
-				$linea->kg = $val->validated('kg');
-				$linea->importe = $val->validated('importe');
-
-				Session::set_flash('error', $val->error());
-			}
-
-			$this->template->set_global('linea', $linea, false);
-		}
-
-		$this->template->title = "Lineas";
-		$this->template->content = View::forge('lineas/edit');
-
 	}
 
 	public function action_delete($id = null)
 	{
-		is_null($id) and Response::redirect('lineas');
+		if(is_null($id)) $id = $_POST['id'];
 
-		if ($linea = Model_Linea::find($id))
-		{
+		if ($linea = Model_Linea::find($id)){
 			$linea->delete();
 
-			Session::set_flash('success', 'Deleted linea #'.$id);
+            $data["id"] = $id;
+            $data["message"] = "TODO OK.";
 		}
-
-		else
-		{
-			Session::set_flash('error', 'Could not delete linea #'.$id);
+        else{
+            $data["id"] = $id;
+            $data["message"] = "ERROR.";
 		}
-
-		Response::redirect('lineas');
-
+        $content_type = array('Content-type'=>'application/json');
+        return new \Response(json_encode($data),200,$content_type);
 	}
-
 }

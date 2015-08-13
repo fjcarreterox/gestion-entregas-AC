@@ -9,6 +9,7 @@ class Create_lineas
 		\DBUtil::create_table('lineas', array(
 			'id' => array('constraint' => 11, 'type' => 'int', 'auto_increment' => true, 'unsigned' => true),
 			'idfactura' => array('constraint' => 11, 'type' => 'int'),
+			'orden' => array('constraint' => 11, 'type' => 'int'),
 			'concepto' => array('constraint' => 255, 'type' => 'varchar'),
 			'precio' => array('type' => 'decimal'),
 			'kg' => array('constraint' => 11, 'type' => 'int'),

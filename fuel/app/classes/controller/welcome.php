@@ -39,6 +39,12 @@ class Controller_Welcome extends Controller
             if(\Fuel\Core\Session::get('ses_anticipo_prov')!==null){
                 \Fuel\Core\Session::delete('ses_anticipo_prov');
             }
+            elseif(\Fuel\Core\Session::get('idfactura')!==null){
+                \Fuel\Core\Session::delete('idfactura');
+                \Fuel\Core\Session::delete('fecha');
+                \Fuel\Core\Session::delete('idprov');
+                \Fuel\Core\Session::delete('comment');
+            }
             return Response::forge(View::forge('welcome/index'));
         }
 	}
@@ -70,7 +76,6 @@ class Controller_Welcome extends Controller
                 }
                 else{
                     Session::set_flash('error', 'Error en el acceso');
-                    //return Response::forge(View::forge('welcome/login'));
                     Response::redirect('welcome/login');
                 }
             }

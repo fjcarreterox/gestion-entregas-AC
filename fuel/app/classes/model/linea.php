@@ -6,6 +6,7 @@ class Model_Linea extends Model
 	protected static $_properties = array(
 		'id',
 		'idfactura',
+		'orden',
 		'concepto',
 		'precio',
 		'kg',
@@ -29,6 +30,7 @@ class Model_Linea extends Model
 	{
 		$val = Validation::forge($factory);
 		$val->add_field('idfactura', 'Idfactura', 'required|valid_string[numeric]');
+		$val->add_field('orden', 'Orden', 'required|valid_string[numeric]');
 		$val->add_field('concepto', 'Concepto', 'required|max_length[255]');
 		$val->add_field('precio', 'Precio', 'required');
 		$val->add_field('kg', 'Kg', 'required|valid_string[numeric]');
