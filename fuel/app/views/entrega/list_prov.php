@@ -77,7 +77,7 @@ foreach ($entregas as $item):?>
     <?php endforeach;?>
     </tbody>
     </table>
-    <p>En total suman: <?php echo $sumakg; ?> Kg.</p>
+    <!--<p>En total suman: <?php /*echo $sumakg;*/ ?> Kg.</p>-->
     <br/>
     <h3><u>Listado de anticipos entregados</u></h3>
     <p>Número total de anticipos recogidos: <b><?php echo count($anticipos) ?></b> durante toda la campaña.</p>
