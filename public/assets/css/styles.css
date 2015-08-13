@@ -118,3 +118,12 @@ table.table.table-striped.percents tr > td {
     color:red;
     font-weight: bolder;
 }
+
+p.recibi {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+#anticipo { margin-top: 10px; width: 380px; float: left; margin-left: 30px; margin-bottom : 30px; }
+#anticipo td { text-align: right;  }
+#anticipo td.meta-head { text-align: left; background: #eee; }

@@ -33,8 +33,9 @@ $total_recogido = 0;
 			<td>
 				<div class="btn-toolbar">
 					<div class="btn-group">
-						<?php echo Html::anchor('anticipo/view/'.$item->id, '<i class="icon-eye-open"></i> Ver detalle', array('class' => 'btn btn-small')); ?>
-                        <?php echo Html::anchor('anticipo/edit/'.$item->id, '<i class="icon-wrench"></i> Editar', array('class' => 'btn btn-small')); ?>
+						<?php echo Html::anchor('anticipo/view/'.$item->id, '<i class="icon-eye-open"></i> Ver detalle', array('class' => 'btn btn-small btn-success')); ?>
+                        <?php echo Html::anchor('anticipo/edit/'.$item->id, '<i class="icon-wrench"></i> Editar', array('class' => 'btn btn-small btn-success')); ?>
+                        <?php echo Html::anchor('anticipo/print/'.$item->id, '<i class="icon-info icon-white"></i> Imprimir', array('class' => 'btn btn-small btn-info')); ?>
                         <?php echo Html::anchor('anticipo/delete/'.$item->id, '<i class="icon-trash icon-white"></i> Borrar', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('¿Estás seguro de querer borrarlo?')")); ?>
                     </div>
 				</div>

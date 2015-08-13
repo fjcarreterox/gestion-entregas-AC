@@ -1,7 +1,7 @@
 <?php
 if(isset($nombre_prov)){
     $idprov=\Fuel\Core\Session::get('ses_anticipo_prov');
-    $label='Registrar anticipo';
+    $label='Registrar anticipo e imprimir recibí';
 }else{
     $idprov=$anticipo->idprov;
     $label='Guardar cambios';

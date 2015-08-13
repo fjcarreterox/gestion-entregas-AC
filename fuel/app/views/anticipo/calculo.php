@@ -51,7 +51,7 @@ else {
         <fieldset>
             <div class="form-group">
                 <?php echo Form::label('Kilos totales entregados (sólo Manzanilla y Gordal)', 'totalkg', array('class' => 'control-label')); ?>
-                <?php echo Form::input('totalkg', $totalKg, array('class' => 'col-md-4 form-control')); ?>
+                <?php echo Form::input('totalkg', $totalKg, array('class' => 'col-md-4 form-control','readonly'=>'readonly')); ?>
             </div>
             <div class="form-group">
                 <?php echo Form::label('Precio por kilo', 'precio', array('class' => 'control-label')); ?>

@@ -1,23 +1,23 @@
 <?php
 class Controller_Anticipo extends Controller_Template
 {
-	public function action_index()
-	{
-        $data['proveedores'] = Model_Proveedor::find('all',array('order_by' => 'nombre'));
-		$this->template->title = "Calcular Anticipo";
-		$this->template->content = View::forge('anticipo/index', $data);
-	}
+    public function action_index()
+    {
+        $data['proveedores'] = Model_Proveedor::find('all', array('order_by' => 'nombre'));
+        $this->template->title = "Calcular Anticipo";
+        $this->template->content = View::forge('anticipo/index', $data);
+    }
 
     public function action_init()
     {
-        $data['proveedores'] = Model_Proveedor::find('all',array('order_by' => 'nombre'));
+        $data['proveedores'] = Model_Proveedor::find('all', array('order_by' => 'nombre'));
         $this->template->title = "Anticipo de un proveedor concreto";
         $this->template->content = View::forge('anticipo/init', $data);
     }
 
     public function action_list()
     {
-        $data['anticipos'] = Model_Anticipo::find('all',array('order_by' => array('fecha'=>'desc')));
+        $data['anticipos'] = Model_Anticipo::find('all', array('order_by' => array('fecha' => 'desc')));
         $this->template->title = "Anticipos: todos los registrados";
         $this->template->content = View::forge('anticipo/list', $data);
     }
@@ -26,14 +26,12 @@ class Controller_Anticipo extends Controller_Template
     {
         is_null($idprov) and Response::redirect('anticipo/list');
 
-        if ( ! $data['prov'] = Model_Proveedor::find($idprov))
-        {
-            Session::set_flash('error', 'No se ha encontrado proveedor con ese identificador (#'.$idprov.')');
+        if (!$data['prov'] = Model_Proveedor::find($idprov)) {
+            Session::set_flash('error', 'No se ha encontrado proveedor con ese identificador (#' . $idprov . ')');
             Response::redirect('anticipo/list');
-        }
-        else {
+        } else {
             $data['nombre_prov'] = Model_Proveedor::find($idprov)->get('nombre');
-            $data['anticipos'] = Model_Anticipo::find('all',array('where'=>array(array("idprov",$idprov))));
+            $data['anticipos'] = Model_Anticipo::find('all', array('where' => array(array("idprov", $idprov))));
             $this->template->title = "Anticipos de un proveedor";
             $this->template->content = View::forge('anticipo/list_prov', $data);
         }
@@ -45,6 +43,21 @@ class Controller_Anticipo extends Controller_Template
         $this->template->title = "Cálculo Anticipo";
         $this->template->content = View::forge('anticipo/calculo', $data);
 
+    }
+
+    public function action_print($id = null){
+
+        is_null($id) and Response::redirect('anticipo/list');
+
+        if (!$anticipo = Model_Anticipo::find($id)) {
+            Session::set_flash('error', 'No se ha encontrado el anticipo núm. ' . $id);
+            Response::redirect('anticipo/list');
+        }
+
+        $data['anticipo'] = $anticipo;
+
+        $this->template->title = "Anticipo Núm. " . $anticipo->get('id');
+        $this->template->content = View::forge('anticipo/print', $data);
     }
 
 	public function action_view($id = null)
@@ -84,7 +97,7 @@ class Controller_Anticipo extends Controller_Template
                     \Fuel\Core\Session::delete('ses_anticipo_prov');
                     \Fuel\Core\Session::delete('ses_anticipo_cuantia');
 					Session::set_flash('success', 'Anticipo añadido al sistema (#'.$anticipo->id.').');
-					Response::redirect('anticipo/list');
+					Response::redirect('anticipo/print/'.$anticipo->id);
 				}
 				else{
 					Session::set_flash('error', 'No se pudo guardar el anticipo.');
