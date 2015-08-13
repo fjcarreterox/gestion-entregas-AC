@@ -59,41 +59,11 @@ class Controller_Factura extends Controller_Template
             $factura->fecha = Input::post('fecha');
             $factura->total = Input::post('total_factura');
             $factura->comentario = Input::post('comentario');
-            $lineas = Input::post('lineas');
+            //$lineas = Input::post('lineas');
 
             if ($factura->save())
             {
                 Session::set_flash('success', 'Factura núm. ' . $idfactura . ' almacenada correctamente.');
-
-                //Create all the lines on its model
-                foreach($lineas as $orden => $l){
-                    $parsed_l = explode('$$',$l);
-                    //New line on the invoce
-                    if($parsed_l[0]=="NL") {
-                        $linea = Model_Linea::forge(array(
-                            'idfactura' => $idfactura,
-                            'orden' => $orden + 1,
-                            'concepto' => $parsed_l[1],
-                            'precio' => $parsed_l[2],
-                            'kg' => $parsed_l[3],
-                            'importe' => number_format($parsed_l[2] * $parsed_l[3], 2),
-                        ));
-                        $linea->save();
-                    // Line ID exists, only update fields
-                    }else{
-                        $linea_up = Model_Linea::find($parsed_l[0]);
-                        $linea_up->orden = $orden+1;
-                        $linea_up->concepto = $parsed_l[1];
-                        $linea_up->precio = $parsed_l[2];
-                        $linea_up->kg = $parsed_l[3];
-                        $linea_up->importe = number_format($parsed_l[2]*$parsed_l[3],2);
-                        $linea_up->save();
-                    }
-                }
-                //\Fuel\Core\Session::delete('idfactura');
-                //\Fuel\Core\Session::delete('idprov');
-                //\Fuel\Core\Session::delete('comment');
-                //\Fuel\Core\Session::delete('fecha');
                 Response::redirect('factura/print/'.$idfactura);
             }
             else{
