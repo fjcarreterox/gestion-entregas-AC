@@ -29,7 +29,7 @@ textarea { border: 0; font-size: 16px;font-family: “Trebuchet MS”, Verdana, 
 
 .customer{float: right;text-align: center;}
 .customer p{text-decoration: underline; font-weight: bolder;}
-#customer-title { font-size: 21px; width:340px; height:130px; text-align: center }
+#customer-title { font-size: 19px; width:340px; height:130px; text-align: center }
 
 #meta { margin-top: 1px; width: 340px; float: right; }
 #meta td { text-align: right;  }

@@ -145,10 +145,10 @@ $(document).ready(function() {
             cache: false
         }).done(function(data) {
             if($(".delete").length == 0){
-                $("tr#hiderow").before('<tr class="item-row" data-id="' + data.id + '"><td class="item-concept"><div class="delete-wpr"><textarea>___Concepto___</textarea><a class="delete" href="javascript:;" title="Remove row">X</a></div></td><td><textarea class="coste">0.00 &euro;</textarea></td><td><textarea class="kg">1</textarea></td><td><span class="precio">0.00 &euro;</span></td></tr>');
+                $("tr#hiderow").before('<tr class="item-row" data-id="' + data.id + '"><td class="item-concept"><div class="delete-wpr"><textarea>___Concepto___</textarea><a class="delete" href="javascript:;" title="Remove row">X</a></div></td><td><textarea class="coste">0.00</textarea> &euro;</td><td><textarea class="kg">1</textarea></td><td><span class="precio">0.00 &euro;</span></td></tr>');
             }
             else {
-                $(".item-row:last").after('<tr class="item-row" data-id="' + data.id + '"><td class="item-concept"><div class="delete-wpr"><textarea>___Concepto___</textarea><a class="delete" href="javascript:;" title="Remove row">X</a></div></td><td><textarea class="coste">0.00 &euro;</textarea></td><td><textarea class="kg">1</textarea></td><td><span class="precio">0.00 &euro;</span></td></tr>');
+                $(".item-row:last").after('<tr class="item-row" data-id="' + data.id + '"><td class="item-concept"><div class="delete-wpr"><textarea>___Concepto___</textarea><a class="delete" href="javascript:;" title="Remove row">X</a></div></td><td><textarea class="coste">0.00</textarea> &euro;</td><td><textarea class="kg">1</textarea></td><td><span class="precio">0.00 &euro;</span></td></tr>');
             }
             if ($(".delete").length > 0) $(".delete").show();
             bind_bill();

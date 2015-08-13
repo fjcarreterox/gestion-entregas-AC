@@ -19,7 +19,7 @@ textarea { border: 0; font: 16px Trebuchet, Serif; overflow: hidden; resize: non
 .edit #logohelp { display: block; }
 .edit #save-logo, .edit #cancel-logo { display: inline; }
 .edit #image, #save-logo, #cancel-logo, .edit #change-logo, .edit #delete-logo { display: none; }
-#customer-title { font-size: 21px; width:340px; height:130px; text-align: center }
+#customer-title { font-size: 19px; width:340px; height:130px; text-align: center }
 
 #meta { margin-top: 1px; width: 340px; float: right; }
 #meta td { text-align: right;  }
