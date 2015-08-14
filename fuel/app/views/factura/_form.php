@@ -9,8 +9,8 @@ echo Form::open(array("class"=>"form-horizontal")); ?>
 
 	<fieldset>
 		<div class="form-group">
-			<?php echo Form::label('Selecciona proveedor', 'idprov', array('class'=>'control-label')); ?>
-				<?php echo Form::select('idprov', isset($factura) ? $factura->idprov : '' , $options, array('class' => 'col-md-4 form-control', 'placeholder'=>'')); ?>
+			<?php echo Form::label('Selecciona proveedor', 'provider', array('class'=>'control-label')); ?>
+				<?php echo Form::select('provider', isset($factura) ? $factura->idprov : '' , $options, array('class' => 'col-md-4 form-control', 'placeholder'=>'')); ?>
 		</div>
 		<div class="form-group">
 			<?php echo Form::label('Fecha de emisión', 'fecha', array('class'=>'control-label')); ?>
@@ -23,7 +23,7 @@ echo Form::open(array("class"=>"form-horizontal")); ?>
         </div>
 		<div class="form-group">
 			<label class='control-label'>&nbsp;</label>
-			<?php echo Form::submit('submit', 'Completar líneas de factura', array('class' => 'btn btn-primary')); ?>
+			<?php echo Form::submit('factura_submit', 'Completar líneas de factura', array('class' => 'btn btn-primary')); ?>
         </div>
 	</fieldset>
 <?php echo Form::close(); ?>

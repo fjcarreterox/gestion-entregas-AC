@@ -8,17 +8,13 @@
     Response::redirect('anticipo/calculo');
 }
 else {
-    ?>
-
-
-    <?php
     if ($proveedores):
         $provs[0]="-- SELECCIONA UN PROVEEDOR --";
         foreach ($proveedores as $p) {
             $provs[$p->get('id')] = $p->get('nombre');
         }
 
-        echo Form::open('anticipo/index', array("class" => "form-horizontal")); ?>
+        echo Form::open('anticipo/index', array("class" => "form-horizontal sel-prov")); ?>
 
         <fieldset>
             <div class="form-group">

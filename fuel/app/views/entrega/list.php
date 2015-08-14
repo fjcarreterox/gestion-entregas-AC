@@ -2,7 +2,6 @@
 if(isset($puesto)){
     echo "<h2>Entrega diaria para el puesto <span class='muted'>$puesto.</span></h2>";
     echo "<h3>Día: <span class='muted'>".date_conv($fecha)."</span></h3><br/>";
-
 }
 else{
     echo "<h2><span class='muted'>Entregas</span> realizadas durante la campaña 2015.</h2>";
@@ -11,7 +10,11 @@ else{
 ?>
 
 <?php if ($entregas): ?>
-    <h4>Número de entregas registradas hoy: <span class='muted'><?php echo count($entregas); ?></span></h4>
+    <?php if(isset($puesto)){ ?>
+        <h4>Número de entregas registradas hoy: <span class='muted'><?php echo count($entregas); ?></span></h4>
+    <?php }else{ ?>
+        <h4>Número de entregas registradas en total: <span class='muted'><?php echo count($entregas); ?></span></h4>
+    <?php } ?>
     <br/>
 <table class="table table-striped">
 	<thead>
@@ -55,5 +58,7 @@ foreach ($entregas as $item):?>
 
 <?php endif; ?><p>
     <?php echo Html::anchor('javascript:window.print()', '<i class="icon-trash icon-white"></i> Imprimir entrada diaria', array('class' => 'btn btn-small btn-info','id'=>'print-deliverynote')); ?>
-    <?php echo Html::anchor('entrega/fechas/'.$idpuesto, 'Consultar entrada en otra fecha', array('class' => 'btn btn-success')); ?>
+    <?php if(isset($puesto)){ ?>
+        <?php echo Html::anchor('entrega/fechas/'.$idpuesto, 'Consultar entrada en otra fecha', array('class' => 'btn btn-success')); ?>
+    <?php } ?>
 </p>

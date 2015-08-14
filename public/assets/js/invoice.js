@@ -83,8 +83,12 @@ function update_parcial() {
 }
 
 function update_total_fac() {
-    var parcial = $("#parcial").html().replace(" €","");
-    var total_fac = $(".total_fac").html().replace(" €","");
+    var parcial;
+    if($("#parcial").html())
+        parcial = $("#parcial").html().replace(" €","");
+    var total_fac;
+    if($(".total_fac").html())
+        total_fac = $(".total_fac").html().replace(" €","");
     var retencion = $("#retencion").val();
     var total_retencion = roundNumber((Number(parcial) * retencion) / 100,2);
     total_fac= Number(parcial) - total_retencion;

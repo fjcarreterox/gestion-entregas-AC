@@ -12,12 +12,12 @@ else{
     echo Form::open(array("class"=>"form-horizontal")); ?>
     <fieldset>
         <div class="form-group">
-            <?php echo Form::label('Selecciona proveedor para ver sus anticipos', 'idprov', array('class'=>'control-label')); ?>
-            <?php echo Form::select('idprov', isset($anticipo) ? $anticipo->idprov : '' , $options, array('class' => 'col-md-4 form-control', 'placeholder'=>'')); ?>
+            <?php echo Form::label('Selecciona proveedor para ver sus anticipos', 'provider', array('class'=>'control-label')); ?>
+            <?php echo Form::select('provider', isset($anticipo) ? $anticipo->idprov : '' , $options, array('class' => 'col-md-4 form-control', 'placeholder'=>'')); ?>
         </div>
         <div class="form-group">
             <label class='control-label'>&nbsp;</label>
-            <?php echo Form::submit('submit', 'Ver anticipos', array('class' => 'btn btn-primary')); ?>
+            <?php echo Form::submit('anticipo_submit', 'Ver anticipos', array('class' => 'btn btn-primary')); ?>
         </div>
     </fieldset>
     <?php echo Form::close();

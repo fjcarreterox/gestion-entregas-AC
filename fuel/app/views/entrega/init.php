@@ -11,14 +11,14 @@ else {
 
     <fieldset>
         <div class="form-group">
-            <?php echo Form::select('idprov', '', $provs, array('class' => 'col-md-4 form-control')); ?>
+            <?php echo Form::select('provider', '', $provs, array('class' => 'col-md-4 form-control')); ?>
         </div>
         <br/>
         <br/>
 
         <div class="form-group">
             <label class='control-label'>&nbsp;</label>
-            <?php echo Form::submit('submit', 'Consultar su ficha final', array('class' => 'btn btn-primary')); ?>
+            <?php echo Form::submit('entrega_submit', 'Consultar su ficha final', array('class' => 'btn btn-primary')); ?>
         </div>
     </fieldset>
     <?php echo Form::close();
