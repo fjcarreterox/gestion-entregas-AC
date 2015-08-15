@@ -12,8 +12,8 @@ else{
     echo Form::open(array("class"=>"form-horizontal")); ?>
         <fieldset>
             <div class="form-group">
-                <?php echo Form::label('Selecciona proveedor para ver sus facturas', 'provider', array('class'=>'control-label')); ?>
-                <?php echo Form::select('provider', isset($factura) ? $factura->idprov : '' , $options, array('class' => 'col-md-4 form-control', 'placeholder'=>'')); ?>
+                <?php echo Form::label('Selecciona proveedor para ver sus facturas', 'idprov', array('class'=>'control-label')); ?>
+                <?php echo Form::select('idprov', isset($factura) ? $factura->idprov : '' , $options, array('class' => 'col-md-4 form-control', 'placeholder'=>'')); ?>
             </div>
             <div class="form-group">
                 <label class='control-label'>&nbsp;</label>
