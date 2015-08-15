@@ -1,5 +1,5 @@
 <?php
-if(isset($_POST["submit"])){
+if(isset($_POST["factura_submit"])){
     Response::redirect('factura/list_prov/'.$_POST["idprov"]);
 }
 else{
