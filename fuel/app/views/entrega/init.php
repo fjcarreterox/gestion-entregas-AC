@@ -1,5 +1,5 @@
-<?php if(isset($_POST["submit"])){
-    Response::redirect('entrega/list_prov/'.$_POST["idprov"]);
+<?php if(isset($_POST["entrega_submit"])){
+    Response::redirect('entrega/list_prov/'.$_POST["provider"]);
 }
 else {
     echo "<h2 > Selecciona a un proveedor para ver su ficha final:</h2 >";
