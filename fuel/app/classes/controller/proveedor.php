@@ -55,30 +55,40 @@ class Controller_Proveedor extends Controller_Template
 
 	public function action_create()
 	{
+        $unique_dni=true;
+
 		if (Input::method() == 'POST')
 		{
 			$val = Model_Proveedor::validate('create');
+            $p = Model_Proveedor::find('all',array('where'=>array('nifcif'=>Input::post('nifcif'))));
+            if(count($p)>0){
+                $unique_dni = false;
+            }
 
 			if ($val->run())
 			{
-				$proveedor = Model_Proveedor::forge(array(
-					'nombre' => Input::post('nombre'),
-					'domicilio' => Input::post('domicilio'),
-					'poblacion' => Input::post('poblacion'),
-					'nifcif' => Input::post('nifcif'),
-					'telefono' => Input::post('telefono'),
-					'tipo' => Input::post('tipo'),
-                    'comentario' => Input::post('comentario'),
-                    'envases' => Input::post('envases'),
-				));
+                if($unique_dni) {
+                    $proveedor = Model_Proveedor::forge(array(
+                        'nombre' => Input::post('nombre'),
+                        'domicilio' => Input::post('domicilio'),
+                        'poblacion' => Input::post('poblacion'),
+                        'nifcif' => Input::post('nifcif'),
+                        'telefono' => Input::post('telefono'),
+                        'tipo' => Input::post('tipo'),
+                        'comentario' => Input::post('comentario'),
+                        'envases' => Input::post('envases'),
+                    ));
 
-				if ($proveedor and $proveedor->save()){
-					Session::set_flash('success', 'Proveedor añadido al sistema: '.$proveedor->nombre.'.');
-					Response::redirect('proveedor');
-				}
-				else{
-					Session::set_flash('error', 'No se pudo crear el nuevo proveedor.');
-				}
+                    if ($proveedor and $proveedor->save()) {
+                        Session::set_flash('success', 'Proveedor añadido al sistema: ' . $proveedor->nombre . '.');
+                        Response::redirect('proveedor');
+                    } else {
+                        Session::set_flash('error', 'No se pudo crear el nuevo proveedor.');
+                    }
+                }
+                else{
+                    Session::set_flash('error', 'No se pudo crear el nuevo proveedor. Ya existe uno en el sistema con el mismo DNI / CIF. Revisa los datos introducidos.');
+                }
 			}
 			else
 			{
@@ -152,21 +162,19 @@ class Controller_Proveedor extends Controller_Template
 	public function action_delete($id = null)
 	{
 		is_null($id) and Response::redirect('proveedor');
-
-		if ($proveedor = Model_Proveedor::find($id))
-		{
-			$proveedor->delete();
-
-			Session::set_flash('success', 'Proveedor borrado: #'.$id);
+        //$res1, $res2  = false;
+		if ($proveedor = Model_Proveedor::find($id)){
+            //$res1 = deleteAdvancesByProvider($id);
+            //$res2 = deleteInvoicesByProvider($id);
+            //if($res1) {
+                $proveedor->delete();
+                Session::set_flash('success', 'Proveedor borrado del sistema y todas sus facturas y albaranes.');
+            //}
 		}
-
-		else
-		{
-			Session::set_flash('error', 'Could not delete proveedor #'.$id);
+		else{
+			Session::set_flash('error', 'No se ha podido borrar el proveedor seleccionado');
 		}
-
 		Response::redirect('proveedor');
-
 	}
 
 }
