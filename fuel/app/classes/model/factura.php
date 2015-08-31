@@ -29,7 +29,7 @@ class Model_Factura extends Model
 		$val = Validation::forge($factory);
 		$val->add_field('idprov', 'Idprov', 'required|valid_string[numeric]');
         $val->add_field('fecha', 'Fecha', 'required');
-		$val->add_field('total', 'Total', 'valid_string[numeric]');
+		//$val->add_field('total', 'Total', 'valid_string[numeric]');
         $val->add_field('comentario', 'Comentario', 'max_length[255]');
 
 		return $val;

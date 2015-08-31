@@ -1,6 +1,7 @@
-<h2>Editando la <span class='muted'>factura</span> seleccionada:</h2>
-<br>
+<h2>Editando los datos propios de la <span class='muted'>factura</span> seleccionada:</h2>
+<br/>
+<p>Si deseas modificar las líneas de factura que componen esta factura, haz clic en el botón de abajo.</p>
 <?php echo render('factura/_form'); ?>
 <p>
-	<?php echo Html::anchor('factura/view/'.$factura->id, 'Ver'); ?> |
-	<?php echo Html::anchor('factura/list', 'Volver'); ?></p>
+	<?php echo Html::anchor('factura/view/'.$factura->id, 'Ver datos', array('class'=>'btn btn-default')); ?>&nbsp;&nbsp;
+	<?php echo Html::anchor('factura/list', 'Volver al listado', array('class'=>'btn btn-danger')); ?></p>

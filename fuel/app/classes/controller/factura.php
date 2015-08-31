@@ -151,7 +151,7 @@ class Controller_Factura extends Controller_Template
 			if ($factura->save())
 			{
 				Session::set_flash('success', 'Factura núm. ' . $id . ' actualizada correctamente.');
-				Response::redirect('factura/list');
+				Response::redirect('factura/print/'.$id);
 			}
 			else
 			{
