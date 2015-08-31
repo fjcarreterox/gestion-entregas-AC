@@ -1,6 +1,6 @@
 <?php
-if(isset($_POST["submit"])){
-    Response::redirect('anticipo/list_prov/'.$_POST["idprov"]);
+if(isset($_POST["anticipo_submit"])){
+    Response::redirect('anticipo/list_prov/'.$_POST["provider"]);
 }
 else{
     $provs = Model_Proveedor::find('all',array('select' => array('id', 'nombre'),'order_by' => 'nombre'));

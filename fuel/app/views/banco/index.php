@@ -17,7 +17,7 @@
 					<div class="btn-group">
 						<?php echo Html::anchor('banco/view/'.$item->id, '<i class="icon-eye-open"></i> Ver Ficha', array('class' => 'btn btn-small')); ?>
                         <?php echo Html::anchor('banco/edit/'.$item->id, '<i class="icon-wrench"></i> Editar', array('class' => 'btn btn-small')); ?>
-                        <?php echo Html::anchor('banco/delete/'.$item->id, '<i class="icon-trash icon-white"></i> Borrar', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('¿Estás seguro de esto?')")); ?>
+                        <?php /*echo Html::anchor('banco/delete/'.$item->id, '<i class="icon-trash icon-white"></i> Borrar', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('¿Estás seguro de esto?')"));*/ ?>
                     </div>
 				</div>
 
@@ -25,7 +25,8 @@
 		</tr>
 <?php endforeach; ?>	</tbody>
 </table>
-
+    <p><small><u>NOTA</u>: Dado que los bancos están estrechamente relacionados con los cálculos de los anticipos a los proveedores,
+            se ha desabilitado el borrado de los mismos para no causar inconsistencias en la aplicación.</small></p>
 <?php else: ?>
 <p>No Bancos.</p>
 
