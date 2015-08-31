@@ -20,3 +20,7 @@ p.pull-right{
 a.btn{
     display: none;
 }
+
+.hide_elem{
+    display: none;
+}
