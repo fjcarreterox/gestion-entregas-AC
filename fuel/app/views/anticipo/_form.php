@@ -9,8 +9,9 @@ if(isset($nombre_prov)){
 }
 
 $recogido_ops=array(
-    0=>"NO",
-    1=>"SÍ"
+    1=>"SÍ",
+    0=>"NO"
+
 );
 
 $bancos_ops=array();
