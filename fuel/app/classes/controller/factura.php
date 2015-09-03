@@ -58,8 +58,8 @@ class Controller_Factura extends Controller_Template
         {
             $factura->fecha = Input::post('fecha');
             $factura->total = Input::post('total_factura');
+            $factura->cuota = Input::post('cuota');
             $factura->comentario = Input::post('comentario');
-            //$lineas = Input::post('lineas');
 
             if ($factura->save())
             {
@@ -102,16 +102,12 @@ class Controller_Factura extends Controller_Template
 					'idprov' => Input::post('idprov'),
 					'fecha' => Input::post('fecha'),
 					'total' => Input::post('total'),
+					'cuota' => Input::post('cuota'),
                     'comentario' => Input::post('comentario'),
 				));
 
 				if ($factura and $factura->save()){
 					Session::set_flash('success', 'Factura núm. '.$factura->id.' registrada en el sistema.');
-                    //Session::set_flash('idprov',Input::post('idprov'));
-                    //\Fuel\Core\Session::set('idfactura',$factura->id);
-                    //\Fuel\Core\Session::set('fecha',Input::post('fecha'));
-                    //\Fuel\Core\Session::set('idprov',Input::post('idprov'));
-                    //\Fuel\Core\Session::set('comment',Input::post('comentario'));
 					Response::redirect('factura/print/'.$factura->id);
 				}
 				else{
@@ -123,10 +119,8 @@ class Controller_Factura extends Controller_Template
 			}
 		}
 
-        //$data['proveedores'] = Model_Proveedor::find('all',array('select' => array('id', 'nombre'),'order_by' => 'nombre'));
 		$this->template->title = "Emisión de facturas";
 		$this->template->content = View::forge('factura/create');
-
 	}
 
 	public function action_edit($id = null)
@@ -146,6 +140,7 @@ class Controller_Factura extends Controller_Template
 			$factura->idprov = Input::post('idprov');
 			$factura->fecha = Input::post('fecha');
 			$factura->total = Input::post('total');
+			$factura->cuota = Input::post('cuota');
             $factura->comentario = Input::post('comentario');
 
 			if ($factura->save())
@@ -165,6 +160,7 @@ class Controller_Factura extends Controller_Template
 				$factura->idprov = $val->validated('idprov');
 				$factura->fecha = $val->validated('fecha');
 				$factura->total = $val->validated('total');
+				$factura->cuota = $val->validated('cuota');
                 $factura->comentario = $val->validated('comentario');
 				Session::set_flash('error', $val->error());
 			}
@@ -178,17 +174,13 @@ class Controller_Factura extends Controller_Template
 	{
 		is_null($id) and Response::redirect('factura');
 
-		if ($factura = Model_Factura::find($id))
-		{
+		if ($factura = Model_Factura::find($id)){
 			$factura->delete();
 			Session::set_flash('success', 'Factura núm. '.$id . ' borrada del sistema.');
 		}
-		else
-		{
+		else{
 			Session::set_flash('error', 'No se ha podido borrar la factura núm. '.$id);
 		}
-
 		Response::redirect('factura/list');
 	}
-
 }

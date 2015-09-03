@@ -41,7 +41,7 @@ textarea { border: 0; font-size: 16px;font-family: “Trebuchet MS”, Verdana, 
 #items textarea { width: 80px; height: 50px; }
 #items tr.item-row td { border: 0; vertical-align: top; }
 #items td.description { width: 470px; }
-#items td.item-concept { width: 580px; }
+#items td.item-concept { width: 500px; }
 #items td.description textarea, #items td.item-concept textarea { width: 100%; }
 #items td.total-line { border-right: 0; text-align: right; }
 #items td.total-value { border-left: 0; padding: 10px; }
@@ -77,5 +77,5 @@ textarea#retencion{
 }
 
 textarea.coste{
-    width: 50px !important;
+    width: 70px !important;
 }

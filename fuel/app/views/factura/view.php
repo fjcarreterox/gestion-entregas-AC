@@ -7,12 +7,15 @@
     <strong>Fecha de emisión:</strong>
     <?php echo date_conv($factura->fecha); ?></p>
 <p>
-	<strong>Total:</strong>
-	<?php echo $factura->total; ?>&euro;</p>
+    <strong>Cuota interprofesional aplicada:</strong>
+    <?php echo $factura->cuota; ?> &euro;</p>
+<p>
+	<strong>Importe total:</strong>
+	<?php echo $factura->total; ?> &euro;</p>
 <p>
     <strong>Comentario:</strong>
     <?php echo $factura->comentario; ?></p>
-
-<?php echo Html::anchor('factura/print/'.$factura->id, 'Imprimir factura'); ?> |
-<?php echo Html::anchor('factura/edit/'.$factura->id, 'Editar'); ?> |
-<?php echo Html::anchor('factura/list', 'Volver'); ?>
+<br/>
+<?php echo Html::anchor('factura/print/'.$factura->id, 'Ver líneas',array('class'=>'btn btn-info')); ?>&nbsp;
+<?php echo Html::anchor('factura/edit/'.$factura->id, 'Editar',array('class'=>'btn btn-success')); ?>&nbsp;
+<?php echo Html::anchor('factura/list', 'Volver al listado',array('class'=>'btn btn-danger')); ?>

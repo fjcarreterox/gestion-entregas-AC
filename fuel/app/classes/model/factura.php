@@ -8,6 +8,7 @@ class Model_Factura extends Model
 		'idprov',
 		'fecha',
 		'total',
+		'cuota',
         'comentario',
 		'created_at',
 		'updated_at',
@@ -34,5 +35,4 @@ class Model_Factura extends Model
 
 		return $val;
 	}
-
 }

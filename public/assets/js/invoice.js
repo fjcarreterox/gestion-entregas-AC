@@ -65,7 +65,7 @@ function update_parcial() {
     $('.precio').each(function(i){
         precio = $(this).html().replace(" €","");
         //precio = $(this).html();
-        if (!isNaN(precio)) subtotal += Number(precio);
+        if (!isNaN(precio)) subtotal += parseFloat(precio);
     });
 
     subtotal = roundNumber(subtotal,2);
@@ -93,7 +93,7 @@ function update_total_fac() {
     var cuota = $("#cuota").val();
     var total_retencion = roundNumber((Number(parcial) * retencion) / 100,2);
     total_fac = Number(parcial) - total_retencion;
-    total_fac = total_fac - Number(cuota);
+    total_fac = total_fac - parseFloat(cuota);
     total_fac = roundNumber(total_fac,2);
 
     $('.total_fac').html(total_fac+" &euro;");
@@ -104,7 +104,7 @@ function update_total_fac() {
 function update_precio() {
     var row = $(this).parents('.item-row');
     var row_id = $(this).parents('.item-row').attr("data-id");
-    var precio = row.find('.coste').val() * row.find('.kg').val();
+    var precio = parseFloat(row.find('.coste').val()) * parseInt(row.find('.kg').val());
     precio = roundNumber(precio,2);
     isNaN(precio) ? row.find('.precio').html("N/D") : row.find('.precio').html(precio + " &euro;");
     var values = {"id":row_id,"concepto":row.find('.item-concept textarea').val(),"precio":row.find('.coste').val(),"kg":row.find('.kg').val(),"importe":precio}
@@ -135,7 +135,9 @@ $(document).ready(function() {
 
     $('body').on('click',"input[name='submit_lines']", function(){
         var comment = $(".comment textarea").val();
+        var cuota = $("textarea#cuota").val();
         $("input[name='comentario']").val(comment);
+        $("input[name='cuota']").val(cuota);
     });
 
     //Add a new line to the current invoice

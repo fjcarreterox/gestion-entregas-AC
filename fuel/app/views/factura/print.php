@@ -60,7 +60,7 @@ $prov = Model_Proveedor::find($factura->idprov);
                     <td class="item-concept"><div class="delete-wpr"><textarea><?php echo $l->concepto; ?></textarea><a class="delete" href="javascript:;" title="Borrar fila">X</a></div></td>
                     <td><textarea class="coste"><?php echo $l->precio; ?></textarea> &euro;</td>
                     <td><textarea class="kg"><?php echo $l->kg; ?></textarea></td>
-                    <td><span class="precio"><?php echo number_format($l->precio*$l->kg,2); ?> &euro;</span></td>
+                    <td><span class="precio"><?php echo number_format($l->precio*$l->kg,2, '.', ''); ?> &euro;</span></td>
                 </tr>
         <?php }
             endif; ?>
@@ -93,7 +93,7 @@ $prov = Model_Proveedor::find($factura->idprov);
         <tr>
             <td colspan="1" class="blank"> </td>
             <td colspan="2" class="total-line">Cuota Interprofesional</td>
-            <td class="total-value"><textarea id="cuota">0</textarea></td>
+            <td class="total-value"><textarea id="cuota"><?php echo $factura->cuota;?></textarea></td>
         </tr>
         <tr>
             <td colspan="1" class="blank"> </td>
@@ -110,6 +110,7 @@ $prov = Model_Proveedor::find($factura->idprov);
 
     <?php echo Form::open(array("class"=>"form-horizontal")); ?>
         <?php echo Form::input('fecha',$factura->fecha, array('type'=>'hidden' )); ?>
+        <?php echo Form::input('cuota',$factura->cuota , array('type'=>'hidden' )); ?>
         <?php echo Form::input('total_factura',0 , array('type'=>'hidden' )); ?>
         <?php echo Form::input('comentario','', array('type'=>'hidden' )); ?>
 

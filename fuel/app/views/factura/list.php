@@ -1,5 +1,7 @@
 <h2>Listado global de <span class='muted'>facturas</span> emitidas <?php echo $titulo; ?></h2>
 <br/>
+<p>Se encuentran ordenadas descendientemente por fecha de creación.</p>
+<br/>
 <?php if ($facturas): ?>
 <table class="table table-striped">
 	<thead>
