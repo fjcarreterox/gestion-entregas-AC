@@ -90,10 +90,10 @@ function update_total_fac() {
     if($(".total_fac").html())
         total_fac = $(".total_fac").html().replace(" €","");
     var retencion = $("#retencion").val();
-    var cuota = $("#cuota").val();
+    var cuota = $("#cuota").val()=="" ? 0 : $("#cuota").val();
     var total_retencion = roundNumber((Number(parcial) * retencion) / 100,2);
     total_fac = Number(parcial) - total_retencion;
-    total_fac = total_fac - parseFloat(cuota);
+    total_fac = total_fac.toFixed(2) - parseFloat(cuota);
     total_fac = roundNumber(total_fac,2);
 
     $('.total_fac').html(total_fac+" &euro;");
