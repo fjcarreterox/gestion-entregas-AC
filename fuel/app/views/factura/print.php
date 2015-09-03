@@ -92,6 +92,11 @@ $prov = Model_Proveedor::find($factura->idprov);
         </tr>
         <tr>
             <td colspan="1" class="blank"> </td>
+            <td colspan="2" class="total-line">Cuota Interprofesional</td>
+            <td class="total-value"><textarea id="cuota">0</textarea></td>
+        </tr>
+        <tr>
+            <td colspan="1" class="blank"> </td>
             <td colspan="2" class="total-line balance">TOTAL EUROS</td>
             <td class="total-value balance"><div class="total_fac">0.00 &euro;</div></td>
         </tr>

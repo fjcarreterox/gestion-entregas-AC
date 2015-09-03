@@ -90,8 +90,10 @@ function update_total_fac() {
     if($(".total_fac").html())
         total_fac = $(".total_fac").html().replace(" €","");
     var retencion = $("#retencion").val();
+    var cuota = $("#cuota").val();
     var total_retencion = roundNumber((Number(parcial) * retencion) / 100,2);
-    total_fac= Number(parcial) - total_retencion;
+    total_fac = Number(parcial) - total_retencion;
+    total_fac = total_fac - Number(cuota);
     total_fac = roundNumber(total_fac,2);
 
     $('.total_fac').html(total_fac+" &euro;");
@@ -189,6 +191,10 @@ $(document).ready(function() {
     });
 
     $('body').on('blur',"#retencion",function(){
+        update_total_fac();
+    });
+
+    $('body').on('blur',"#cuota",function(){
         update_total_fac();
     });
 
