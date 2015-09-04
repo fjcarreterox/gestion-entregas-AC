@@ -58,6 +58,8 @@ class Controller_Factura extends Controller_Template
         {
             $factura->fecha = Input::post('fecha');
             $factura->total = Input::post('total_factura');
+            $factura->iva = Input::post('iva');
+            $factura->retencion = Input::post('retencion');
             $factura->cuota = Input::post('cuota');
             $factura->comentario = Input::post('comentario');
 
@@ -103,6 +105,8 @@ class Controller_Factura extends Controller_Template
 					'fecha' => Input::post('fecha'),
 					'total' => Input::post('total'),
 					'cuota' => Input::post('cuota'),
+					'iva' => Input::post('iva'),
+					'retencion' => Input::post('retencion'),
                     'comentario' => Input::post('comentario'),
 				));
 
@@ -135,21 +139,20 @@ class Controller_Factura extends Controller_Template
 
 		$val = Model_Factura::validate('edit');
 
-		if ($val->run())
-		{
+		if ($val->run()){
 			$factura->idprov = Input::post('idprov');
 			$factura->fecha = Input::post('fecha');
 			$factura->total = Input::post('total');
 			$factura->cuota = Input::post('cuota');
+			$factura->iva = Input::post('iva');
+			$factura->retencion = Input::post('retencion');
             $factura->comentario = Input::post('comentario');
 
-			if ($factura->save())
-			{
+			if ($factura->save()){
 				Session::set_flash('success', 'Factura núm. ' . $id . ' actualizada correctamente.');
 				Response::redirect('factura/print/'.$id);
 			}
-			else
-			{
+			else{
 				Session::set_flash('error', 'No se ha podido actualizar la factura núm. ' . $id);
 			}
 		}
@@ -161,6 +164,8 @@ class Controller_Factura extends Controller_Template
 				$factura->fecha = $val->validated('fecha');
 				$factura->total = $val->validated('total');
 				$factura->cuota = $val->validated('cuota');
+				$factura->iva = $val->validated('iva');
+				$factura->retencion = $val->validated('retencion');
                 $factura->comentario = $val->validated('comentario');
 				Session::set_flash('error', $val->error());
 			}

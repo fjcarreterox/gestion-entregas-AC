@@ -7,6 +7,12 @@
     <strong>Fecha de emisión:</strong>
     <?php echo date_conv($factura->fecha); ?></p>
 <p>
+    <strong>IVA aplicado:</strong>
+    <?php echo $factura->iva; ?> %</p>
+<p>
+    <strong>Retención aplicada:</strong>
+    <?php echo $factura->retencion; ?> %</p>
+<p>
     <strong>Cuota interprofesional aplicada:</strong>
     <?php echo $factura->cuota; ?> &euro;</p>
 <p>

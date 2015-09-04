@@ -76,7 +76,7 @@ $prov = Model_Proveedor::find($factura->idprov);
         <tr>
             <td colspan="1" class="blank"> </td>
             <td colspan="1" class="total-line">IVA</td>
-            <td class="total-value"><textarea id="iva">12</textarea> %</td>
+            <td class="total-value"><textarea id="iva"><?php echo $factura->iva;?></textarea> %</td>
             <td class="total-iva"> </td>
         </tr>
         <tr>
@@ -87,7 +87,7 @@ $prov = Model_Proveedor::find($factura->idprov);
         <tr>
             <td colspan="1" class="blank"> </td>
             <td colspan="1" class="total-line">Retención</td>
-            <td class="total-value"><textarea id="retencion">2</textarea> %</td>
+            <td class="total-value"><textarea id="retencion"><?php echo $factura->retencion;?></textarea> %</td>
             <td class="total-retencion"> </td>
         </tr>
         <tr>
@@ -110,6 +110,8 @@ $prov = Model_Proveedor::find($factura->idprov);
 
     <?php echo Form::open(array("class"=>"form-horizontal")); ?>
         <?php echo Form::input('fecha',$factura->fecha, array('type'=>'hidden' )); ?>
+        <?php echo Form::input('iva',$factura->iva , array('type'=>'hidden' )); ?>
+        <?php echo Form::input('retencion',$factura->retencion , array('type'=>'hidden' )); ?>
         <?php echo Form::input('cuota',$factura->cuota , array('type'=>'hidden' )); ?>
         <?php echo Form::input('total_factura',0 , array('type'=>'hidden' )); ?>
         <?php echo Form::input('comentario','', array('type'=>'hidden' )); ?>

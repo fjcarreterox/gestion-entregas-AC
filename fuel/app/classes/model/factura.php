@@ -9,6 +9,8 @@ class Model_Factura extends Model
 		'fecha',
 		'total',
 		'cuota',
+		'iva',
+		'retencion',
         'comentario',
 		'created_at',
 		'updated_at',

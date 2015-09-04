@@ -17,6 +17,14 @@ echo Form::open(array("class"=>"form-horizontal")); ?>
 				<?php echo Form::input('fecha', Input::post('fecha', isset($factura) ? $factura->fecha : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Fecha', 'type' => 'date')); ?>
 		</div>
         <div class="form-group">
+            <?php echo Form::label('IVA aplicado', 'iva', array('class'=>'control-label')); ?>
+            <?php echo Form::input('iva', Input::post('iva', isset($factura) ? $factura->iva : 12), array('class' => 'col-md-4 form-control','readonly'=>'readonly' )); ?>
+        </div>
+        <div class="form-group">
+            <?php echo Form::label('Retención aplicada', 'retencion', array('class'=>'control-label')); ?>
+            <?php echo Form::input('retencion', Input::post('retencion', isset($factura) ? $factura->retencion : 2), array('class' => 'col-md-4 form-control','readonly'=>'readonly' )); ?>
+        </div>
+        <div class="form-group">
             <?php echo Form::label('Cuota interprofesional aplicada', 'cuota', array('class'=>'control-label')); ?>
             <?php echo Form::input('cuota', Input::post('cuota', isset($factura) ? $factura->cuota : 0), array('class' => 'col-md-4 form-control','readonly'=>'readonly' )); ?>
         </div>

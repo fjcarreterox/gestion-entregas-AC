@@ -1,21 +1,3 @@
-function print_today() {
-  // ***********************************************
-  // AUTHOR: WWW.CGISCRIPT.NET, LLC
-  // URL: http://www.cgiscript.net
-  // Use the script, just leave this message intact.
-  // Download your FREE CGI/Perl Scripts today!
-  // ( http://www.cgiscript.net/scripts.htm )
-  // ***********************************************
-  var now = new Date();
-  var months = new Array('Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre');
-  var date = ((now.getDate()<10) ? "0" : "")+ now.getDate();
-  function fourdigits(number) {
-    return (number < 1000) ? number + 1900 : number;
-  }
-  var today =  date + " de " + months[now.getMonth()] + " de " + (fourdigits(now.getYear()));
-  return today;
-}
-
 // from http://www.mediacollege.com/internet/javascript/number/round.html
 function roundNumber(number,decimals) {
   var newString;// The new rounded number
@@ -110,13 +92,5 @@ $(document).ready(function() {
   });
   
   bind();
-  
-  /*$(".delete").live('click',function(){
-    $(this).parents('.item-row').remove();
-    update_total();
-    if ($(".delete").length < 2) $(".delete").hide();
-  });*/
-  
-  //$("#date").val(print_today());
   
 });
