@@ -4,5 +4,5 @@
 	<strong>Nombre:</strong>
 	<?php echo $banco->nombre; ?></p>
 
-<?php echo Html::anchor('banco/edit/'.$banco->id, 'Editar'); ?> |
-<?php echo Html::anchor('banco', 'Volver'); ?>
+<?php echo Html::anchor('banco/edit/'.$banco->id, 'Editar',array('class'=>'btn btn-success')); ?>&nbsp;
+<?php echo Html::anchor('banco', 'Volver al listado',array('class'=>'btn btn-danger')); ?>

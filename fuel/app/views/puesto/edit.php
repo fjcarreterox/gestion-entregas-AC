@@ -1,7 +1,5 @@
-<h2>Editando el <span class='muted'>puesto</span> seleccionado:</h2>
-<br>
-
+<h2>Editando datos del <span class='muted'>puesto</span> seleccionado:</h2>
+<br/>
 <?php echo render('puesto/_form'); ?>
-<p>
-	<?php echo Html::anchor('puesto/view/'.$puesto->id, 'Ver Ficha'); ?> |
-	<?php echo Html::anchor('puesto', 'Volver'); ?></p>
+<p><?php echo Html::anchor('puesto/view/'.$puesto->id, 'Ver Ficha',array('class'=>'btn btn-default')); ?>&nbsp;
+	<?php echo Html::anchor('puesto', 'Volver',array('class'=>'btn btn-danger')); ?></p>

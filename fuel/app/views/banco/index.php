@@ -15,8 +15,8 @@
 			<td>
 				<div class="btn-toolbar">
 					<div class="btn-group">
-						<?php echo Html::anchor('banco/view/'.$item->id, '<i class="icon-eye-open"></i> Ver Ficha', array('class' => 'btn btn-small')); ?>
-                        <?php echo Html::anchor('banco/edit/'.$item->id, '<i class="icon-wrench"></i> Editar', array('class' => 'btn btn-small')); ?>
+						<?php echo Html::anchor('banco/view/'.$item->id, '<i class="icon-eye-open"></i> Ver Ficha', array('class' => 'btn btn-default btn-sm')); ?>
+                        <?php echo Html::anchor('banco/edit/'.$item->id, '<i class="icon-wrench"></i> Editar', array('class' => 'btn btn-success btn-sm')); ?>
                         <?php /*echo Html::anchor('banco/delete/'.$item->id, '<i class="icon-trash icon-white"></i> Borrar', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('¿Estás seguro de esto?')"));*/ ?>
                     </div>
 				</div>
