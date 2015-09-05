@@ -10,6 +10,7 @@ class Controller_Albaran extends Controller_Template
 
     public function action_list()
     {
+        $albaranes = array();
         $res=DB::select('idalbaran')->from('albarans')->distinct()->order_by('idalbaran','desc')->execute();
         foreach($res as $r){
             $albaranes[]=Model_Albaran::find('first',array("where"=>array("idalbaran"=>$r["idalbaran"])));
