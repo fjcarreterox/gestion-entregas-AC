@@ -60,5 +60,5 @@
         </tr>
     </table>
 
-<?php echo Html::anchor('entrega/edit/'.$entrega->id, 'Editar'); ?> |
-<?php echo Html::anchor('entrega/list', 'Volver'); ?>
+<?php echo Html::anchor('entrega/edit/'.$entrega->id, '<span class="glyphicon glyphicon-pencil"></span> Editar',array('class'=>'btn btn-success')); ?>&nbsp;
+<?php echo Html::anchor('entrega/list', '<span class="glyphicon glyphicon-backward"></span> Volver',array('class'=>'btn btn-danger')); ?>

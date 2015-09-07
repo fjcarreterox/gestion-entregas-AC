@@ -134,7 +134,7 @@ if($idprov==""){
             else{
                 echo Form::submit('more', 'Agregar más entregas', array('class' => 'btn btn-primary'));
                 echo Form::submit('end', 'Finalizar entrega(s)', array('class' => 'btn btn-primary'));
-                echo Html::anchor('entrega/list', '<i class="icon-trash icon-white"></i> Cancelar esta entrega', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('¿Estás seguro?')"));
+                echo Html::anchor('entrega/list', '<span class="glyphicon glyphicon-remove"></span> Cancelar esta entrega', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('¿Estás seguro?')"));
             }
             ?>
         </div>

@@ -5,7 +5,7 @@ if(isset($puesto)){
 }
 else{
     echo "<h2><span class='muted'>Entregas</span> realizadas durante la campaña 2015.</h2>";
-    echo "<br><p>".Html::anchor('entrega/create', 'Añadir nueva entrega', array('class' => 'btn btn-success'))."</p>";
+    echo '<br/>'.Html::anchor('entrega/create', '<span class="glyphicon glyphicon-plus"></span> Añadir nueva entrega', array('class' => 'btn btn-success'));
 }
 ?>
 
@@ -41,7 +41,7 @@ foreach ($entregas as $item):?>
 			<td>
 				<div class="btn-toolbar">
 					<div class="btn-group">
-						<?php echo Html::anchor('entrega/view/'.$item->id, '<i class="icon-eye-open"></i> Ver detalle', array('class' => 'btn btn-small')); ?>
+						<?php echo Html::anchor('entrega/view/'.$item->id, '<span class="glyphicon glyphicon-eye-open"></span> Detalle', array('class' => 'btn btn-default')); ?>
                         <?php /*echo Html::anchor('entrega/edit/'.$item->id, '<i class="icon-wrench"></i> Editar', array('class' => 'btn btn-small'));*/ ?>
                         <?php /*echo Html::anchor('entrega/delete/'.$item->id, '<i class="icon-trash icon-white"></i> Borrar', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('¿Estás seguro de esto?')"));*/ ?>
                     </div>
@@ -57,7 +57,7 @@ foreach ($entregas as $item):?>
 <p>No se han registrado aún entregas.</p>
 
 <?php endif; ?><p>
-    <?php echo Html::anchor('javascript:window.print()', '<i class="icon-trash icon-white"></i> Imprimir entrada diaria', array('class' => 'btn btn-small btn-info','id'=>'print-deliverynote')); ?>
+    <?php echo Html::anchor('javascript:window.print()', '<span class="glyphicon glyphicon-print"></span> Imprimir entrada diaria', array('class' => 'btn btn-small btn-info','id'=>'print-deliverynote')); ?>
     <?php if(isset($puesto)){ ?>
         <?php echo Html::anchor('entrega/fechas/'.$idpuesto, 'Consultar entrada en otra fecha', array('class' => 'btn btn-success')); ?>
     <?php } ?>
