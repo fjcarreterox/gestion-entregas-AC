@@ -24,3 +24,7 @@ a.btn{
 .hide_elem{
     display: none;
 }
+
+body{
+    font-size: 2em !important;
+}
