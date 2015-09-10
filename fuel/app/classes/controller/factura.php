@@ -17,7 +17,7 @@ class Controller_Factura extends Controller_Template
 
     public function action_list()
     {
-        $data['facturas'] = Model_Factura::find('all',array('order_by' => array('fecha' => 'desc')));
+        $data['facturas'] = Model_Factura::find('all',array('order_by' => array('id' => 'desc')));
         $data['titulo'] = "";
         $this->template->title = "Facturas registradas en el sistema";
         $this->template->content = View::forge('factura/list', $data);
