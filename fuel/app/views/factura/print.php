@@ -109,6 +109,7 @@ $prov = Model_Proveedor::find($factura->idprov);
     </div>
 
     <?php echo Form::open(array("class"=>"form-horizontal")); ?>
+        <?php echo Form::input('num_factura',$factura->num_factura, array('type'=>'hidden' )); ?>
         <?php echo Form::input('fecha',$factura->fecha, array('type'=>'hidden' )); ?>
         <?php echo Form::input('iva',$factura->iva , array('type'=>'hidden' )); ?>
         <?php echo Form::input('retencion',$factura->retencion , array('type'=>'hidden' )); ?>

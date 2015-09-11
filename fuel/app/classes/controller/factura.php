@@ -66,11 +66,11 @@ class Controller_Factura extends Controller_Template
 
             if ($factura->save())
             {
-                Session::set_flash('success', 'Factura núm. ' . $idfactura . ' almacenada correctamente.');
+                Session::set_flash('success', 'Factura núm. ' . $factura->num_factura . ' almacenada correctamente.');
                 Response::redirect('factura/print/'.$idfactura);
             }
             else{
-                Session::set_flash('error', 'No se ha podido almacenar la factura núm. ' . $idfactura);
+                Session::set_flash('error', 'No se ha podido almacenar la factura núm. ' . $factura->num_factura);
             }
 
         }else {
@@ -87,7 +87,7 @@ class Controller_Factura extends Controller_Template
 
 		if ( ! $data['factura'] = Model_Factura::find($id))
 		{
-			Session::set_flash('error', 'No se ha podido encontrar la factura núm. '.$id);
+			Session::set_flash('error', 'No se ha podido encontrar la factura deseada.');
 			Response::redirect('factura');
 		}
 
@@ -186,10 +186,10 @@ class Controller_Factura extends Controller_Template
 
 		if ($factura = Model_Factura::find($id)){
 			$factura->delete();
-			Session::set_flash('success', 'Factura núm. '.$id . ' borrada del sistema.');
+			Session::set_flash('success', 'Factura núm. '.$factura->num_factura . ' borrada del sistema.');
 		}
 		else{
-			Session::set_flash('error', 'No se ha podido borrar la factura núm. '.$id);
+			Session::set_flash('error', 'No se ha podido borrar la factura núm. '.$factura->num_factura);
 		}
 		Response::redirect('factura/list');
 	}
