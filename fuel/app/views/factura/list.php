@@ -18,7 +18,7 @@
 	</thead>
 	<tbody>
 <?php foreach ($facturas as $item): ?>		<tr>
-            <td><?php echo $item->id; ?></td>
+            <td><?php echo $item->num_factura; ?></td>
             <td><?php echo date_conv($item->fecha); ?></td>
         <?php if ($titulo=="") {
 			echo "<td>".Model_Proveedor::find($item->idprov)->get('nombre')."</td>";

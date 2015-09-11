@@ -8,6 +8,10 @@ foreach($provs as $prov){
 echo Form::open(array("class"=>"form-horizontal")); ?>
 
 	<fieldset>
+        <div class="form-group">
+            <?php echo Form::label('Número de factura', 'num_factura', array('class'=>'control-label')); ?>
+            <?php echo Form::input('num_factura', isset($factura) ? $factura->num_factura : $num_fact+1 , array('class' => 'col-md-4 form-control', 'readonly'=>'readonly')); ?>
+        </div>
 		<div class="form-group">
 			<?php echo Form::label('Selecciona proveedor', 'idprov', array('class'=>'control-label')); ?>
 				<?php echo Form::select('idprov', isset($factura) ? $factura->idprov : '' , $options, array('class' => 'col-md-4 form-control', 'placeholder'=>'')); ?>

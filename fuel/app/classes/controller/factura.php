@@ -17,7 +17,7 @@ class Controller_Factura extends Controller_Template
 
     public function action_list()
     {
-        $data['facturas'] = Model_Factura::find('all',array('order_by' => array('id' => 'desc')));
+        $data['facturas'] = Model_Factura::find('all',array('order_by' => array('num_factura' => 'desc')));
         $data['titulo'] = "";
         $this->template->title = "Facturas registradas en el sistema";
         $this->template->content = View::forge('factura/list', $data);
@@ -56,6 +56,7 @@ class Controller_Factura extends Controller_Template
 
         if (Input::method() == 'POST')
         {
+            $factura->num_factura = Input::post('num_factura');
             $factura->fecha = Input::post('fecha');
             $factura->total = Input::post('total_factura');
             $factura->iva = Input::post('iva');
@@ -101,6 +102,7 @@ class Controller_Factura extends Controller_Template
 			$val = Model_Factura::validate('create');
 			if ($val->run()){
 				$factura = Model_Factura::forge(array(
+					'num_factura' => Input::post('num_factura'),
 					'idprov' => Input::post('idprov'),
 					'fecha' => Input::post('fecha'),
 					'total' => Input::post('total'),
@@ -111,7 +113,7 @@ class Controller_Factura extends Controller_Template
 				));
 
 				if ($factura and $factura->save()){
-					Session::set_flash('success', 'Factura núm. '.$factura->id.' registrada en el sistema.');
+					Session::set_flash('success', 'Factura núm. '.$factura->num_factura.' registrada en el sistema.');
 					Response::redirect('factura/print/'.$factura->id);
 				}
 				else{
@@ -122,9 +124,10 @@ class Controller_Factura extends Controller_Template
 				Session::set_flash('error', $val->error());
 			}
 		}
+        $data['num_fact'] = Model_Factura::max('num_factura');
 
 		$this->template->title = "Emisión de facturas";
-		$this->template->content = View::forge('factura/create');
+		$this->template->content = View::forge('factura/create',$data);
 	}
 
 	public function action_edit($id = null)
@@ -140,6 +143,7 @@ class Controller_Factura extends Controller_Template
 		$val = Model_Factura::validate('edit');
 
 		if ($val->run()){
+			$factura->num_factura = Input::post('num_factura');
 			$factura->idprov = Input::post('idprov');
 			$factura->fecha = Input::post('fecha');
 			$factura->total = Input::post('total');
@@ -149,17 +153,18 @@ class Controller_Factura extends Controller_Template
             $factura->comentario = Input::post('comentario');
 
 			if ($factura->save()){
-				Session::set_flash('success', 'Factura núm. ' . $id . ' actualizada correctamente.');
+				Session::set_flash('success', 'Factura núm. ' . $factura->num_factura . ' actualizada correctamente.');
 				Response::redirect('factura/print/'.$id);
 			}
 			else{
-				Session::set_flash('error', 'No se ha podido actualizar la factura núm. ' . $id);
+				Session::set_flash('error', 'No se ha podido actualizar la factura núm. ' . $factura->num_factura);
 			}
 		}
 		else
 		{
 			if (Input::method() == 'POST')
 			{
+				$factura->num_factura = $val->validated('num_factura');
 				$factura->idprov = $val->validated('idprov');
 				$factura->fecha = $val->validated('fecha');
 				$factura->total = $val->validated('total');

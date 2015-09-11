@@ -26,7 +26,7 @@ $prov = Model_Proveedor::find($factura->idprov);
         <table id="meta">
             <tr>
                 <td class="meta-head">Factura Núm.</td>
-                <td class="idfactura""><?php echo $factura->id; ?></td>
+                <td class="idfactura"><?php echo $factura->num_factura; ?></td>
             </tr>
             <tr>
 
