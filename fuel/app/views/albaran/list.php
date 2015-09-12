@@ -11,8 +11,8 @@
 		</tr>
 	</thead>
 	<tbody>
-<?php foreach ($albarans as $item): ?>		<tr>
-
+<?php foreach ($albarans as $item): ?>
+        <tr>
 			<td><?php echo $item->idalbaran; ?></td>
             <td><?php echo date('d-m-Y',$item->created_at);?></td>
 			<td><?php echo Model_Proveedor::find($item->idproveedor)['nombre']; ?></td>

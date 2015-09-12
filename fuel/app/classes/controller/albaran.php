@@ -81,20 +81,15 @@ class Controller_Albaran extends Controller_Template
                     'comentario' => Input::post('comentario'),
 				));
 
-				if ($albaran and $albaran->save())
-				{
+				if ($albaran and $albaran->save()){
 					Session::set_flash('success', 'Albaran Núm.'.$albaran->id.' creado correctamente.');
-
 					Response::redirect('albaran/list');
 				}
-
-				else
-				{
+				else{
 					Session::set_flash('error', 'No se pudo almacenar el albarán.');
 				}
 			}
-			else
-			{
+			else{
 				Session::set_flash('error', $val->error());
 			}
 		}
@@ -123,20 +118,18 @@ class Controller_Albaran extends Controller_Template
             $albaran->comentario = Input::post('comentario');
 
 			if ($albaran->save()){
-
                 $result = DB::update('albarans')
                     ->value("comentario", Input::post('comentario'))
                     ->where('idalbaran', '=',Input::post('idalbaran') )
                     ->execute();
 
-				Session::set_flash('success', 'Albarán núm. ' . $id .' actualizado.');
+				Session::set_flash('success', 'Albarán núm. ' . $albaran->idalbaran .' actualizado.');
 				Response::redirect('albaran/list');
 			}
 			else{
-				Session::set_flash('error', 'No se ha podido actualizar el albarán núm. ' . $id);
+				Session::set_flash('error', 'No se ha podido actualizar el albarán núm. ' . $albaran->idalbaran);
 			}
 		}
-
 		else
 		{
 			if (Input::method() == 'POST')
@@ -147,7 +140,6 @@ class Controller_Albaran extends Controller_Template
                 $albaran->comentario = $val->validated('comentario');
 				Session::set_flash('error', $val->error());
 			}
-
 			$this->template->set_global('albaran', $albaran, false);
 		}
 
