@@ -8,7 +8,6 @@
 
 		</div>
 		<?php echo Form::input('identrega', Input::post('identrega', isset($albaran) ? $albaran->identrega : ''), array('class' => 'col-md-4 form-control', 'type'=>'hidden')); ?>
-
 		<div class="form-group">
 			<?php echo Form::label('Proveedor', 'idproveedor', array('class'=>'control-label')); ?>
 				<?php echo Form::input('idproveedor', Input::post('idproveedor', isset($albaran) ? $albaran->idproveedor : ''), array('class' => 'col-md-4 form-control', 'type'=>'hidden')); ?>
@@ -16,12 +15,11 @@
 		</div>
         <div class="form-group">
             <?php echo Form::label('Comentario', 'comentario', array('class'=>'control-label')); ?>
-
             <?php echo Form::input('comentario', Input::post('comentario', isset($albaran) ? $albaran->comentario : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Comentario')); ?>
-
         </div>
 		<div class="form-group">
 			<label class='control-label'>&nbsp;</label>
-			<?php echo Form::submit('submit', 'Guardar cambios', array('class' => 'btn btn-primary')); ?>		</div>
+			<?php echo Form::submit('submit', 'Guardar cambios', array('class' => 'btn btn-primary')); ?>
+        </div>
 	</fieldset>
 <?php echo Form::close(); ?>

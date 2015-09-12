@@ -161,13 +161,19 @@ class Controller_Albaran extends Controller_Template
 		is_null($id) and Response::redirect('albaran/list');
 
 		if ($albaran = Model_Albaran::find($id)){
-			$albaran->delete();
-			Session::set_flash('success', 'Albarán núm. '.$id. ' borrado.');
+            $related = Model_Albaran::find('all',array('where'=>array('idalbaran'=>$albaran->idalbaran)));
+            foreach($related as $a) {
+                $entrega = Model_Entrega::find('first', array('where' => array('albaran' => $a->id)));
+                //echo "Borramos la entrega ".$entrega->id;
+                $entrega->delete();
+                //echo "Borramos el albaran ".$a->id;
+                $a->delete();
+            }
+			Session::set_flash('success', 'Albarán núm. '.$albaran->idalbaran. ' borrado.');
 		}
 		else{
-			Session::set_flash('error', 'No se pudo borrar el albarán núm. '.$id);
+			Session::set_flash('error', 'No se pudo borrar el albarán núm. '.$albaran->idalbaran);
 		}
 		Response::redirect('albaran/list');
 	}
-
 }

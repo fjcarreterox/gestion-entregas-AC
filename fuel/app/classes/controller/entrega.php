@@ -88,8 +88,8 @@ class Controller_Entrega extends Controller_Template
 
 		if ( ! $data['entrega'] = Model_Entrega::find($id))
 		{
-			Session::set_flash('error', 'Could not find entrega #'.$id);
-			Response::redirect('entrega');
+			Session::set_flash('error', 'No se ha podido encontrar la entrega solicitada.');
+			Response::redirect('entrega/list');
 		}
 		$this->template->title = "Detalle de Entrega";
 		$this->template->content = View::forge('entrega/view', $data);
