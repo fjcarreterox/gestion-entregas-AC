@@ -130,7 +130,7 @@ $(document).ready(function() {
     //Add a new line to the current invoice
     $("#addrow_bill").click(function(){
         var orden = $("tr.item-row").length+1;
-        var values = {"idfactura":$("td.idfactura").html(),"orden":orden,"concepto":"___Concepto___","precio":0.00,"kg":1};
+        var values = {"idfactura":$("input#idfactura").val(),"orden":orden,"concepto":"___Concepto___","precio":0.00,"kg":1};
 
         $.ajax({
             type: "POST",
