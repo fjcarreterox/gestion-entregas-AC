@@ -8,7 +8,7 @@ else{
     echo '<br/>'.Html::anchor('entrega/create', '<span class="glyphicon glyphicon-plus"></span> Añadir nueva entrega', array('class' => 'btn btn-success'));
 }
 ?>
-
+<br/>
 <?php if ($entregas): ?>
     <?php if(isset($puesto)){ ?>
         <h4>Número de entregas registradas hoy: <span class='muted'><?php echo count($entregas); ?></span></h4>
@@ -19,7 +19,7 @@ else{
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<th>Fecha</th>
+			<th>Fecha entrega</th>
             <th>Proveedor</th>
             <th>NIF/CIF</th>
 			<th>Núm. Albarán</th>
