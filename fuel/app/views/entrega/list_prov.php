@@ -12,10 +12,10 @@ else{*/
 <?php if ($entregas): ?>
     <h3><u>Historial de entregas del cliente</u></h3>
     <p>Número total de entregas realizadas: <b><?php echo count($entregas) ?></b> durante toda la campaña.</p>
-    <table class="table table-striped">
+    <table class="table table-striped print">
 	    <thead>
 		    <tr>
-                <th>Fecha</th>
+                <th>Fecha entrega</th>
                 <th>Núm. Albarán</th>
                 <th>Variedad</th>
                 <th class="gris">Tamaño</th>

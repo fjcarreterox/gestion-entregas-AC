@@ -3,7 +3,8 @@
     echo "<h2 > Selecciona un rango de fechas para obtener el listado de entregas de <b>".Model_Puesto::find($idpuesto)->get('nombre')."</b></h2 >";
 ?>
 <br/>
-<p class="hide_elem">Para obtener resultados de entregas, asegurate de que la fecha final es posterior a la inicial.</p>
+<p class="hide_elem">Para obtener resultados de entregas, asegúrate de que la <b>fecha final</b> es posterior a la <b>inicial</b>.</p>
+<br/>
     <fieldset class="hide_elem">
         <div class="form-group">
             <?php echo Form::label('Fecha inicial', 'start', array('class'=>'control-label')); ?>
@@ -23,12 +24,13 @@
     if(count($entregas)>0):
         echo Html::anchor('javascript:window.print()', '<i class="icon-trash icon-white"></i> Imprimir entradas', array('class' => 'btn btn-small btn-info','id'=>'print-invoice'));
         echo "<br/><br/><p>Mostrando listado de entregas realizadas entre el <b>".date_conv($_POST["start"])."</b> y el <b>".date_conv($_POST["end"])."</b>.</p>";
-        echo "<p>Total de entregas encontradas: <b>".count($entregas)."</b></p>";
+        echo "<br/><p>Total de entregas encontradas: <b>".count($entregas)."</b></p>";
     ?>
-<table class="table table-striped">
+<br/>
+    <table class="table table-striped print">
     <thead>
     <tr>
-        <th>Fecha</th>
+        <th>Fecha entrega</th>
         <th>Proveedor</th>
         <th>NIF/CIF</th>
         <th>Núm. Albarán</th>

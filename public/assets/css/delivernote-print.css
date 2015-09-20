@@ -28,3 +28,7 @@ a.btn{
 body{
     font-size: 2em !important;
 }
+
+table.print{
+    font-size: 0.6em;
+}

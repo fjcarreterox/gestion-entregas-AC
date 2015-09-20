@@ -16,7 +16,7 @@ else{
         <h4>Número de entregas registradas en total: <span class='muted'><?php echo count($entregas); ?></span></h4>
     <?php } ?>
     <br/>
-<table class="table table-striped">
+<table class="table table-striped print">
 	<thead>
 		<tr>
 			<th>Fecha entrega</th>
@@ -52,11 +52,11 @@ foreach ($entregas as $item):?>
 <?php endforeach; ?>
     </tbody>
 </table>
-
 <?php else: ?>
 <p>No se han registrado aún entregas.</p>
-
-<?php endif; ?><p>
+<br/>
+<?php endif; ?>
+<p>
     <?php echo Html::anchor('javascript:window.print()', '<span class="glyphicon glyphicon-print"></span> Imprimir entrada diaria', array('class' => 'btn btn-small btn-info','id'=>'print-deliverynote')); ?>
     <?php if(isset($puesto)){ ?>
         <?php echo Html::anchor('entrega/fechas/'.$idpuesto, 'Consultar entrada en otra fecha', array('class' => 'btn btn-success')); ?>
