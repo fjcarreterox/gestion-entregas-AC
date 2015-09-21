@@ -9,6 +9,14 @@ $( document ).ready(function() {
         }
         return true;
     });
+    
+    $("input#form_more").click(function( event ) {
+        if($("#form_idprov")[0].value=="0") {
+            alert("Por favor, selecciona al proveedor que realiza la entrega.");
+            return false;
+        }
+        return true;
+    });
 
     $("input#form_entrega_submit").click(function( event ) {
         if($("#form_provider")[0].value=="0") {
