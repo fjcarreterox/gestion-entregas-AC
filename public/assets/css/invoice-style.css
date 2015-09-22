@@ -75,7 +75,3 @@ textarea#iva{
 textarea#retencion{
     width: 40px;
 }
-
-textarea.coste{
-    width: 70px !important;
-}
