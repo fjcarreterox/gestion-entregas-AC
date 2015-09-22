@@ -4,10 +4,28 @@
 $total = 0;
 $total_recogido = 0;
 ?>
+<p>Mostramos una tabla resumen del acumulado:</p>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Anticipos totales (&euro;)</th>
+        <th>Anticipos totales recogidos (&euro;)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><?php echo number_format($total,2); ?> &euro;</td>
+        <td><?php echo number_format($total_recogido,2); ?> &euro;</td>
+    </tr>
+    </tbody>
+</table>
+<br/>
+<p>Listado de anticipos registrados en el sistema:</p>
+    <br/>
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<th>Fecha</th>
+			<th>Fecha creación</th>
 			<th>Proveedor</th>
 			<th>Núm. Cheque</th>
 			<th>Banco</th>
@@ -33,10 +51,10 @@ $total_recogido = 0;
 			<td>
 				<div class="btn-toolbar">
 					<div class="btn-group">
-						<?php echo Html::anchor('anticipo/view/'.$item->id, '<i class="icon-eye-open"></i> Ver detalle', array('class' => 'btn btn-small btn-default')); ?>
-                        <?php echo Html::anchor('anticipo/edit/'.$item->id, '<i class="icon-wrench"></i> Editar', array('class' => 'btn btn-small btn-success')); ?>
-                        <?php echo Html::anchor('anticipo/print/'.$item->id, '<i class="icon-info icon-white"></i> Imprimir', array('class' => 'btn btn-small btn-info')); ?>
-                        <?php echo Html::anchor('anticipo/delete/'.$item->id, '<i class="icon-trash icon-white"></i> Borrar', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('¿Estás seguro de querer borrarlo?')")); ?>
+						<?php echo Html::anchor('anticipo/view/'.$item->id, '<span class="glyphicon glyphicon-eye-open"></span> Detalle', array('class' => 'btn btn-default')); ?>
+                        <?php echo Html::anchor('anticipo/edit/'.$item->id, '<span class="glyphicon glyphicon-pencil"></span> Editar', array('class' => 'btn btn-success')); ?>
+                        <?php echo Html::anchor('anticipo/print/'.$item->id, '<span class="glyphicon glyphicon-print"></span> Imprimir', array('class' => 'btn btn-info')); ?>
+                        <?php echo Html::anchor('anticipo/delete/'.$item->id, '<span class="glyphicon glyphicon-trash"></span> Borrar', array('class' => 'btn btn-danger', 'onclick' => "return confirm('¿Estás seguro de querer borrarlo?')")); ?>
                     </div>
 				</div>
 
@@ -44,23 +62,6 @@ $total_recogido = 0;
 		</tr>
 <?php endforeach; ?>	</tbody>
 </table>
-<p>Mostramos una tabla resumen del acumulado:</p>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Anticipos totales (&euro;)</th>
-            <th>Anticipos totales recogidos (&euro;)</th>
-        </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td><?php echo number_format($total,2); ?> &euro;</td>
-        <td><?php echo number_format($total_recogido,2); ?> &euro;</td>
-    </tr>
-    </tbody>
-</table>
-    <br/>
-    <br/>
 
 <?php else: ?>
 <p>No se han encontrado anticipos.</p>
