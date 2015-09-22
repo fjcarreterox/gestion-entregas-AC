@@ -82,7 +82,7 @@ foreach ($entregas as $item):?>
     <h3 class="print"><u>Listado de anticipos entregados</u></h3>
     <p class="print">Número total de anticipos recogidos: <b><?php echo count($anticipos) ?></b> durante toda la campaña.</p>
     <?php if(count($anticipos)>0):?>
-    <table class="table table-striped">
+    <table class="table table-striped print">
         <thead>
         <tr>
             <th>Fecha</th>
