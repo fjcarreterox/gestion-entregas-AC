@@ -8,8 +8,8 @@ $total_recogido = 0;
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>Anticipos totales (&euro;)</th>
-        <th>Anticipos totales recogidos (&euro;)</th>
+        <th>Anticipos totales</th>
+        <th>Anticipos totales recogidos</th>
     </tr>
     </thead>
     <tbody>
