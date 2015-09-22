@@ -14,8 +14,8 @@ $total_recogido = 0;
     </thead>
     <tbody>
     <tr>
-        <td><?php echo number_format($total,2); ?> &euro;</td>
-        <td><?php echo number_format($total_recogido,2); ?> &euro;</td>
+        <td class="total"></td>
+        <td class="recogido"></td>
     </tr>
     </tbody>
 </table>
@@ -43,8 +43,8 @@ $total_recogido = 0;
 			<td><?php echo Model_Banco::find($item->idbanco)->get('nombre'); ?></td>
 			<td><?php $total += $item->cuantia;echo $item->cuantia; ?> &euro;</td>
 			<td><?php if($item->recogido) {
-                    echo "SÍ";
                     $total_recogido += $item->cuantia;
+                    echo "SÍ";
                 }
                 else
                     echo "NO"; ?></td>
@@ -60,13 +60,19 @@ $total_recogido = 0;
 
 			</td>
 		</tr>
-<?php endforeach; ?>	</tbody>
+<?php endforeach; ?>
+    </tbody>
 </table>
-
+    <span class="hidden total"><?php echo number_format($total,2);?></span>
+    <span class="hidden recogido"><?php echo number_format($total_recogido,2);?></span>
 <?php else: ?>
 <p>No se han encontrado anticipos.</p>
-
 <?php endif; ?><p>
-	<?php echo Html::anchor('anticipo/index', 'Registrar un nuevo anticipo', array('class' => 'btn btn-success')); ?>
-
+	<?php echo Html::anchor('anticipo/index', '<span class="glyphicon glyphicon-plus"></span> Registrar un nuevo anticipo', array('class' => 'btn btn-success')); ?>
 </p>
+<script>
+    $(document).ready(function(){
+        $("td.total").html($("span.total").html()+" &euro;");
+        $("td.recogido").html($("span.recogido").html()+" &euro;");
+    });
+</script>
