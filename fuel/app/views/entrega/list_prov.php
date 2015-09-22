@@ -7,11 +7,11 @@ else{*/
     echo "<h2><span class='muted'>Ficha final</span> del proveedor <b>$nombre_prov.</b></h2>";
 //}
 ?>
-
 <br/>
+<p><?php echo Html::anchor('javascript:window.print()', '<span class="glyphicon glyphicon-print"></span> Imprimir ficha final', array('class' => 'btn btn-info','id'=>'print-deliverynote')); ?></p>
 <?php if ($entregas): ?>
-    <h3><u>Historial de entregas del cliente</u></h3>
-    <p>Número total de entregas realizadas: <b><?php echo count($entregas) ?></b> durante toda la campaña.</p>
+    <h3 class="print"><u>Historial de entregas del cliente</u></h3>
+    <p class="print">Número total de entregas realizadas: <b><?php echo count($entregas) ?></b> durante toda la campaña.</p>
     <table class="table table-striped print">
 	    <thead>
 		    <tr>
@@ -34,22 +34,22 @@ foreach ($entregas as $item):?>
             <td><?php echo Model_Albaran::find($item->albaran)->get('idalbaran'); ?></td>
 			<td><?php echo Model_Variedad::find($item->variedad)->get('nombre');?></td>
             <td class="gris"><?php echo $item->tam; ?></td>
-			<td><?php echo $item->total;
+			<td><strong><?php echo $item->total;
                 if(isset($total_variedades[$item->variedad])) {
                     $total_variedades[$item->variedad] += $item->total;
                 }else{
                     $total_variedades[$item->variedad] = $item->total;
                 }
-                ?></td>
+                ?></strong></td>
             <td><?php echo get_percents($item); ?></td>
 			<td>
 				<div class="btn-toolbar">
 					<div class="btn-group">
-						<?php echo Html::anchor('entrega/view/'.$item->id, '<i class="icon-eye-open"></i> Ver detalle', array('class' => 'btn btn-small')); ?>
-                        <?php echo Html::anchor('entrega/edit/'.$item->id, '<i class="icon-wrench"></i> Editar', array('class' => 'btn btn-small')); ?>
-                        <?php echo Html::anchor('entrega/delete/'.$item->id, '<i class="icon-trash icon-white"></i> Borrar', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('¿Estás seguro de esto?')")); ?>					</div>
+						<?php echo Html::anchor('entrega/view/'.$item->id, '<span class="glyphicon glyphicon-eye-open"></span> Detalle', array('class' => 'btn btn-default')); ?>
+                        <?php echo Html::anchor('entrega/edit/'.$item->id, '<span class="glyphicon glyphicon-pencil"></span> Editar', array('class' => 'btn btn-success')); ?>
+                        <?php echo Html::anchor('entrega/delete/'.$item->id, '<span class="glyphicon glyphicon-trash"></span> Borrar', array('class' => 'btn btn-danger', 'onclick' => "return confirm('¿Estás seguro de esto?')")); ?>
+                    </div>
 				</div>
-
 			</td>
 		</tr>
 <?php endforeach;?>
@@ -58,8 +58,8 @@ foreach ($entregas as $item):?>
 
     <br/>
     <br/>
-    <h3><u>Resumen de kg. entregados por variedad de aceituna</u></h3>
-<table class="table table-striped">
+    <h3 class="print"><u>Resumen de kg. entregados por variedad de aceituna</u></h3>
+<table class="table table-striped print">
     <thead>
     <tr>
         <th>Variedad</th>
@@ -79,8 +79,8 @@ foreach ($entregas as $item):?>
     </table>
     <!--<p>En total suman: <?php /*echo $sumakg;*/ ?> Kg.</p>-->
     <br/>
-    <h3><u>Listado de anticipos entregados</u></h3>
-    <p>Número total de anticipos recogidos: <b><?php echo count($anticipos) ?></b> durante toda la campaña.</p>
+    <h3 class="print"><u>Listado de anticipos entregados</u></h3>
+    <p class="print">Número total de anticipos recogidos: <b><?php echo count($anticipos) ?></b> durante toda la campaña.</p>
     <?php if(count($anticipos)>0):?>
     <table class="table table-striped">
         <thead>
@@ -104,16 +104,16 @@ foreach ($entregas as $item):?>
         <?php endforeach;?>
         </tbody>
     </table>
-    <p class="total">En total suman: <span class="totaleuros"><?php echo number_format($suma,2); ?> &euro;.</span></p>
+    <p class="total print">En total suman: <span class="totaleuros"><?php echo number_format($suma,2); ?> &euro;.</span></p>
     <?php else: ?>
-        <p>No se han registrado aún anticipos para este proveedor.</p>
+        <p class="print">No se han registrado aún anticipos para este proveedor.</p>
     <?php endif; ?>
     <br/>
 <?php else: ?>
 <p>No se han registrado aún entregas.</p>
 
 <?php endif; ?><p>
-    <?php echo Html::anchor('javascript:window.print()', '<i class="icon-trash icon-white"></i> Imprimir ficha final', array('class' => 'btn btn-small btn-info','id'=>'print-deliverynote')); ?>
+    <?php echo Html::anchor('javascript:window.print()', '<span class="glyphicon glyphicon-print"></span>  Imprimir ficha final', array('class' => 'btn btn-info','id'=>'print-deliverynote')); ?>
 </p>
 <script type="text/javascript">
     var total = $("p.total");

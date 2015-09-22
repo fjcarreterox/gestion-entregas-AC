@@ -32,3 +32,11 @@ body{
 table.print{
     font-size: 0.6em;
 }
+
+h3.print{
+    font-size: 0.9em;
+}
+
+p.print{
+    font-size: 0.7em;
+}
