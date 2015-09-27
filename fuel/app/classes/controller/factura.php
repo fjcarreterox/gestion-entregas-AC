@@ -23,6 +23,13 @@ class Controller_Factura extends Controller_Template
         $this->template->content = View::forge('factura/list', $data);
     }
 
+    public function action_report()
+    {
+        $data['facturas'] = Model_Factura::find('all',array('order_by' => array('num_factura' => 'desc')));
+        $this->template->title = "Informe de IVA y retenciones en facturas";
+        $this->template->content = View::forge('factura/report', $data);
+    }
+
     public function action_list_prov($idprov)
     {
         is_null($idprov) and Response::redirect('factura/list');
