@@ -5,9 +5,6 @@
 	<title>Aceitunas Coria S.L.</title>
 	<?php echo Asset::css('bootstrap.css'); ?>
     <?php echo Asset::css('styles.css'); ?>
-	<style>
-
-	</style>
 </head>
 <body>
 	<header>
@@ -18,9 +15,13 @@
 	<div class="container">
 		<div class="jumbotron">
 			<h1>Aceitunas Coria S.L.</h1>
-			<p>Área de gestión. ¡Qué tal, <b><?php echo \Fuel\Core\Session::get('username'); ?></b>!</p>
-            <p><small><a href="welcome/guide">Guía de uso básico de la aplicación</a></small></p>
-            <p><small><a href="logout">Salir del sistema</a></small></p>
+            <br/>
+			<p>Área de gestión. ¡Qué tal, <b><?php echo \Fuel\Core\Session::get('username'); ?></b>!</p><br/>
+            <ul class="list-unstyled">
+                <li><small><a href="welcome/guide" class="btn btn-info"><span class="glyphicon glyphicon-book"></span> &nbsp;Guía de uso básico de la aplicación</a></small></li>
+                <li><small><a href="http://www.aceitunascoria.es" target="_blank" class="btn btn-default">Visitar la web corporativa &nbsp;<span class="glyphicon glyphicon-globe"></span></a></small></li>
+                <li><small><a href="logout" class="btn btn-danger">Salir del sistema &nbsp;<span class="glyphicon glyphicon-log-out"></span></a></small></li>
+            </ul>
 		</div>
         <div class="row">
             <div class="col-md-4">
@@ -57,6 +58,7 @@
                     <li><a href="factura/create">Generar nueva factura</a></li>
                     <li><a href="factura/list">Ver todas las facturas hasta la fecha</a></li>
                     <li><a href="factura/init">Facturas emitidas por proveedor</a></li>
+                    <li><a href="factura/report">Resumen IVA y retenciones</a></li>
                 </ul>
             </div>
             <div class="col-md-4">
