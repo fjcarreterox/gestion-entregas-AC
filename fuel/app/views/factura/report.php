@@ -21,10 +21,14 @@
         $iva_array[$iva]["comp"] += $comp;
         $suma = $base+number_format(($base*$f->get('iva'))/100,2,'.','');
         $iva_array[$iva]["suma"] += $suma;
-        //echo "Base: $base, IVA: $iva, Comp: $comp, suma: $suma <br/>";
+
         if($f->get('retencion')==2){
-            $total_ret += number_format(($base+number_format(($base*$f->get('iva'))/100,2)*$f->get('retencion'))/100,2,'.','');
+            $ret = number_format(($suma*$f->get('retencion'))/100,2,'.','');
+            $total_ret += $ret;
+            //$total_ret += number_format(($base+number_format(($base*$f->get('iva'))/100,2)*$f->get('retencion'))/100,2,'.','');
+
         }
+        //echo "Base: $base, IVA: $iva, Comp: $comp, suma: $suma, retencion: $ret <br/>";
     }
 
     ?>
@@ -69,7 +73,7 @@
         </tr>
     </table>
     <br/>
-
+    <?php echo Html::anchor('javascript:window.print()', '<span class="glyphicon glyphicon-print"></span> Imprimir resumen', array('class' => 'btn btn-info')); ?>
 <?php else: ?>
 <p>No se han encontrado facturas hasta ahora.</p>
 <?php endif; ?>
