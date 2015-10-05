@@ -41,6 +41,8 @@
             <div class="col-md-4">
                 <h2>Informes</h2>
                 <li><a href="entrega/init">Ficha final del proveedor</a></li>
+                <li><a href="proveedor/activos">Proveedores activos</a></li>
+                <li><a href="proveedor/inactivos">Proveedores inactivos</a></li>
             </div>
         </div>
         <div class="row">

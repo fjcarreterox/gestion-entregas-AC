@@ -1,5 +1,5 @@
-<h2>Datos del proveedor <span class='muted'>seleccionado:<?php /*echo $proveedor->id;*/ ?></span></h2>
-
+<h2>Datos del proveedor <span class='muted'>seleccionado<?php /*echo $proveedor->id;*/ ?></span></h2>
+<br/>
 <p>
 	<strong>Nombre:</strong>
 	<?php echo $proveedor->nombre; ?></p>
@@ -24,5 +24,6 @@
 <p>
     <strong>Envases prestados:</strong>
     <?php echo $proveedor->envases; ?></p>
-<?php echo Html::anchor('proveedor/edit/'.$proveedor->id, 'Editar'); ?> |
-<?php echo Html::anchor('proveedor', 'Volver'); ?>
+<br/>
+<?php echo Html::anchor('proveedor/edit/'.$proveedor->id, '<span class="glyphicon glyphicon-pencil"></span> Editar',array('class'=>'btn btn-success')); ?>
+<?php echo Html::anchor('proveedor', '<span class="glyphicon glyphicon-backward"></span> Volver',array('class'=>'btn btn-danger')); ?>

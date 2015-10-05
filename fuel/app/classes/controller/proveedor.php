@@ -2,12 +2,38 @@
 class Controller_Proveedor extends Controller_Template
 {
 
-	public function action_index()
-	{
+	public function action_index(){
 		$data['proveedors'] = Model_Proveedor::find('all',array('order_by' => 'nombre'));
+        $data['intro'] = "Durante la presente campaña hay registrados";
 		$this->template->title = "Proveedores";
 		$this->template->content = View::forge('proveedor/index', $data);
 	}
+
+    public function action_activos(){
+        $provs = Model_Proveedor::find('all',array('order_by' => 'id'));
+        foreach($provs as $p){
+            if(!Model_Albaran::find('first',array('where'=>array('idproveedor'=>$p->id)))){
+                unset($provs[$p->id]);
+            }
+        }
+        $data['proveedors'] = $provs;
+        $data['intro'] = "Durante la presente campaña hay activos";
+        $this->template->title = "Proveedores activos en el sistema";
+        $this->template->content = View::forge('proveedor/index', $data);
+    }
+
+    public function action_inactivos(){
+        $provs = Model_Proveedor::find('all',array('order_by' => 'id'));
+        foreach($provs as $p){
+            if(Model_Albaran::find('first',array('where'=>array('idproveedor'=>$p->id)))){
+                unset($provs[$p->id]);
+            }
+        }
+        $data['proveedors'] = $provs;
+        $data['intro'] = "Durante la presente campaña hay aún inactivos";
+        $this->template->title = "Proveedores inactivos en el sistema";
+        $this->template->content = View::forge('proveedor/index', $data);
+    }
 
     public function action_search()
     {
