@@ -16,7 +16,9 @@ else{
         <h4>Número de entregas registradas en total: <span class='muted'><?php echo count($entregas); ?></span></h4>
     <?php } ?>
     <br/>
-<table class="table table-striped print">
+
+    <h3 class="print"><u>Listado detallado de entregas</u></h3>
+    <table class="table table-striped print">
 	<thead>
 		<tr>
 			<th>Fecha entrega</th>
@@ -30,14 +32,22 @@ else{
 	</thead>
 	<tbody>
 <?php
+$total = array();
 foreach ($entregas as $item):?>
     <tr>
 			<td><?php echo date_conv($item->fecha); ?></td>
             <td><?php echo Model_Proveedor::find(Model_Albaran::find('first', array('where' => array('id' => $item->albaran)))->get('idproveedor'))->get('nombre'); ?></td>
             <td><?php echo Model_Proveedor::find(Model_Albaran::find('first', array('where' => array('id' => $item->albaran)))->get('idproveedor'))->get('nifcif'); ?></td>
             <td><?php echo Model_Albaran::find($item->albaran)->get('idalbaran'); ?></td>
-			<td><?php echo Model_Variedad::find($item->variedad)->get('nombre');?></td>
-			<td><?php echo $item->total; ?></td>
+			<td><?php $v = $item->variedad;
+                    echo Model_Variedad::find($v)->get('nombre');
+                ?></td>
+			<td><?php echo $item->total;
+                if(!isset($total[$v])){
+                    $total[$v] = $item->total;
+                }else{
+                    $total[$v] += $item->total;
+                } ?></td>
 			<td>
 				<div class="btn-toolbar">
 					<div class="btn-group">
@@ -49,9 +59,30 @@ foreach ($entregas as $item):?>
 
 			</td>
 		</tr>
-<?php endforeach; ?>
+<?php endforeach;?>
     </tbody>
 </table>
+
+    <br/>
+
+    <h3 class="print"><u>Resumen de kg. entregados por variedad de aceituna</u></h3>
+    <table class="table table-striped print">
+        <thead>
+        <tr>
+            <th>Variedad</th>
+            <th>Total entregado</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach($total as $v => $t): ?>
+            <tr>
+                <td><?php echo Model_Variedad::find($v)->get('nombre'); ?></td>
+                <td><?php echo $t; ?>  Kgs.</td>
+            </tr>
+        <?php endforeach;?>
+        </tbody>
+    </table>
+    <br/>
 <?php else: ?>
 <p>No se han registrado aún entregas.</p>
 <br/>
