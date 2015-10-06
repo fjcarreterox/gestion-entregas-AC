@@ -13,6 +13,7 @@ class Model_Proveedor extends Model
 		'tipo',
         'comentario',
         'envases',
+        'liquidado',
 		'created_at',
 		'updated_at',
 	);
@@ -39,6 +40,7 @@ class Model_Proveedor extends Model
 		$val->add_field('tipo', 'Tipo', 'required|max_length[15]');
         $val->add_field('comentario', 'Comentario', 'required|max_length[255]');
         $val->add_field('envases', 'Envases', 'required|valid_string[numeric]');
+        $val->add_field('liquidado', 'Liquidado', 'required|valid_string[numeric]');
 		return $val;
 	}
 

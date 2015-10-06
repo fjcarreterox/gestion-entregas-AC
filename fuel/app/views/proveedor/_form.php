@@ -1,4 +1,7 @@
-<?php echo Form::open(array("class"=>"form-horizontal")); ?>
+<?php
+$liq_ops = array(0=>"NO",1=>"SÍ");
+
+echo Form::open(array("class"=>"form-horizontal")); ?>
 	<fieldset>
 		<div class="form-group">
 			<?php echo Form::label('Nombre', 'nombre', array('class'=>'control-label')); ?>
@@ -36,6 +39,10 @@
         <div class="form-group">
             <?php echo Form::label('Envases prestados', 'envases', array('class'=>'control-label')); ?>
             <?php echo Form::input('envases', Input::post('envases', isset($proveedor) ? $proveedor->envases : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Núm. envases prestados')); ?>
+        </div>
+        <div class="form-group">
+            <?php echo Form::label('Liquidado', 'liquidado', array('class'=>'control-label')); ?>
+            <?php echo Form::select('liquidado', Input::post('liquidado', isset($proveedor) ? $proveedor->liquidado : ''),$liq_ops, array('class' => 'col-md-4 form-control', 'placeholder'=>'Núm. envases prestados')); ?>
         </div>
         <br/>
 		<div class="form-group">

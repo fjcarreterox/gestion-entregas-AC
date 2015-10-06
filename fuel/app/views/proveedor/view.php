@@ -24,6 +24,9 @@
 <p>
     <strong>Envases prestados:</strong>
     <?php echo $proveedor->envases; ?></p>
+<p>
+    <strong>Liquidado:</strong>
+    <?php if($proveedor->liquidado){echo "SÍ";}else{echo "NO";} ?></p>
 <br/>
 <?php echo Html::anchor('proveedor/edit/'.$proveedor->id, '<span class="glyphicon glyphicon-pencil"></span> Editar',array('class'=>'btn btn-success')); ?>
-<?php echo Html::anchor('proveedor', '<span class="glyphicon glyphicon-backward"></span> Volver',array('class'=>'btn btn-danger')); ?>
+<?php echo Html::anchor('proveedor', '<span class="glyphicon glyphicon-backward"></span> Volver al listado completo',array('class'=>'btn btn-danger')); ?>

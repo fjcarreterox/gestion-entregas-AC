@@ -103,6 +103,7 @@ class Controller_Proveedor extends Controller_Template
                         'tipo' => Input::post('tipo'),
                         'comentario' => Input::post('comentario'),
                         'envases' => Input::post('envases'),
+                        'liquidado' => Input::post('liquidado'),
                     ));
 
                     if ($proveedor and $proveedor->save()) {
@@ -147,17 +148,14 @@ class Controller_Proveedor extends Controller_Template
 			$proveedor->tipo = Input::post('tipo');
             $proveedor->comentario = Input::post('comentario');
             $proveedor->envases = Input::post('envases');
+            $proveedor->liquidado = Input::post('liquidado');
 
-			if ($proveedor->save())
-			{
+			if ($proveedor->save())	{
 				Session::set_flash('success', '¡Proveedor actualizado!');
-
 				Response::redirect('proveedor');
 			}
-
-			else
-			{
-				Session::set_flash('error', 'Could not update proveedor #' . $id);
+			else{
+				Session::set_flash('error', 'No se ha podido actualizar el proveedor seleccionado.');
 			}
 		}
 
@@ -173,6 +171,7 @@ class Controller_Proveedor extends Controller_Template
 				$proveedor->tipo = $val->validated('tipo');
                 $proveedor->comentario = $val->validated('comentario');
                 $proveedor->envases = $val->validated('envases');
+                $proveedor->liquidado = $val->validated('liquidado');
 
 				Session::set_flash('error', $val->error());
 			}
