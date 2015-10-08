@@ -10,7 +10,7 @@ class Controller_Proveedor extends Controller_Template
 	}
 
     public function action_activos(){
-        $provs = Model_Proveedor::find('all',array('order_by' => 'id'));
+        $provs = Model_Proveedor::find('all',array('where'=>array('liquidado'=>0),'order_by' => 'id'));
         foreach($provs as $p){
             if(!Model_Albaran::find('first',array('where'=>array('idproveedor'=>$p->id)))){
                 unset($provs[$p->id]);
@@ -32,6 +32,14 @@ class Controller_Proveedor extends Controller_Template
         $data['proveedors'] = $provs;
         $data['intro'] = "Durante la presente campaña hay aún inactivos";
         $this->template->title = "Proveedores inactivos en el sistema";
+        $this->template->content = View::forge('proveedor/index', $data);
+    }
+
+    public function action_liquidados(){
+        $provs = Model_Proveedor::find('all',array('where'=>array('liquidado'=>1),'order_by' => 'id'));
+        $data['proveedors'] = $provs;
+        $data['intro'] = "Durante la presente campaña se han liquidado";
+        $this->template->title = "Proveedores liquidados en el sistema";
         $this->template->content = View::forge('proveedor/index', $data);
     }
 
