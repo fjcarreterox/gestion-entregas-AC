@@ -5,7 +5,7 @@
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<th>Nombre identificativo</th>
+			<th>Nombre del puesto de recogida</th>
 			<th>&nbsp;</th>
 		</tr>
 	</thead>
@@ -16,9 +16,9 @@
 			<td>
 				<div class="btn-toolbar">
 					<div class="btn-group">
-						<?php echo Html::anchor('puesto/view/'.$item->id, '<i class="icon-eye-open"></i> Ver Ficha', array('class' => 'btn btn-sm btn-default')); ?>
-                        <?php echo Html::anchor('puesto/edit/'.$item->id, '<i class="icon-wrench"></i> Editar', array('class' => 'btn btn-sm btn-success')); ?>
-                        <?php echo Html::anchor('entrega/list/'.$item->id, '<i class="icon-eye-open"></i> Entrada diaria', array('class' => 'btn btn-sm btn-info')); ?>
+						<?php echo Html::anchor('puesto/view/'.$item->id, '<span class="glyphicon glyphicon-eye-open"></span> Ver Ficha', array('class' => 'btn btn-sm btn-default')); ?>
+                        <?php echo Html::anchor('puesto/edit/'.$item->id, '<span class="glyphicon glyphicon-pencil"></span> Editar', array('class' => 'btn btn-sm btn-success')); ?>
+                        <?php echo Html::anchor('entrega/list/'.$item->id, '<span class="glyphicon glyphicon-list-alt"></span> Entrada diaria', array('class' => 'btn btn-sm btn-info')); ?>
                     </div>
 				</div>
 
@@ -30,7 +30,4 @@
 <?php else: ?>
 <p>No Puestos.</p>
 
-<?php endif; ?><p>
-	<?php echo Html::anchor('puesto/create', 'Añadir un nuevo puesto', array('class' => 'btn btn-success')); ?>
-
-</p>
+<?php endif; ?><p><?php echo Html::anchor('puesto/create', '<span class="glyphicon glyphicon-plus"></span> Añadir un nuevo puesto', array('class' => 'btn btn-success')); ?></p>

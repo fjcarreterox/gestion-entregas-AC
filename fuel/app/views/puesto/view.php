@@ -4,5 +4,5 @@
 	<strong>Nombre del puesto de recogida:</strong>
 	<?php echo $puesto->nombre; ?></p>
 <br/>
-<?php echo Html::anchor('puesto/edit/'.$puesto->id, 'Editar',array('class'=>'btn btn-success')); ?>&nbsp;
-<?php echo Html::anchor('puesto', 'Volver',array('class'=>'btn btn-danger')); ?>
+<?php echo Html::anchor('puesto/edit/'.$puesto->id, '<span class="glyphicon glyphicon-pencil"></span> Cambiar nombre',array('class'=>'btn btn-success')); ?>
+<?php echo Html::anchor('puesto', '<span class="glyphicon glyphicon-backward"></span> Volver',array('class'=>'btn btn-danger')); ?>
