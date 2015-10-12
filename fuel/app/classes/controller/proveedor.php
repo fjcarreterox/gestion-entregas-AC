@@ -17,8 +17,8 @@ class Controller_Proveedor extends Controller_Template
             }
         }
         $data['proveedors'] = $provs;
-        $data['intro'] = "Durante la presente campaña hay activos";
-        $this->template->title = "Proveedores activos en el sistema";
+        $data['intro'] = "Durante la presente campaña hay activos (no liquidados)";
+        $this->template->title = "Proveedores activos (no liquidados) en el sistema";
         $this->template->content = View::forge('proveedor/index', $data);
     }
 
@@ -134,7 +134,7 @@ class Controller_Proveedor extends Controller_Template
 		$this->template->content = View::forge('proveedor/create');
 	}
 
-	public function action_edit($id = null)
+	public function action_edit($id = null, $tipo = null)
 	{
 		is_null($id) and Response::redirect('proveedor');
 
@@ -160,15 +160,13 @@ class Controller_Proveedor extends Controller_Template
 
 			if ($proveedor->save())	{
 				Session::set_flash('success', '¡Proveedor actualizado!');
-				Response::redirect('proveedor');
+				Response::redirect('proveedor/'.$tipo);
 			}
 			else{
 				Session::set_flash('error', 'No se ha podido actualizar el proveedor seleccionado.');
 			}
 		}
-
-		else
-		{
+		else{
 			if (Input::method() == 'POST')
 			{
 				$proveedor->nombre = $val->validated('nombre');
