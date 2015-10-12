@@ -33,7 +33,7 @@
 
     ?>
     <h3>Acumulado de IVA</h3>
-    <table class="table table-striped">
+    <table class="table table-striped print">
         <thead>
             <tr>
                 <td>&nbsp;</td>
@@ -66,7 +66,7 @@
     <br/>
 
     <h3>Acumulado de retenciones</h3>
-    <table class="table table-striped">
+    <table class="table table-striped print">
         <tr>
             <td>Retenciones al 2%</td>
             <td><?php echo $total_ret;?> &euro;</td>
@@ -74,6 +74,7 @@
     </table>
     <br/>
     <?php echo Html::anchor('javascript:window.print()', '<span class="glyphicon glyphicon-print"></span> Imprimir resumen', array('class' => 'btn btn-info')); ?>
+    <?php echo Html::anchor('factura/report_fechas', '<span class="glyphicon glyphicon-calendar"></span> Consultar resumen de un periodo', array('class' => 'btn btn-warning')); ?>
 <?php else: ?>
 <p>No se han encontrado facturas hasta ahora.</p>
 <?php endif; ?>

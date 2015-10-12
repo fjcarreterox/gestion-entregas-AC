@@ -23,11 +23,26 @@ class Controller_Factura extends Controller_Template
         $this->template->content = View::forge('factura/list', $data);
     }
 
-    public function action_report()
-    {
+    public function action_report(){
         $data['facturas'] = Model_Factura::find('all',array('order_by' => array('num_factura' => 'desc')));
         $this->template->title = "Informe de IVA y retenciones en facturas";
         $this->template->content = View::forge('factura/report', $data);
+    }
+
+    public function action_report_fechas(){
+        $data["facturas"] = array();
+        if (Input::method() == 'POST'){
+            $start = Input::post('start');
+            $end = Input::post('end');
+
+            $data["facturas"] = Model_Factura::find('all',array('where' => array(array('fecha', '>=', $start),array('fecha', '<=', $end))),array('order_by' => array('num_factura' => 'desc')));
+
+            $this->template->title = "Informe de IVA y retenciones en facturas";
+            $this->template->content = View::forge('factura/report', $data);
+        }
+        //$data['facturas'] = Model_Factura::find('all',array('order_by' => array('num_factura' => 'desc')));
+        $this->template->title = "Selección de fechas para la consulta";
+        $this->template->content = View::forge('factura/fechas',$data);
     }
 
     public function action_list_prov($idprov)
