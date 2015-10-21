@@ -62,6 +62,7 @@
                     <li><a href="factura/list">Ver todas las facturas hasta la fecha</a></li>
                     <li><a href="factura/init">Facturas emitidas por proveedor</a></li>
                     <li><a href="factura/report">Resumen IVA y retenciones</a></li>
+                    <li><a href="factura/full">Listado de facturas completo</a></li>
                 </ul>
             </div>
             <div class="col-md-4">

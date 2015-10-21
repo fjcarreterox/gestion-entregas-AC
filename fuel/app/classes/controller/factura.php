@@ -29,6 +29,50 @@ class Controller_Factura extends Controller_Template
         $this->template->content = View::forge('factura/report', $data);
     }
 
+    public function action_full(){
+        $facts = array();
+        $proveedores = Model_Proveedor::find('all',array('order_by' => array('nombre' => 'asc')));
+        foreach($proveedores as $p) {
+            $facturas = Model_Factura::find('all', array('where' => array('idprov' => $p->id)));
+            if(count($facturas)>0) {
+                $total_ret = 0;
+                $iva_array = array("4"=>array("base"=>0,"comp"=>0,"suma"=>0),
+                    "10"=>array("base"=>0,"comp"=>0,"suma"=>0),
+                    "12"=>array("base"=>0,"comp"=>0,"suma"=>0)
+                );
+
+                foreach($facturas as $f){
+
+                    $lineas = Model_Linea::find('all',array('where'=>array("idfactura"=>$f->get('id'))));
+                    $base = 0;$iva = 0;$comp = 0;$suma = 0;
+                    foreach($lineas as $l){
+                        $base += $l->get('importe');
+                    }
+
+                    $iva = $f->get('iva');
+                    $iva_array[$iva]["base"] += $base;
+                    $comp = number_format(($base*$f->get('iva'))/100,2,'.','');
+                    $iva_array[$iva]["comp"] += $comp;
+                    $suma = $base+number_format(($base*$f->get('iva'))/100,2,'.','');
+                    $iva_array[$iva]["suma"] += $suma;
+
+                    if($f->get('retencion')==2){
+                        $ret = number_format(($suma*$f->get('retencion'))/100,2,'.','');
+                        $total_ret += $ret;
+                        //$total_ret += number_format(($base+number_format(($base*$f->get('iva'))/100,2)*$f->get('retencion'))/100,2,'.','');
+
+                    }
+                    //echo "Prov: ".$p->id.", Base: $base, IVA: $iva, Comp: $comp, suma: $suma, retencion: $ret <br/>";
+                    $facts[$p->id] = array("base"=> $base,"iva" => $iva, "comp"=> $comp, "suma" => $suma, "retencion" => $ret);
+                }
+            }
+        }
+        $data['facturas'] = $facts;
+
+        $this->template->title = "Informe de IVA y retenciones en facturas por proveedor";
+        $this->template->content = View::forge('factura/full', $data);
+    }
+
     public function action_report_fechas(){
         $data["facturas"] = array();
         if (Input::method() == 'POST'){
