@@ -17,12 +17,12 @@
         <br/>
         <div class="form-group">
             <label class='control-label'>&nbsp;</label>
-            <?php echo Form::submit('submit', 'Consultar entrada diaria', array('class' => 'btn btn-primary')); ?>
+            <?php echo Form::button('submit', '<span class="glyphicon glyphicon-ok"></span> Consultar entrada diaria', array('class' => 'btn btn-primary','type'=>'submit')); ?>
         </div>
     </fieldset>
     <?php echo Form::close();
     if(count($entregas)>0):
-        echo Html::anchor('javascript:window.print()', '<i class="icon-trash icon-white"></i> Imprimir entradas', array('class' => 'btn btn-small btn-info','id'=>'print-invoice'));
+        echo Html::anchor('javascript:window.print()', '<span class="glyphicon glyphicon-print"></span> Imprimir entradas', array('class' => 'btn btn-small btn-info','id'=>'print-invoice'));
         echo "<br/><br/><p>Mostrando listado de entregas realizadas entre el <b>".date_conv($_POST["start"])."</b> y el <b>".date_conv($_POST["end"])."</b>.</p>";
         echo "<br/><p>Total de entregas encontradas: <b>".count($entregas)."</b></p>";
     ?>
@@ -51,7 +51,7 @@
         <td>
             <div class="btn-toolbar">
                 <div class="btn-group">
-                    <?php echo Html::anchor('entrega/view/'.$item->id, '<i class="icon-eye-open"></i> Ver detalle', array('class' => 'btn btn-small')); ?>
+                    <?php echo Html::anchor('entrega/view/'.$item->id, '<span class="glyphicon glyphicon-eye-open"></span> Ver detalle', array('class' => 'btn btn-small btn-default')); ?>
                 </div>
             </div>
 

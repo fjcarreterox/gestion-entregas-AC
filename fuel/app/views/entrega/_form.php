@@ -132,8 +132,8 @@ if($idprov==""){
                 echo Form::submit('save', 'Guardar cambios', array('class' => 'btn btn-primary'));
             }
             else{
-                echo Form::submit('more', 'Agregar más entregas', array('class' => 'btn btn-primary'));
-                echo Form::submit('end', 'Finalizar entrega(s)', array('class' => 'btn btn-primary'));
+                echo Form::button('more', '<span class="glyphicon glyphicon-plus"></span> Agregar más entregas', array('class' => 'btn btn-primary'));
+                echo Form::button('end', '<span class="glyphicon glyphicon-ok"></span> Finalizar entrega(s)', array('class' => 'btn btn-primary','type' => 'submit'));
                 echo Html::anchor('entrega/list', '<span class="glyphicon glyphicon-remove"></span> Cancelar esta entrega', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('¿Estás seguro?')"));
             }
             ?>

@@ -190,7 +190,13 @@ class Controller_Factura extends Controller_Template
 				Session::set_flash('error', $val->error());
 			}
 		}
-        $data['num_fact'] = Model_Factura::max('num_factura');
+        $newyear=true;
+        if(!$newyear) {
+            $data['num_fact'] = Model_Factura::max('num_factura');
+        }else{
+            $data['num_fact'] = 0;
+            $newyear=false;
+        }
 
 		$this->template->title = "Emisión de facturas";
 		$this->template->content = View::forge('factura/create',$data);
