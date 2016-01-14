@@ -73,6 +73,37 @@ class Controller_Factura extends Controller_Template
         $this->template->content = View::forge('factura/full', $data);
     }
 
+    public function action_gestoria(){
+        $facts = array();
+        $facturas = Model_Factura::find('all',array('order_by' => array('id' => 'asc')));
+
+        $data['titulo'] = "";
+
+        foreach($facturas as $f) {
+
+            $lineas = Model_Linea::find('all', array('where' => array("idfactura" => $f->get('id'))));
+
+            $base = 0;
+
+            foreach ($lineas as $l) {
+                $base += $l->get('importe');
+            }
+
+            $comp = number_format(($base * $f->get('iva')) / 100, 2, '.', '');
+            $suma = $base + number_format(($base * $f->get('iva')) / 100, 2, '.', '');
+
+            if ($f->get('retencion') == 2) {
+                $ret = number_format(($suma * $f->get('retencion')) / 100, 2, '.', '');
+             }
+
+            $facts[$f->id] = array("num"=>$f->num_factura,"prov"=>$f->idprov ,"base"=> $base, "comp"=> $comp, "suma" => $suma, "retencion" => $ret);
+        }
+
+        $data['facturas'] = $facts;
+        $this->template->title = "Listado de facturas para gestoría";
+        $this->template->content = View::forge('factura/gestoria', $data);
+    }
+
     public function action_report_fechas(){
         $data["facturas"] = array();
         if (Input::method() == 'POST'){

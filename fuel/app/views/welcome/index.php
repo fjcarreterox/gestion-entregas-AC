@@ -63,10 +63,11 @@
                     <li><a href="factura/init">Facturas emitidas por proveedor</a></li>
                     <li><a href="factura/report">Resumen IVA y retenciones</a></li>
                     <li><a href="factura/full">Listado de facturas completo</a></li>
+                    <li><a href="factura/gestoria">Resumen para gestoría</a></li>
                 </ul>
             </div>
             <div class="col-md-4">
-                <h2>Gestión de la aplicación</h2>
+                <h2>Gestión de esta aplicación</h2>
                 <li><a href="proveedor">Proveedores campaña 2015/2016</a></li>
                 <li><a href="variedad">Variedades de aceitunas</a></li>
                 <li><a href="user">Usuarios del sistema</a></li>
