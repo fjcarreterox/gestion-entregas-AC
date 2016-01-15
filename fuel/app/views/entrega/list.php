@@ -90,6 +90,6 @@ foreach ($entregas as $item):?>
 <p>
     <?php echo Html::anchor('javascript:window.print()', '<span class="glyphicon glyphicon-print"></span> Imprimir entrada diaria', array('class' => 'btn btn-small btn-info','id'=>'print-deliverynote')); ?>
     <?php if(isset($puesto)){ ?>
-        <?php echo Html::anchor('entrega/fechas/'.$idpuesto, 'Consultar entrada en otra fecha', array('class' => 'btn btn-success')); ?>
+        <?php echo Html::anchor('entrega/fechas/'.$idpuesto, '<span class="glyphicon glyphicon-calendar"></span> Consultar entrada en otra fecha', array('class' => 'btn btn-success')); ?>
     <?php } ?>
 </p>

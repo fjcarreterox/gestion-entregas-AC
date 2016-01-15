@@ -30,8 +30,8 @@ class Controller_Entrega extends Controller_Template
             if (Input::method() == 'POST'){
                 $start = Input::post('start');
                 $end = Input::post('end');
-                $data["entregas"] = Model_Entrega::find('all',array('where' => array(array('idpuesto', '=', $idpuesto),
-                    array('Fecha', '>=', $start),array('Fecha', '<=', $end))),array('order_by' => array('Fecha' => 'desc')));
+                $data["entregas"] = Model_Entrega::find('all',array('where' => array('idpuesto' => $idpuesto,array('fecha','>=',$start),array('fecha','<=',$end)),
+                    'order_by'=>array('fecha','albaran')));
             }
             $this->template->title = "Entrega diaria en rango de fechas";
             $this->template->content = View::forge('entrega/fechas',$data);
