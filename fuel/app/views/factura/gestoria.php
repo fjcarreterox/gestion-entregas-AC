@@ -2,7 +2,7 @@
 <br/>
 <?php if ($facturas): ?>
     <br/>
-<table class="table table-striped">
+<table class="table table-striped print">
 	<thead>
 		<tr>
             <th>Nº Factura</th>
@@ -32,4 +32,6 @@
 
 <?php else: ?>
     <p>No se han encontrado facturas hasta ahora.</p>
-<?php endif; ?>
+<?php endif;
+echo Html::anchor('javascript:window.print()', '<span class="glyphicon glyphicon-print"></span> Imprimir listado', array('class' => 'btn btn-small btn-info','id'=>'print-invoice'));
+?>
