@@ -25,7 +25,7 @@ $prov = Model_Proveedor::find($factura->idprov);
     <div id="customer">
         <table id="meta">
             <tr>
-                <td class="meta-head">Factura Núm.</td>
+                <td class="meta-head">Recibo Núm.</td>
                 <td class="idfactura"><?php echo $factura->num_factura; ?></td>
             </tr>
             <tr>
@@ -34,7 +34,7 @@ $prov = Model_Proveedor::find($factura->idprov);
                 <td><?php echo date_conv($factura->fecha); ?></td>
             </tr>
             <tr>
-                <td class="meta-head">Total factura</td>
+                <td class="meta-head">Total</td>
                 <td><div class="total_fac"><?php echo $factura->total; ?></div></td>
             </tr>
         </table>
