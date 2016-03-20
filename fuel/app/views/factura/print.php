@@ -2,7 +2,7 @@
 $prov = Model_Proveedor::find($factura->idprov);
 ?>
 <div id="page-wrap">
-    <textarea id="header">FACTURA</textarea>
+    <textarea id="header">RECIBO</textarea>
     <div id="identity">
         <div id="address">
             <p>ACEITUNAS CORIA, S.L.</p>
@@ -75,7 +75,7 @@ $prov = Model_Proveedor::find($factura->idprov);
         </tr>
         <tr>
             <td colspan="1" class="blank"> </td>
-            <td colspan="1" class="total-line">IVA</td>
+            <td colspan="1" class="total-line">Compensación</td>
             <td class="total-value"><textarea id="iva"><?php echo $factura->iva;?></textarea> %</td>
             <td class="total-iva"> </td>
         </tr>
@@ -120,9 +120,9 @@ $prov = Model_Proveedor::find($factura->idprov);
 
         <div class="form-group">
             <label class='control-label'>&nbsp;</label>
-            <?php echo Form::submit('submit_lines', 'Guardar factura', array('class' => 'btn btn-primary')); ?>
-            <?php echo Html::anchor('javascript:window.print()', '<i class="icon-trash icon-white"></i> Imprimir factura', array('class' => 'btn btn-small btn-info','id'=>'print-invoice')); ?>
-            <?php echo Html::anchor('factura/list', '<i class="icon-trash icon-white"></i> Volver al listado', array('class' => 'btn btn-small btn-danger','id'=>'print-invoice', 'onclick' => "return confirm('¿Estás seguro de querer salir de esta factura? Perderá todos los cambios no guardados.')")); ?>
+            <?php echo Form::submit('submit_lines', '+ Guardar factura', array('class' => 'btn btn-primary')); ?>
+            <?php echo Html::anchor('javascript:window.print()', '<span class="glyphicon glyphicon-print"></span> Imprimir factura', array('class' => 'btn btn-small btn-info','id'=>'print-invoice')); ?>
+            <?php echo Html::anchor('factura/list', '<span class="glyphicon glyphicon-backward"></span> Volver al listado', array('class' => 'btn btn-small btn-danger','id'=>'print-invoice', 'onclick' => "return confirm('¿Estás seguro de querer salir de esta factura? Perderá todos los cambios no guardados.')")); ?>
         </div>
     <?php echo Form::close(); ?>
 </div>

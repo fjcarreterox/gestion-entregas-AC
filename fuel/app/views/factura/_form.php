@@ -42,7 +42,7 @@ echo Form::open(array("class"=>"form-horizontal")); ?>
         </div>
 		<div class="form-group">
 			<label class='control-label'>&nbsp;</label>
-			<?php echo Form::submit('factura_submit', 'Completar líneas de factura', array('class' => 'btn btn-primary')); ?>
+			<?php echo Form::button('factura_submit', '<span class="glyphicon glyphicon-plus"></span> Completar líneas de factura', array('class' => 'btn btn-primary','type'=>'submit')); ?>
         </div>
 	</fieldset>
 <?php echo Form::close(); ?>

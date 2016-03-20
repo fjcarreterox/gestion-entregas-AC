@@ -221,9 +221,11 @@ class Controller_Factura extends Controller_Template
 				Session::set_flash('error', $val->error());
 			}
 		}
-        $newyear=true;
+
+        $newyear=false;
         if(!$newyear) {
-            $data['num_fact'] = Model_Factura::max('num_factura');
+            $fmax= Model_Factura::max('id');
+            $data['num_fact'] = Model_Factura::find($fmax)->get('num_factura');
         }else{
             $data['num_fact'] = 0;
             $newyear=false;

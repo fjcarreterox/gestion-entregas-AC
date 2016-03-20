@@ -1,4 +1,4 @@
-<h2><span class='muted'>Proveedores</span> de la campaña 2015</h2>
+<h2>Todos los <span class='muted'>proveedores</span></h2>
 <br/>
 <p><?php echo $intro;?>: <strong><?php echo count($proveedors);?> proveedores.</strong></p>
 <br/>

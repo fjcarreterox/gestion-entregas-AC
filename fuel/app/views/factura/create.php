@@ -2,4 +2,4 @@
 <br/>
 <?php $data['num_fact'] = $num_fact;
 echo render('factura/_form',$data); ?>
-<p><?php echo Html::anchor('welcome', 'Cancelar', array('class' => 'btn btn-danger')); ?></p>
+<p><?php echo Html::anchor('welcome', '<span class="glyphicon glyphicon-backward"></span> Cancelar', array('class' => 'btn btn-danger')); ?></p>

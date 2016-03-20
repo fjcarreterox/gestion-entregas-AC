@@ -68,7 +68,7 @@
             </div>
             <div class="col-md-4">
                 <h2>Gestión de esta aplicación</h2>
-                <li><a href="proveedor">Proveedores campaña 2015/2016</a></li>
+                <li><a href="proveedor">Listado de proveedores</a></li>
                 <li><a href="variedad">Variedades de aceitunas</a></li>
                 <li><a href="user">Usuarios del sistema</a></li>
                 <li><a href="puesto">Puestos de la empresa</a></li>

@@ -34,5 +34,5 @@
         <p class="recibi">Fdo: <?php echo Model_Proveedor::find($anticipo->idprov)->get('nombre')?></p>
     </div>
 </div>
-<?php echo Html::anchor('javascript:window.print()', '<i class="icon-trash icon-white"></i> Imprimir recibí', array('class' => 'btn btn-small btn-info','id'=>'print-deliverynote')); ?>
-<?php echo Html::anchor('welcome', '<i class="icon-trash icon-white"></i> Volver al menú inicio', array('class' => 'btn btn-small btn-success')); ?>
+<?php echo Html::anchor('javascript:window.print()', '<span class="glyphicon glyphicon-print"></span> Imprimir recibí', array('class' => 'btn btn-small btn-info','id'=>'print-deliverynote')); ?>
+<?php echo Html::anchor('anticipo', '<span class="glyphicon glyphicon-plus"></span> Calcular nuevo anticipo', array('class' => 'btn btn-small btn-success')); ?>
