@@ -16,7 +16,22 @@ class Controller_Albaran extends Controller_Template
             $albaranes[]=Model_Albaran::find('first',array("where"=>array("idalbaran"=>$r["idalbaran"])));
         }
         $data['albarans'] = $albaranes;
+        $data['titulo'] = "";
         $this->template->title = "Albaranes hasta la fecha";
+        $this->template->content = View::forge('albaran/list', $data);
+    }
+
+    public function action_year($year){
+        $albaranes = Model_Albaran::find('all');
+        $data["albarans"] = array();
+        foreach($albaranes as $a){
+            if(strpos($a->fecha,$year) !== false){
+                $data["albarans"][] = $a;
+            }
+        }
+        $data['year'] = $year;
+        $data['titulo'] = "durante la campaña $year.";
+        $this->template->title = "Albaranes de la campaña $year";
         $this->template->content = View::forge('albaran/list', $data);
     }
 

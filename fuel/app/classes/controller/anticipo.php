@@ -22,6 +22,20 @@ class Controller_Anticipo extends Controller_Template
         $this->template->content = View::forge('anticipo/list', $data);
     }
 
+    public function action_year($year){
+        $anticipos = Model_Anticipo::find('all');
+        $data["anticipos"] = array();
+        foreach($anticipos as $a){
+            if(strpos($a->fecha,$year) !== false){
+                $data["anticipos"][] = $a;
+            }
+        }
+        $data['year'] = $year;
+        $data['titulo'] = ": campaña $year.";
+        $this->template->title = "Anticipos de la campaña $year";
+        $this->template->content = View::forge('anticipo/list', $data);
+    }
+
     public function action_list_prov($idprov = null)
     {
         is_null($idprov) and Response::redirect('anticipo/list');

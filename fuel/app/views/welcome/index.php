@@ -44,6 +44,7 @@
                 <li><a href="proveedor/activos">Proveedores activos</a></li>
                 <li><a href="proveedor/inactivos">Proveedores inactivos</a></li>
                 <li><a href="proveedor/liquidados">Proveedores liquidados</a></li>
+                <li><a href="entrega/historico">Histórico campaña 2015</a></li>
             </div>
         </div>
         <div class="row">

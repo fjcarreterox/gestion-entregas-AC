@@ -1,13 +1,25 @@
 <?php
-class Controller_Factura extends Controller_Template
-{
+class Controller_Factura extends Controller_Template{
 
-	public function action_index()
-	{
+	public function action_index(){
 		$data['facturas'] = Model_Factura::find('all');
 		$this->template->title = "Facturas";
 		$this->template->content = View::forge('factura/index', $data);
 	}
+
+    public function action_year($year){
+        $facturas = Model_Factura::find('all');
+        $data["facturas"] = array();
+        foreach($facturas as $f){
+            if(strpos($f->fecha,$year) !== false){
+                $data["facturas"][] = $f;
+            }
+        }
+        $data['year'] = $year;
+        $data['titulo'] = ": campaña $year.";
+        $this->template->title = "Facturas de la campaña $year";
+        $this->template->content = View::forge('factura/list', $data);
+    }
 
     public function action_init()
     {

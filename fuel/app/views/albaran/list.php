@@ -1,4 +1,4 @@
-<h2>Listado de <span class='muted'>albaranes</span> de entregas</h2>
+<h2>Listado de <span class='muted'>albaranes</span> de entregas <?php echo $titulo;?></h2>
 <br>
 <?php if ($albarans): ?>
 <table class="table table-striped">
@@ -19,7 +19,7 @@
 			<td>
 				<div class="btn-toolbar">
 					<div class="btn-group">
-						<?php echo Html::anchor('albaran/view/'.$item->id, '<i class="icon-eye-open"></i> Detalle Albarán', array('class' => 'btn btn-small')); ?>
+						<?php echo Html::anchor('albaran/view/'.$item->id, '<span class="glyphicon glyphicon-eye-open"></span> Detalle Albarán', array('class' => 'btn btn-default')); ?>
                     </div>
 				</div>
 

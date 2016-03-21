@@ -4,7 +4,7 @@ if(isset($puesto)){
     echo "<h3>Día: <span class='muted'>".date_conv($fecha)."</span></h3><br/>";
 }
 else{
-    echo "<h2><span class='muted'>Entregas</span> realizadas durante la campaña 2015.</h2>";
+    echo "<h2><span class='muted'>Entregas</span> realizadas $titulo </h2>";
     echo '<br/>'.Html::anchor('entrega/create', '<span class="glyphicon glyphicon-plus"></span> Añadir nueva entrega', array('class' => 'btn btn-success'));
 }
 ?>

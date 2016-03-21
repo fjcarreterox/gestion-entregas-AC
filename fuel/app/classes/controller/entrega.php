@@ -17,6 +17,44 @@ class Controller_Entrega extends Controller_Template
         $this->template->content = View::forge('entrega/init',$data);
     }
 
+    public function action_report()
+    {
+        $variedades = array(1,2,3);
+        $data = array();
+        $total_kilos = 0;
+        $total_var = array();
+
+        $total = DB::select('total')->from('entregas')->execute();
+        foreach ($total as $t) {
+            $total_kilos += $t['total'];
+        }
+
+        foreach($variedades as $k => $v) {
+            $total = DB::select('total')->from('entregas')->where('variedad', $v)->execute();
+            $total_var[$v] = 0;
+            foreach($total as $t){
+                $total_var[$v] += $t['total'];
+            }
+        }
+
+        $data['total'] = $total_kilos;
+        $data['var'] = $total_var;
+
+        $this->template->title = "Informe global de la campaña 2015";
+        $this->template->content = View::forge('entrega/report',$data);
+    }
+
+    public function action_historico(){
+        $user = Session::get('username');
+        if ( $user == "" ){
+            return Response::redirect('welcome/login');
+        }
+        else{
+            $this->template->title = "Datos históricos 2015";
+            $this->template->content = View::forge('entrega/historico');
+        }
+    }
+
     public function action_fechas($idpuesto)
     {
         is_null($idpuesto) and Response::redirect('entrega/list');
@@ -68,6 +106,7 @@ class Controller_Entrega extends Controller_Template
     public function action_list($idpuesto = null){
 
         if(is_null($idpuesto)) {
+            $data['titulo'] = "durante la campaña 2016.";
             $data['entregas'] = Model_Entrega::find('all', array('order_by' => array('Fecha' => 'desc'),'order_by' => array('id' => 'desc')));
             $this->template->title = "Listado de todas las entregas realizadas";
         }
@@ -79,6 +118,20 @@ class Controller_Entrega extends Controller_Template
             $data['entregas'] = Model_Entrega::find('all',array('where' => array(array('idpuesto', '=', $idpuesto), array('Fecha', '=', date('Y-m-d')))),array('order_by' => array('Fecha' => 'desc')));
             $this->template->title = "Entrega diaria para el puesto: ".$nombre_puesto;
         }
+        $this->template->content = View::forge('entrega/list', $data);
+    }
+
+    public function action_year($year){
+        $entregas = Model_Entrega::find('all');
+        $data["entregas"] = array();
+        foreach($entregas as $e){
+            if(strpos($e->fecha,$year) !== false){
+                $data["entregas"][] = $e;
+            }
+        }
+        $data['year'] = $year;
+        $data['titulo'] = "durante la campaña $year.";
+        $this->template->title = "Entregas de la campaña $year";
         $this->template->content = View::forge('entrega/list', $data);
     }
 
@@ -144,6 +197,7 @@ class Controller_Entrega extends Controller_Template
                         'idalbaran' => $current_albaran_num,
                         'identrega' => $entrega->id,
                         'idproveedor' => Input::post('idprov'),
+                        'fecha' => date('Y-m-d'),
                         'comentario' => "",
                     ));
 
