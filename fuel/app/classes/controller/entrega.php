@@ -107,7 +107,7 @@ class Controller_Entrega extends Controller_Template
 
         if(is_null($idpuesto)) {
             $data['titulo'] = "durante la campaña 2016.";
-            $data['entregas'] = Model_Entrega::find('all', array('order_by' => array('Fecha' => 'desc'),'order_by' => array('id' => 'desc')));
+            $data['entregas'] = Model_Entrega::find('all', array('where'=>array(array('fecha','>','2015-12-31')),'order_by' => array('Fecha' => 'desc'),'order_by' => array('id' => 'desc')));
             $this->template->title = "Listado de todas las entregas realizadas";
         }
         else{

@@ -2,7 +2,7 @@
 $prov = Model_Proveedor::find($factura->idprov);
 ?>
 <div id="page-wrap">
-    <textarea id="header">RECIBO</textarea>
+    <textarea id="header">FACTURA</textarea>
     <div id="identity">
         <div id="address">
             <p>ACEITUNAS CORIA, S.L.</p>
@@ -25,7 +25,7 @@ $prov = Model_Proveedor::find($factura->idprov);
     <div id="customer">
         <table id="meta">
             <tr>
-                <td class="meta-head">Recibo Núm.</td>
+                <td class="meta-head">Factura Núm.</td>
                 <td class="idfactura"><?php echo $factura->num_factura; ?></td>
             </tr>
             <tr>
