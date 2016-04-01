@@ -6,5 +6,6 @@
     <li><a href="../albaran/year/2015">Albaranes</a></li>
     <li><a href="../factura/year/2015">Facturas</a></li>
     <li><a href="../anticipo/year/2015">Anticipos</a></li>
+    <li><a href="../factura/gestoria/2015">Resumen para gestoria</a></li>
+    <li><a href="../factura/report/2015">Resumen IVA y retenciones</a></li>
 </ul>
-

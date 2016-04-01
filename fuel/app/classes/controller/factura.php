@@ -35,8 +35,13 @@ class Controller_Factura extends Controller_Template{
         $this->template->content = View::forge('factura/list', $data);
     }
 
-    public function action_report(){
-        $data['facturas'] = Model_Factura::find('all',array('order_by' => array('num_factura' => 'desc')));
+    public function action_report($year = null){
+        if($year == null){ //if not defined, it's the current year
+            $year = date('Y');
+        }
+
+        $data['facturas'] = Model_Factura::find('all',array('where'=>array(array('fecha','like',$year.'-%')),'order_by' => array('num_factura' => 'desc')));
+
         $this->template->title = "Informe de IVA y retenciones en facturas";
         $this->template->content = View::forge('factura/report', $data);
     }
@@ -85,9 +90,13 @@ class Controller_Factura extends Controller_Template{
         $this->template->content = View::forge('factura/full', $data);
     }
 
-    public function action_gestoria(){
+    public function action_gestoria($year = null){
+        if($year == null){
+            $year = date('Y');
+        }
+
         $facts = array();
-        $facturas = Model_Factura::find('all',array('order_by' => array('id' => 'asc')));
+        $facturas = Model_Factura::find('all',array('where'=>array(array('fecha','like',$year.'-%')),'order_by' => array('id' => 'asc')));
 
         $data['titulo'] = "";
 

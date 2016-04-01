@@ -185,8 +185,7 @@ class Controller_Entrega extends Controller_Template
                     'idpuesto' => Input::post('idpuesto'),
 				));
 
-				if ($entrega and $entrega->save())
-				{
+				if ($entrega and $entrega->save()){
                     $current_albaran_num=$last_albaran_num+1;
                     if(\Fuel\Core\Session::get('num_alb')){
                         $current_albaran_num=\Fuel\Core\Session::get('num_alb');
@@ -216,14 +215,11 @@ class Controller_Entrega extends Controller_Template
                         Response::redirect('albaran/print/'.$albaran->id);
                     }
 				}
-
-				else
-				{
+				else{
 					Session::set_flash('error', 'No se pudo registrar la nueva entrega.');
 				}
 			}
-			else
-			{
+			else{
 				Session::set_flash('error', $val->error());
 			}
 		}
