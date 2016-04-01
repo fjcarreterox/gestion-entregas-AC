@@ -8,6 +8,7 @@ class Model_Albaran extends Model
 		'idalbaran',
 		'identrega',
 		'idproveedor',
+		'fecha',
         'comentario',
 		'created_at',
 		'updated_at',

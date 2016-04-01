@@ -5,7 +5,7 @@
 	<?php echo $albaran->idalbaran; ?></p>
 <p>
     <strong>Fecha:</strong>
-    <?php echo date('d-m-Y',$albaran->created_at); ?></p>
+    <?php echo date_conv($albaran->fecha); ?></p>
 <p>
 	<strong>Detalle de entrega(s)</strong></p>
     <table class="table table-striped">
@@ -23,13 +23,13 @@
 <p>
     <strong>Comentario:</strong>
     <?php echo $albaran->comentario; ?></p>
-<br/>
-<?php echo Html::anchor('albaran/edit/'.$albaran->id, 'Editar',array('class' => 'btn btn-sm btn-default')); ?>
-<?php echo Html::anchor('albaran/print/'.$albaran->id, 'Imprimir',array('class' => 'btn btn-sm btn-info')); ?>
-<?php echo Html::anchor('albaran/list', 'Volver al listado completo',array('class' => 'btn btn-sm btn-danger'));?>
+<br/><br/>
+<?php echo Html::anchor('albaran/edit/'.$albaran->id, '<span class="glyphicon glyphicon-pencil"></span> Editar',array('class' => 'btn btn-success')); ?>
+<?php echo Html::anchor('albaran/print/'.$albaran->id, '<span class="glyphicon glyphicon-print"></span> Imprimir',array('class' => 'btn btn-sm btn-info')); ?>
+<?php echo Html::anchor('albaran/list', '<span class="glyphicon glyphicon-backward"></span> Volver al listado',array('class' => 'btn btn-sm btn-danger'));?>
 <?php
     $v=Session::get();
-    if($v['username']=="Javi" || $v['username']=="Rocio" ){
-        echo Html::anchor('albaran/delete/' . $albaran->id, 'Borrar albarán', array('class' => 'btn btn-sm btn-danger', 'onclick' => "return confirm('¿Estás seguro de esto? El borrado de un albarán conllevará el borrado de sus entregas asociadas.')"));
+    if($v['username']=="javi" || $v['username']=="Rocio" ){
+        echo Html::anchor('albaran/delete/' . $albaran->id, '<span class="glyphicon glyphicon-trash"></span> Borrar este albarán', array('class' => 'btn btn-sm btn-danger', 'onclick' => "return confirm('¿Estás seguro de esto? El borrado de un albarán conllevará el borrado de sus entregas asociadas.')"));
     }
 ?>

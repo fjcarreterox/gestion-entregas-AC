@@ -14,12 +14,13 @@
 <?php foreach ($albarans as $item): ?>
         <tr>
 			<td><?php echo $item->idalbaran; ?></td>
-            <td><?php echo date('d-m-Y',$item->created_at);?></td>
+            <td><?php echo date_conv($item->fecha);?></td>
 			<td><?php echo Model_Proveedor::find($item->idproveedor)['nombre']; ?></td>
 			<td>
 				<div class="btn-toolbar">
 					<div class="btn-group">
 						<?php echo Html::anchor('albaran/view/'.$item->id, '<span class="glyphicon glyphicon-eye-open"></span> Detalle Albarán', array('class' => 'btn btn-default')); ?>
+						<?php echo Html::anchor('albaran/edit/'.$item->id, '<span class="glyphicon glyphicon-pencil"></span> Editar', array('class' => 'btn btn-success')); ?>
                     </div>
 				</div>
 

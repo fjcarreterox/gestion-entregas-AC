@@ -1,19 +1,22 @@
 <?php
-class Controller_Albaran extends Controller_Template
-{
-	public function action_index()
-	{
+class Controller_Albaran extends Controller_Template{
+	public function action_index(){
 		$data['albarans'] = Model_Albaran::find('all');
 		$this->template->title = "Albarans";
 		$this->template->content = View::forge('albaran/index', $data);
 	}
 
-    public function action_list()
-    {
+    public function action_list($year = null){
+        if($year == null){
+            $year = date('Y');
+        }
+
         $albaranes = array();
-        $res=DB::select('idalbaran')->from('albarans')->distinct()->order_by('idalbaran','desc')->execute();
-        foreach($res as $r){
-            $albaranes[]=Model_Albaran::find('first',array("where"=>array("idalbaran"=>$r["idalbaran"])));
+        $res=DB::select('idalbaran','fecha')->from('albarans')->distinct()->order_by('idalbaran','desc')->execute();
+        foreach($res as $r) {
+            if (strpos($r["fecha"],$year) !== false) {
+                $albaranes[] = Model_Albaran::find('first', array("where" => array("idalbaran" => $r["idalbaran"])));
+            }
         }
         $data['albarans'] = $albaranes;
         $data['titulo'] = "";
@@ -35,8 +38,7 @@ class Controller_Albaran extends Controller_Template
         $this->template->content = View::forge('albaran/list', $data);
     }
 
-    public function action_print($id = null)
-    {
+    public function action_print($id = null){
         is_null($id) and Response::redirect('albaran');
 
         if (!$alb = Model_Albaran::find($id)) {
@@ -57,12 +59,10 @@ class Controller_Albaran extends Controller_Template
         $this->template->content = View::forge('albaran/print', $data);
     }
 
-	public function action_view($id = null)
-	{
+	public function action_view($id = null){
 		is_null($id) and Response::redirect('albaran');
 
-		if ( ! $alb = Model_Albaran::find($id))
-		{
+		if ( ! $alb = Model_Albaran::find($id)){
 			Session::set_flash('error', 'No se ha encontrado el albarán núm. '.$id);
 			Response::redirect('albaran/list');
 		}
@@ -78,21 +78,18 @@ class Controller_Albaran extends Controller_Template
 
 		$this->template->title = "Detalle de Albarán";
 		$this->template->content = View::forge('albaran/view', $data);
-
 	}
 
-	public function action_create()
-	{
-		if (Input::method() == 'POST')
-		{
+	public function action_create(){
+		if (Input::method() == 'POST'){
 			$val = Model_Albaran::validate('create');
 
-			if ($val->run())
-			{
+			if ($val->run()){
 				$albaran = Model_Albaran::forge(array(
 					'idalbaran' => Input::post('idalbaran'),
 					'identrega' => Input::post('identrega'),
 					'idproveedor' => Input::post('idproveedor'),
+					'fecha' => Input::post('fecha'),
                     'comentario' => Input::post('comentario'),
 				));
 
@@ -111,11 +108,9 @@ class Controller_Albaran extends Controller_Template
 
 		$this->template->title = "Albaranes";
 		$this->template->content = View::forge('albaran/create');
-
 	}
 
-	public function action_edit($id = null)
-	{
+	public function action_edit($id = null){
 		is_null($id) and Response::redirect('albaran/list');
 
 		if ( ! $albaran = Model_Albaran::find($id)){
@@ -125,18 +120,23 @@ class Controller_Albaran extends Controller_Template
 
 		$val = Model_Albaran::validate('edit');
 
-		if ($val->run())
-		{
+		if ($val->run()){
 			$albaran->idalbaran = Input::post('idalbaran');
 			$albaran->identrega = Input::post('identrega');
 			$albaran->idproveedor = Input::post('idproveedor');
+			$albaran->fecha = Input::post('fecha');
             $albaran->comentario = Input::post('comentario');
 
 			if ($albaran->save()){
-                $result = DB::update('albarans')
+                $res1 = DB::update('albarans')
                     ->value("comentario", Input::post('comentario'))
                     ->where('idalbaran', '=',Input::post('idalbaran') )
                     ->execute();
+
+				$res2 = DB::update('albarans')
+					->value("fecha", Input::post('fecha'))
+					->where('idalbaran', '=',Input::post('idalbaran') )
+					->execute();
 
 				Session::set_flash('success', 'Albarán núm. ' . $albaran->idalbaran .' actualizado.');
 				Response::redirect('albaran/list');
@@ -145,26 +145,23 @@ class Controller_Albaran extends Controller_Template
 				Session::set_flash('error', 'No se ha podido actualizar el albarán núm. ' . $albaran->idalbaran);
 			}
 		}
-		else
-		{
-			if (Input::method() == 'POST')
-			{
+		else{
+			if (Input::method() == 'POST'){
 				$albaran->idalbaran = $val->validated('idalbaran');
 				$albaran->identrega = $val->validated('identrega');
 				$albaran->idproveedor = $val->validated('idproveedor');
+				$albaran->fecha = $val->validated('fecha');
                 $albaran->comentario = $val->validated('comentario');
 				Session::set_flash('error', $val->error());
 			}
 			$this->template->set_global('albaran', $albaran, false);
 		}
 
-		$this->template->title = "Albaranes";
+		$this->template->title = "Editando datos del Albarán";
 		$this->template->content = View::forge('albaran/edit');
-
 	}
 
-	public function action_delete($id = null)
-	{
+	public function action_delete($id = null){
 		is_null($id) and Response::redirect('albaran/list');
 
 		if ($albaran = Model_Albaran::find($id)){

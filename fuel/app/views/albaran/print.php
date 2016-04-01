@@ -32,7 +32,7 @@ $prov=Model_Proveedor::find($albaran->get('idproveedor'));
                 <tr>
 
                     <td class="meta-head">Fecha</td>
-                    <td><textarea id="date_deliver"><?php echo date('d-m-Y',$albaran->get('created_at'));?></textarea></td>
+                    <td><?php echo date_conv($albaran->get('fecha'));?></td>
                 </tr>
             </table>
 		</div>
@@ -104,3 +104,4 @@ $prov=Model_Proveedor::find($albaran->get('idproveedor'));
 	</div>
 <?php echo Html::anchor('javascript:window.print()', '<span class="glyphicon glyphicon-print"></span> Imprimir albarán', array('class' => 'btn btn-small btn-info','id'=>'print-deliverynote')); ?>
 <?php echo Html::anchor('entrega/create', '<span class="glyphicon glyphicon-repeat"></span> Registrar nueva entrega', array('class' => 'btn btn-small btn-success')); ?>
+<?php echo Html::anchor('albaran/edit/'.$albaran->get('id'), '<span class="glyphicon glyphicon-pencil"></span> Editar datos de este albarán', array('class' => 'btn btn-success','target'=>'_blank','title'=>'Se abre en ventana nueva...')); ?>
