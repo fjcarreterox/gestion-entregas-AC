@@ -208,4 +208,22 @@ class Controller_Proveedor extends Controller_Template
 		Response::redirect('proveedor');
 	}
 
+    public function action_ficha_final($idp){
+        $data['pname'] = Model_Proveedor::find($idp)->get('nombre');
+        $albaranes = Model_Albaran::find('all', array(
+            'where' => array(
+                array('idproveedor', $idp),
+            ),
+            'order_by' => array('identrega' => 'desc'),
+        ));
+        $entregas = array();
+        foreach($albaranes as $a){
+            $entregas[] = Model_Entrega::find($a->identrega);
+        }
+        $data['anticipos'] = Model_Anticipo::find('all',array('where'=>array(array('recogido'=>'1'),array('idprov'=> $idp)),'order_by'=>array('fecha'=>'desc')));
+        $data['entregas'] = $entregas;
+
+        return View::forge('proveedor/ficha_final',$data)->render();
+    }
+
 }
