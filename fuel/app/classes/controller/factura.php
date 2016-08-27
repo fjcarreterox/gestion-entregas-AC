@@ -8,7 +8,7 @@ class Controller_Factura extends Controller_Template{
 	}
 
     public function action_year($year){
-        $facturas = Model_Factura::find('all');
+        $facturas = Model_Factura::find('all',array('order_by' => array('num_factura' => 'asc')));
         $data["facturas"] = array();
         foreach($facturas as $f){
             if(strpos($f->fecha,$year) !== false){
@@ -18,7 +18,7 @@ class Controller_Factura extends Controller_Template{
         $data['year'] = $year;
         $data['titulo'] = ": campaña $year.";
         $this->template->title = "Facturas de la campaña $year";
-        $this->template->content = View::forge('factura/list', $data);
+        $this->template->content = View::forge('factura/year', $data);
     }
 
     public function action_init()
@@ -156,7 +156,7 @@ class Controller_Factura extends Controller_Template{
                 'order_by' => array('fecha' => 'desc'),
             ));
 
-            $data['titulo'] = "para el proveedor: " . Model_Proveedor::find($idprov)->get('nombre');
+            $data['titulo'] = " para el proveedor: " . Model_Proveedor::find($idprov)->get('nombre');
         }
         $this->template->title = "Facturas emitidas para el proveedor";
         $this->template->content = View::forge('factura/list', $data);
