@@ -100,7 +100,8 @@ $prov=Model_Proveedor::find($albaran->get('idproveedor'));
 		<div id="terms">
 		  <h5>Conforme,</h5><br/><br/>
 		</div>
-	
+	    <br/><br/>
+        <p class="smaller"><i>* Por el extravío de cada envase el proveedor arriba indicado deberá pagar a Aceitunas Coria S.L la cantidad de 75€, que le será descontada del total del cobro.</i></p>
 	</div>
 <?php echo Html::anchor('javascript:window.print()', '<span class="glyphicon glyphicon-print"></span> Imprimir albarán', array('class' => 'btn btn-small btn-info','id'=>'print-deliverynote')); ?>
 <?php echo Html::anchor('entrega/create', '<span class="glyphicon glyphicon-repeat"></span> Registrar nueva entrega', array('class' => 'btn btn-small btn-success')); ?>
