@@ -29,8 +29,7 @@ class Model_Proveedor extends Model
 		),
 	);
 
-	public static function validate($factory)
-	{
+	public static function validate($factory)	{
 		$val = Validation::forge($factory);
 		$val->add_field('nombre', 'Nombre', 'required|max_length[50]');
 		$val->add_field('domicilio', 'Domicilio', 'required|max_length[120]');
@@ -39,9 +38,8 @@ class Model_Proveedor extends Model
 		$val->add_field('telefono', 'Telefono', 'required|max_length[15]');
 		$val->add_field('tipo', 'Tipo', 'required|max_length[15]');
         $val->add_field('comentario', 'Comentario', 'required|max_length[255]');
-        $val->add_field('envases', 'Envases', 'required|valid_string[numeric]');
+        $val->add_field('envases', 'Envases', 'required|max_length[255]');
         $val->add_field('liquidado', 'Liquidado', 'required|valid_string[numeric]');
 		return $val;
 	}
-
 }
