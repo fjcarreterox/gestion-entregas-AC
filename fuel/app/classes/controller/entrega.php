@@ -123,7 +123,7 @@ class Controller_Entrega extends Controller_Template
     }
 
     public function action_year($year){
-        $entregas = Model_Entrega::find('all');
+        $entregas = Model_Entrega::find('all',array('order_by'=>'id'));
         $data["entregas"] = array();
         foreach($entregas as $e){
             if(strpos($e->fecha,$year) !== false){
