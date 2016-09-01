@@ -88,6 +88,10 @@ if($idprov==""){
 			<?php echo Form::label('Total pesados (kgrs.)', 'total', array('class'=>'control-label')); ?>
 			<?php echo Form::input('total', Input::post('total', isset($entrega) ? $entrega->total : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Total Kg pesados')); ?>
 		</div>
+		<div class="form-group">
+			<?php echo Form::label('Envases prestados', 'envases', array('class'=>'control-label')); ?>
+			<?php echo Form::input('envases', Input::post('envases', isset($entrega) ? $entrega->envases : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Núm. envases prestados al proveedor')); ?>
+		</div>
         <p>Consiguientes porcentajes de:</p>
 		<div class="form-group">
 			<?php echo Form::label('Picado', 'rate_picado', array('class'=>'control-label')); ?>

@@ -1,8 +1,7 @@
 <?php
 class Controller_Entrega extends Controller_Template
 {
-	public function action_index()
-	{
+	public function action_index(){
 		//$data['proveedores'] = Model_Proveedor::find('all',array('order_by' => 'nombre'));
         $q = Model_Albaran::query()->select('idalbaran')->order_by('idalbaran');
         $data['idAlbaran']=$q->max('idalbaran');
@@ -10,15 +9,13 @@ class Controller_Entrega extends Controller_Template
 		$this->template->content = View::forge('entrega/index', $data);
 	}
 
-    public function action_init()
-    {
+    public function action_init(){
         $data['proveedores'] = Model_Proveedor::find('all',array('order_by' => 'nombre'));
         $this->template->title = "Ficha final de proveedor";
         $this->template->content = View::forge('entrega/init',$data);
     }
 
-    public function action_report()
-    {
+    public function action_report(){
         $variedades = array(1,2,3);
         $data = array();
         $total_kilos = 0;
@@ -55,8 +52,7 @@ class Controller_Entrega extends Controller_Template
         }
     }
 
-    public function action_fechas($idpuesto)
-    {
+    public function action_fechas($idpuesto){
         is_null($idpuesto) and Response::redirect('entrega/list');
 
         if ( !Model_Puesto::find($idpuesto)) {
@@ -136,8 +132,7 @@ class Controller_Entrega extends Controller_Template
         $this->template->content = View::forge('entrega/list', $data);
     }
 
-	public function action_view($id = null)
-	{
+	public function action_view($id = null){
 		is_null($id) and Response::redirect('entrega');
 
 		if ( ! $data['entrega'] = Model_Entrega::find($id))
@@ -149,8 +144,7 @@ class Controller_Entrega extends Controller_Template
 		$this->template->content = View::forge('entrega/view', $data);
 	}
 
-	public function action_create()
-	{
+	public function action_create(){
 		if (Input::method() == 'POST')
 		{
 			$val = Model_Entrega::validate('create');
@@ -174,6 +168,7 @@ class Controller_Entrega extends Controller_Template
 					'variedad' => Input::post('variedad'),
 					'tam' => Input::post('tam'),
 					'total' => Input::post('total'),
+					'envases' => Input::post('envases'),
 					'rate_picado' => Input::post('rate_picado'),
 					'rate_molestado' => Input::post('rate_molestado'),
 					'rate_morado' => Input::post('rate_morado'),
@@ -230,12 +225,10 @@ class Controller_Entrega extends Controller_Template
 
 	}
 
-	public function action_edit($id = null)
-	{
+	public function action_edit($id = null){
 		is_null($id) and Response::redirect('entrega');
 
-		if ( ! $entrega = Model_Entrega::find($id))
-		{
+		if ( ! $entrega = Model_Entrega::find($id)){
 			Session::set_flash('error', 'Could not find entrega #'.$id);
 			Response::redirect('entrega');
 		}
@@ -249,6 +242,7 @@ class Controller_Entrega extends Controller_Template
 			$entrega->variedad = Input::post('variedad');
 			$entrega->tam = Input::post('tam');
 			$entrega->total = Input::post('total');
+			$entrega->envases = Input::post('envases');
 			$entrega->rate_picado = Input::post('rate_picado');
 			$entrega->rate_molestado = Input::post('rate_molestado');
 			$entrega->rate_morado = Input::post('rate_morado');
@@ -281,6 +275,7 @@ class Controller_Entrega extends Controller_Template
 				$entrega->variedad = $val->validated('variedad');
 				$entrega->tam = $val->validated('tam');
 				$entrega->total = $val->validated('total');
+				$entrega->envases = $val->validated('envases');
 				$entrega->rate_picado = $val->validated('rate_picado');
 				$entrega->rate_molestado = $val->validated('rate_molestado');
 				$entrega->rate_morado = $val->validated('rate_morado');

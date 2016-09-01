@@ -10,6 +10,7 @@ class Model_Entrega extends Model
 		'variedad',
 		'tam',
 		'total',
+		'envases',
 		'rate_picado',
 		'rate_molestado',
 		'rate_morado',
@@ -42,6 +43,7 @@ class Model_Entrega extends Model
 		$val->add_field('variedad', 'Variedad', 'required|valid_string[numeric]');
 		$val->add_field('tam', 'Tam', 'valid_string[numeric]');
 		$val->add_field('total', 'Total', 'required|valid_string[numeric]');
+		$val->add_field('envases', 'Envases prestados', 'required|max_length[255]');
 		$val->add_field('rate_picado', 'Rate Picado', 'required|valid_string[numeric]');
 		$val->add_field('rate_molestado', 'Rate Molestado', 'required|valid_string[numeric]');
 		$val->add_field('rate_morado', 'Rate Morado', 'required|valid_string[numeric]');

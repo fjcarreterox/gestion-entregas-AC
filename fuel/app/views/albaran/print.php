@@ -49,8 +49,10 @@ $prov=Model_Proveedor::find($albaran->get('idproveedor'));
     $total_manz=0;
     $total_gordal=0;
     $total_molino=0;
+    $comments="";
     foreach($entregas as $identrega){
         $e=Model_Entrega::find($identrega);
+        $comments .= $e->envases.". ";
 
         ?>
 		  <tr class="item-row">
@@ -90,9 +92,9 @@ $prov=Model_Proveedor::find($albaran->get('idproveedor'));
             </tr>-->
 
 		</table>
-    <?php if(strcmp($albaran->comentario,"")!=0) {  ?>
+    <?php if(strcmp($comments,"")!=0) {  ?>
         <div class="comment" >
-            <p > Comentario:</p ><?php echo $albaran->comentario; ?>
+            <p > Comentario:</p ><?php echo $comments; ?>
         </div>
     <?php
         }

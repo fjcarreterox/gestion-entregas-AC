@@ -40,3 +40,7 @@ h3.print{
 p.print{
     font-size: 0.7em;
 }
+
+.comment{
+    display: block;
+}
