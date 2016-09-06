@@ -72,25 +72,30 @@ class Controller_Entrega extends Controller_Template
         }
     }
 
-    public function action_list_prov($idprov = null){
+    public function action_sel_year($idprov){
+        is_null($idprov) and Response::redirect('entrega/list');
+        $data["idprov"] = $idprov;
+        $data["prov_name"] = Model_Proveedor::find($idprov)->get('nombre');
+        $this->template->title = "Selecciona el año a consultar";
+        $this->template->content = View::forge('entrega/sel_year',$data);
+    }
+
+    public function action_list_prov($idprov = null, $year = null){
 
         is_null($idprov) and Response::redirect('entrega/list');
+
+        is_null($year) and Response::redirect('entrega/sel_year/'.$idprov);
 
         if ( !Model_Proveedor::find($idprov)) {
             Session::set_flash('error', 'No se ha podido encontrar el proveedor indicado');
             Response::redirect('entrega/list');
         }else{
-            $albaranes = Model_Albaran::find('all', array(
-                'where' => array(
-                    array('idproveedor', $idprov),
-                ),
-                'order_by' => array('identrega' => 'desc'),
-            ));
+            $albaranes = Model_Albaran::find('all',array('where'=>array('idproveedor'=>$idprov,array('fecha', 'LIKE', $year.'%'))));
             $entregas = array();
             foreach($albaranes as $a){
                 $entregas[] = Model_Entrega::find($a->identrega);
             }
-            $data['anticipos'] = Model_Anticipo::find('all',array('where'=>array(array('recogido'=>'1'),array('idprov'=> $idprov)),'order_by'=>array('fecha'=>'desc')));
+            $data['anticipos'] = Model_Anticipo::find('all',array('where'=>array(array('recogido'=>'1'),array('idprov'=> $idprov),array('fecha', 'LIKE', $year.'%')),'order_by'=>array('fecha'=>'desc')));
             $data['entregas'] = $entregas;
             $data['nombre_prov'] = Model_Proveedor::find($idprov)->get('nombre');
             $data['idc'] = $idprov;
