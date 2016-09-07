@@ -36,16 +36,25 @@ class Controller_Anticipo extends Controller_Template
         $this->template->content = View::forge('anticipo/list', $data);
     }
 
-    public function action_list_prov($idprov = null)
-    {
+	public function action_sel_year($idprov){
+		is_null($idprov) and Response::redirect('anticipo/list');
+		$data["idprov"] = $idprov;
+		$data["prov_name"] = Model_Proveedor::find($idprov)->get('nombre');
+		$this->template->title = "Selecciona el año a consultar";
+		$this->template->content = View::forge('entrega/sel_year',$data);
+	}
+
+    public function action_list_prov($idprov = null, $year = null){
         is_null($idprov) and Response::redirect('anticipo/list');
+
+        is_null($year) and Response::redirect('anticipo/sel_year/'.$idprov);
 
         if (!$data['prov'] = Model_Proveedor::find($idprov)) {
             Session::set_flash('error', 'No se ha encontrado proveedor con ese identificador (#' . $idprov . ')');
             Response::redirect('anticipo/list');
         } else {
             $data['nombre_prov'] = Model_Proveedor::find($idprov)->get('nombre');
-            $data['anticipos'] = Model_Anticipo::find('all', array('where' => array(array("idprov", $idprov))));
+            $data['anticipos'] = Model_Anticipo::find('all', array('where' => array(array("idprov", $idprov),array('fecha', 'LIKE', $year.'%'))));
             $this->template->title = "Anticipos de un proveedor";
             $this->template->content = View::forge('anticipo/list_prov', $data);
         }
