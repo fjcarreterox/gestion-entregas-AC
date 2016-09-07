@@ -60,12 +60,10 @@ class Controller_Anticipo extends Controller_Template
         }
     }
 
-    public function action_calculo()
-    {
+    public function action_calculo(){
         $data['anticipos'] = Model_Anticipo::find('all');
         $this->template->title = "Cálculo Anticipo";
         $this->template->content = View::forge('anticipo/calculo', $data);
-
     }
 
     public function action_print($id = null){

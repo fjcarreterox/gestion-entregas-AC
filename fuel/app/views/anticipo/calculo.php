@@ -6,7 +6,7 @@
     $acum=0;
 
     //calculando el total de kg de todas las entregas del proveedor seleccionado
-    $alb_a = Model_Albaran::find('all',array('where'=>array(array("IdProveedor",\Fuel\Core\Session::get('ses_anticipo_prov')))));
+    $alb_a = Model_Albaran::find('all',array('where'=>array(array("IdProveedor",\Fuel\Core\Session::get('ses_anticipo_prov')),array('fecha','LIKE','2016%'))));
     foreach($alb_a as $alb) {
         $id_ent = $alb->get('identrega');
         $parcial = Model_Entrega::find($id_ent)->get('total');
@@ -17,7 +17,7 @@
         }
     }
 
-    $ant_a = Model_Anticipo::find('all',array('where'=>array(array("idprov",\Fuel\Core\Session::get('ses_anticipo_prov')))));
+    $ant_a = Model_Anticipo::find('all',array('where'=>array(array("idprov",\Fuel\Core\Session::get('ses_anticipo_prov')),array('fecha','LIKE','2016%'))));
     foreach($ant_a as $ant){
         //sólo computan los anticipos que están recogidos.
         if($ant->get('recogido')) {
