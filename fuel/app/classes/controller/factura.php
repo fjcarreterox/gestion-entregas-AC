@@ -146,7 +146,7 @@ class Controller_Factura extends Controller_Template{
     	$data["idprov"] = $idprov;
     	$data["prov_name"] = Model_Proveedor::find($idprov)->get('nombre');
     	$this->template->title = "Selecciona el año a consultar";
-    	$this->template->content = View::forge('entrega/sel_year',$data);
+    	$this->template->content = View::forge('factura/sel_year',$data);
     }
 
     public function action_list_prov($idprov = null, $year = null){
