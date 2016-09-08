@@ -141,9 +141,18 @@ class Controller_Factura extends Controller_Template{
         $this->template->content = View::forge('factura/fechas',$data);
     }
 
-    public function action_list_prov($idprov)
-    {
+    public function action_sel_year($idprov){
+    	is_null($idprov) and Response::redirect('factura/list');
+    	$data["idprov"] = $idprov;
+    	$data["prov_name"] = Model_Proveedor::find($idprov)->get('nombre');
+    	$this->template->title = "Selecciona el año a consultar";
+    	$this->template->content = View::forge('entrega/sel_year',$data);
+    }
+
+    public function action_list_prov($idprov = null, $year = null){
         is_null($idprov) and Response::redirect('factura/list');
+
+        is_null($year) and Response::redirect('factura/sel_year/'.$idprov);
 
         if ( !Model_Proveedor::find($idprov)) {
             Session::set_flash('error', 'No se ha podido encontrar el proveedor indicado');
@@ -152,6 +161,7 @@ class Controller_Factura extends Controller_Template{
             $data['facturas'] = Model_Factura::find('all', array(
                 'where' => array(
                     array('idprov', $idprov),
+                    array('fecha', 'LIKE', $year.'%')
                 ),
                 'order_by' => array('fecha' => 'desc'),
             ));
