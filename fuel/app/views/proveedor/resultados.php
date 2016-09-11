@@ -34,11 +34,12 @@
 			<td>
 				<div class="btn-toolbar">
 					<div class="btn-group">
-						<?php echo Html::anchor('proveedor/view/'.$item->id, '<i class="icon-eye-open"></i> Ver ficha completa', array('class' => 'btn btn-small')); ?>
-                        <?php echo Html::anchor('proveedor/edit/'.$item->id, '<i class="icon-wrench"></i> Editar', array('class' => 'btn btn-small')); ?>
+						<?php echo Html::anchor('proveedor/view/'.$item->id, '<span class="glyphicon glyphicon-eye-open"></span> Ver ficha completa', array('class' => 'btn btn-default')); ?>
+                        <?php echo Html::anchor('proveedor/edit/'.$item->id, '<span class="glyphicon glyphicon-pencil"></span> Editar', array('class' => 'btn btn-success')); ?>
                         <?php /*echo Html::anchor('proveedor/delete/'.$item->id, '<i class="icon-trash icon-white"></i> Borrar', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('¿Estás seguro de esto?')"));*/ ?>
-                        <?php echo Html::anchor('proveedor/ficha_final/'.$item->id, '<i class="icon-trash icon-white"></i> Ficha final', array('class' => 'btn btn-small btn-success')); ?>
-                        <?php echo Html::anchor('anticipo/list_prov/'.$item->id, '<i class="icon-trash icon-white"></i> Anticipos', array('class' => 'btn btn-small btn-info')); ?>
+                        <?php /*echo Html::anchor('proveedor/ficha_final/'.$item->id, '<span class="glyphicon glyphicon-paperclip"></span> Ficha final', array('class' => 'btn btn-small btn-warning'));*/ ?>
+                        <?php echo Html::anchor('entrega/list_prov/'.$item->id, '<span class="glyphicon glyphicon-paperclip"></span> Ficha final', array('class' => 'btn btn-small btn-warning')); ?>
+                        <?php echo Html::anchor('anticipo/list_prov/'.$item->id, '<span class="glyphicon glyphicon-euro"></span> Anticipos', array('class' => 'btn btn-small btn-info')); ?>
                     </div>
 				</div>
 			</td>
