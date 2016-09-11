@@ -11,13 +11,14 @@ class Controller_Albaran extends Controller_Template{
             $year = date('Y');
         }
 
-        $albaranes = array();
+		$albaranes = Model_Albaran::find('all', array("where" => array(array('fecha','LIKE',$year.'%'))));
+		/*$albaranes = array();
         $res=DB::select('idalbaran','fecha')->from('albarans')->distinct()->order_by('idalbaran','desc')->execute();
         foreach($res as $r) {
             if (strpos($r["fecha"],$year) !== false) {
                 $albaranes[] = Model_Albaran::find('first', array("where" => array("idalbaran" => $r["idalbaran"])));
             }
-        }
+        }*/
         $data['albarans'] = $albaranes;
         $data['titulo'] = "";
         $this->template->title = "Albaranes hasta la fecha";
