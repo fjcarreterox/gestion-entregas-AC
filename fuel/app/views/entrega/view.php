@@ -1,27 +1,28 @@
 <?php
-   $idalbaran=Model_Albaran::find($entrega->albaran)->get('idalbaran');
+$idalbaran=Model_Albaran::find($entrega->albaran)->get('idalbaran');
+$f = explode('-',$entrega->fecha);
 ?>
-<h2>Mostrando detalle de la <span class='muted'>entrega de mercancía</span> seleccionada:</h2>
-<br/>
-<p>
-	<strong>Fecha de la entrega:</strong>
-	<?php echo date_conv($entrega->fecha); ?></p>
-<p>
-	<strong>Núm. Albaran en la que aparece la entrega:</strong>
-	<?php echo Html::anchor('albaran/view/'.$entrega->albaran, $idalbaran,array('target'=>'_blank')); ?></p>
-<p>
-	<strong>Variedad de aceituna registrada:</strong>
-	<?php echo Model_Variedad::find($entrega->variedad)->get('nombre'); ?></p>
-<p>
-	<strong>Tamaño de la muestra:</strong>
-	<?php echo $entrega->tam; ?></p>
-<p>
-	<strong>Total peso de la muestra:</strong>
-	<?php echo $entrega->total; ?> kgrs.</p>
-<p>
-	<strong>Tabla de porcentajes:</strong></p>
+    <h2>Mostrando detalle de la <span class='muted'>entrega de mercancía</span> seleccionada:</h2>
+    <br/>
+    <p>
+        <strong>Fecha de la entrega:</strong>
+        <?php echo date_conv($entrega->fecha); ?></p>
+    <p>
+        <strong>Núm. Albaran en la que aparece la entrega:</strong>
+        <?php echo Html::anchor('albaran/view/'.$idalbaran.'/'.$f[0], $idalbaran,array('target'=>'_blank')); ?></p>
+    <p>
+        <strong>Variedad de aceituna registrada:</strong>
+        <?php echo Model_Variedad::find($entrega->variedad)->get('nombre'); ?></p>
+    <p>
+        <strong>Tamaño de la muestra:</strong>
+        <?php echo $entrega->tam; ?></p>
+    <p>
+        <strong>Total peso de la muestra:</strong>
+        <?php echo $entrega->total; ?> kgrs.</p>
+    <p>
+        <strong>Tabla de porcentajes:</strong></p>
 
-	<table summary="Porcentajes observados" class="table table-striped percents">
+    <table summary="Porcentajes observados" class="table table-striped percents">
         <tr>
             <td>Picado</td>
             <td><?php echo $entrega->rate_picado; ?>%</td>

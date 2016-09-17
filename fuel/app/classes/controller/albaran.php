@@ -6,11 +6,10 @@ class Controller_Albaran extends Controller_Template{
 		$this->template->content = View::forge('albaran/index', $data);
 	}
 
-    public function action_list($year = null){
-        if($year == null){
-            $year = date('Y');
-        }
-
+	public function action_list($year = null){
+		if($year == null){
+			$year = date('Y');
+		}
 		$albaranes = Model_Albaran::find('all', array("where" => array(array('fecha','LIKE',$year.'%'))));
 		/*$albaranes = array();
         $res=DB::select('idalbaran','fecha')->from('albarans')->distinct()->order_by('idalbaran','desc')->execute();
@@ -19,63 +18,66 @@ class Controller_Albaran extends Controller_Template{
                 $albaranes[] = Model_Albaran::find('first', array("where" => array("idalbaran" => $r["idalbaran"])));
             }
         }*/
-        $data['albarans'] = $albaranes;
-        $data['titulo'] = "";
-        $this->template->title = "Albaranes hasta la fecha";
-        $this->template->content = View::forge('albaran/list', $data);
-    }
+		$data['albarans'] = $albaranes;
+		$data['titulo'] = "";
+		$this->template->title = "Albaranes hasta la fecha";
+		$this->template->content = View::forge('albaran/list', $data);
+	}
 
-    public function action_year($year){
-        $albaranes = Model_Albaran::find('all');
-        $data["albarans"] = array();
-        foreach($albaranes as $a){
-            if(strpos($a->fecha,$year) !== false){
-                $data["albarans"][] = $a;
-            }
-        }
-        $data['year'] = $year;
-        $data['titulo'] = "durante la campaña $year.";
-        $this->template->title = "Albaranes de la campaña $year";
-        $this->template->content = View::forge('albaran/list', $data);
-    }
+	public function action_year($year){
+		$albaranes = Model_Albaran::find('all',array('order_by'=>'id'));
+		$data["albarans"] = array();
+		foreach($albaranes as $a){
+			//if(strpos($a->fecha,$year) !== false){
+			if(strpos(date('Y',$a->created_at),$year) !== false){
+				$data["albarans"][] = $a;
+			}
+		}
+		$data['year'] = $year;
+		$data['titulo'] = "durante la campaña $year.";
+		$this->template->title = "Albaranes de la campaña $year";
+		$this->template->content = View::forge('albaran/list', $data);
+	}
 
-    public function action_print($id = null){
-        is_null($id) and Response::redirect('albaran');
+	public function action_print($idalb = null, $year = null){
+		is_null($idalb) and Response::redirect('albaran');
 
-        if (!$alb = Model_Albaran::find($id)) {
-            Session::set_flash('error', 'No se ha encontrado el albarán núm. ' . $id);
-            Response::redirect('albaran/list');
-        }
-        $entregas=array();
-        $albaranes= Model_Albaran::find('all',array("where" => array("idalbaran"=>$alb->get('idalbaran'))));
+		if(is_null($year)){ $year = date('Y',time());}
 
-        foreach($albaranes as $a){
-            $entregas[]=$a->get('identrega');
-        }
-
-        $data['entregas']=$entregas;
-        $data['albaran']=$alb;
-
-        $this->template->title = "Albarán Núm. ".$alb->get('idalbaran');
-        $this->template->content = View::forge('albaran/print', $data);
-    }
-
-	public function action_view($id = null){
-		is_null($id) and Response::redirect('albaran');
-
-		if ( ! $alb = Model_Albaran::find($id)){
-			Session::set_flash('error', 'No se ha encontrado el albarán núm. '.$id);
+		if (!$albaranes = Model_Albaran::find('all',array("where" => array("idalbaran"=>$idalb,array("fecha",'LIKE',$year.'%'))))) {
+			Session::set_flash('error', 'No se ha encontrado el albarán núm. ' . $idalb);
 			Response::redirect('albaran/list');
 		}
-        $entregas=array();
-        $albaranes= Model_Albaran::find('all',array("where" => array("idalbaran"=>$alb->get('idalbaran'))));
+		$entregas=array();
 
-        foreach($albaranes as $a){
-            $entregas[]=$a->get('identrega');
-        }
+		foreach($albaranes as $a){
+			$entregas[]=$a->get('identrega');
+		}
 
-        $data['entregas']=$entregas;
-        $data['albaran']=$alb;
+		$data['entregas']=$entregas;
+		$data['albaranes']=$albaranes;
+
+		$this->template->title = "Albarán Núm. ".$idalb;
+		$this->template->content = View::forge('albaran/print', $data);
+	}
+
+	public function action_view($idalbaran = null, $year = null){
+		is_null($idalbaran) and Response::redirect('albaran');
+
+		if(is_null($year)){ $year = date('Y',time());}
+
+		if ( ! $albaranes = Model_Albaran::find('all',array("where" => array("idalbaran"=>$idalbaran,array("fecha",'LIKE',$year.'%'))))){
+			Session::set_flash('error', 'No se ha encontrado el albarán núm. '.$idalbaran);
+			Response::redirect('albaran/list');
+		}
+		$entregas=array();
+
+		foreach($albaranes as $a){
+			$entregas[]=$a->get('identrega');
+		}
+
+		$data['entregas']=$entregas;
+		$data['albaranes']=$albaranes;
 
 		$this->template->title = "Detalle de Albarán";
 		$this->template->content = View::forge('albaran/view', $data);
@@ -91,7 +93,7 @@ class Controller_Albaran extends Controller_Template{
 					'identrega' => Input::post('identrega'),
 					'idproveedor' => Input::post('idproveedor'),
 					'fecha' => Input::post('fecha'),
-                    'comentario' => Input::post('comentario'),
+					'comentario' => Input::post('comentario'),
 				));
 
 				if ($albaran and $albaran->save()){
@@ -126,13 +128,13 @@ class Controller_Albaran extends Controller_Template{
 			$albaran->identrega = Input::post('identrega');
 			$albaran->idproveedor = Input::post('idproveedor');
 			$albaran->fecha = Input::post('fecha');
-            $albaran->comentario = Input::post('comentario');
+			$albaran->comentario = Input::post('comentario');
 
 			if ($albaran->save()){
-                $res1 = DB::update('albarans')
-                    ->value("comentario", Input::post('comentario'))
-                    ->where('idalbaran', '=',Input::post('idalbaran') )
-                    ->execute();
+				$res1 = DB::update('albarans')
+					->value("comentario", Input::post('comentario'))
+					->where('idalbaran', '=',Input::post('idalbaran') )
+					->execute();
 
 				$res2 = DB::update('albarans')
 					->value("fecha", Input::post('fecha'))
@@ -152,7 +154,7 @@ class Controller_Albaran extends Controller_Template{
 				$albaran->identrega = $val->validated('identrega');
 				$albaran->idproveedor = $val->validated('idproveedor');
 				$albaran->fecha = $val->validated('fecha');
-                $albaran->comentario = $val->validated('comentario');
+				$albaran->comentario = $val->validated('comentario');
 				Session::set_flash('error', $val->error());
 			}
 			$this->template->set_global('albaran', $albaran, false);
@@ -166,14 +168,14 @@ class Controller_Albaran extends Controller_Template{
 		is_null($id) and Response::redirect('albaran/list');
 
 		if ($albaran = Model_Albaran::find($id)){
-            $related = Model_Albaran::find('all',array('where'=>array('idalbaran'=>$albaran->idalbaran)));
-            foreach($related as $a) {
-                $entrega = Model_Entrega::find('first', array('where' => array('albaran' => $a->id)));
-                //echo "Borramos la entrega ".$entrega->id;
-                $entrega->delete();
-                //echo "Borramos el albaran ".$a->id;
-                $a->delete();
-            }
+			$related = Model_Albaran::find('all',array('where'=>array('idalbaran'=>$albaran->idalbaran)));
+			foreach($related as $a) {
+				$entrega = Model_Entrega::find('first', array('where' => array('albaran' => $a->id)));
+				//echo "Borramos la entrega ".$entrega->id;
+				$entrega->delete();
+				//echo "Borramos el albaran ".$a->id;
+				$a->delete();
+			}
 			Session::set_flash('success', 'Albarán núm. '.$albaran->idalbaran. ' borrado.');
 		}
 		else{
