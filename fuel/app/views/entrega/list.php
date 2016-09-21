@@ -16,52 +16,53 @@ else{
         <h4>Número de entregas registradas en total: <span class='muted'><?php echo count($entregas); ?></span></h4>
     <?php } ?>
     <br/>
-
+    <p><u>ATENCIÓN:</u> este listado no está ordenado por el <i>número de albarán</i>, sino por el <b>número de la entrega</b>. Si ves que no encuentras un albarán concreto, prueba a buscarlo en
+        <?php echo Html::anchor('albaran/list', 'este listado', array('target' => '_blank')); ?>.</p>
     <h3 class="print"><u>Listado detallado de entregas</u></h3>
     <table class="table table-striped print">
-	<thead>
-		<tr>
-			<th>Fecha entrega</th>
+        <thead>
+        <tr>
+            <th>Fecha entrega</th>
             <th>Proveedor</th>
             <th>NIF/CIF</th>
-			<th>Núm. Albarán</th>
-			<th>Variedad</th>
-			<th>Total Kg</th>
-			<th>&nbsp;</th>
-		</tr>
-	</thead>
-	<tbody>
-<?php
-$total = array();
-foreach ($entregas as $item):?>
-    <tr>
-			<td><?php echo date_conv($item->fecha); ?></td>
-            <td><?php echo Model_Proveedor::find(Model_Albaran::find('first', array('where' => array('id' => $item->albaran)))->get('idproveedor'))->get('nombre'); ?></td>
-            <td><?php echo Model_Proveedor::find(Model_Albaran::find('first', array('where' => array('id' => $item->albaran)))->get('idproveedor'))->get('nifcif'); ?></td>
-            <td><?php echo Model_Albaran::find($item->albaran)->get('idalbaran'); ?></td>
-			<td><?php $v = $item->variedad;
+            <th>Núm. Albarán</th>
+            <th>Variedad</th>
+            <th>Total Kg</th>
+            <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        $total = array();
+        foreach ($entregas as $item):?>
+            <tr>
+                <td><?php echo date_conv($item->fecha); ?></td>
+                <td><?php echo Model_Proveedor::find(Model_Albaran::find('first', array('where' => array('id' => $item->albaran)))->get('idproveedor'))->get('nombre'); ?></td>
+                <td><?php echo Model_Proveedor::find(Model_Albaran::find('first', array('where' => array('id' => $item->albaran)))->get('idproveedor'))->get('nifcif'); ?></td>
+                <td><?php echo Model_Albaran::find($item->albaran)->get('idalbaran'); ?></td>
+                <td><?php $v = $item->variedad;
                     echo Model_Variedad::find($v)->get('nombre');
-                ?></td>
-			<td><?php echo $item->total;
-                if(!isset($total[$v])){
-                    $total[$v] = $item->total;
-                }else{
-                    $total[$v] += $item->total;
-                } ?></td>
-			<td>
-				<div class="btn-toolbar">
-					<div class="btn-group">
-						<?php echo Html::anchor('entrega/view/'.$item->id, '<span class="glyphicon glyphicon-eye-open"></span> Detalle', array('class' => 'btn btn-default')); ?>
-                        <?php /*echo Html::anchor('entrega/edit/'.$item->id, '<i class="icon-wrench"></i> Editar', array('class' => 'btn btn-small'));*/ ?>
-                        <?php /*echo Html::anchor('entrega/delete/'.$item->id, '<i class="icon-trash icon-white"></i> Borrar', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('¿Estás seguro de esto?')"));*/ ?>
+                    ?></td>
+                <td><?php echo $item->total;
+                    if(!isset($total[$v])){
+                        $total[$v] = $item->total;
+                    }else{
+                        $total[$v] += $item->total;
+                    } ?></td>
+                <td>
+                    <div class="btn-toolbar">
+                        <div class="btn-group">
+                            <?php echo Html::anchor('entrega/view/'.$item->id, '<span class="glyphicon glyphicon-eye-open"></span> Detalle', array('class' => 'btn btn-default')); ?>
+                            <?php /*echo Html::anchor('entrega/edit/'.$item->id, '<i class="icon-wrench"></i> Editar', array('class' => 'btn btn-small'));*/ ?>
+                            <?php /*echo Html::anchor('entrega/delete/'.$item->id, '<i class="icon-trash icon-white"></i> Borrar', array('class' => 'btn btn-small btn-danger', 'onclick' => "return confirm('¿Estás seguro de esto?')"));*/ ?>
+                        </div>
                     </div>
-				</div>
 
-			</td>
-		</tr>
-<?php endforeach;?>
-    </tbody>
-</table>
+                </td>
+            </tr>
+        <?php endforeach;?>
+        </tbody>
+    </table>
 
     <br/>
 
@@ -84,8 +85,8 @@ foreach ($entregas as $item):?>
     </table>
     <br/>
 <?php else: ?>
-<p>No se han registrado aún entregas.</p>
-<br/>
+    <p>No se han registrado aún entregas.</p>
+    <br/>
 <?php endif; ?>
 <p>
     <?php echo Html::anchor('javascript:window.print()', '<span class="glyphicon glyphicon-print"></span> Imprimir entrada diaria', array('class' => 'btn btn-small btn-info','id'=>'print-deliverynote')); ?>

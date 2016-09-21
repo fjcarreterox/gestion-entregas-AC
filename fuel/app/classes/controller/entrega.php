@@ -1,19 +1,20 @@
 <?php
 class Controller_Entrega extends Controller_Template
 {
-	public function action_index(){
-		//$data['proveedores'] = Model_Proveedor::find('all',array('order_by' => 'nombre'));
+    public function action_index(){
+        //$data['proveedores'] = Model_Proveedor::find('all',array('order_by' => 'nombre'));
         $q = Model_Albaran::query()->select('idalbaran')->order_by('idalbaran');
         $data['idAlbaran']=$q->max('idalbaran');
-		$this->template->title = "Registrar nueva entrega";
-		$this->template->content = View::forge('entrega/index', $data);
-	}
+        $this->template->title = "Registrar nueva entrega";
+        $this->template->content = View::forge('entrega/index', $data);
+    }
 
     public function action_init(){
         $data['proveedores'] = Model_Proveedor::find('all',array('order_by' => 'nombre'));
         $this->template->title = "Ficha final de proveedor";
         $this->template->content = View::forge('entrega/init',$data);
     }
+
 
     public function action_report(){
         $variedades = array(1,2,3);
@@ -64,8 +65,9 @@ class Controller_Entrega extends Controller_Template
             if (Input::method() == 'POST'){
                 $start = Input::post('start');
                 $end = Input::post('end');
-                $data["entregas"] = Model_Entrega::find('all',array('where' => array('idpuesto' => $idpuesto,array('fecha','>=',$start),array('fecha','<=',$end)),
-                    'order_by'=>array('fecha','albaran')));
+                $data["entregas"] = Model_Entrega::find('all',array('where' => array('idpuesto' => $idpuesto,array('fecha','>=',$start),array('fecha','<=',$end)),'order_by'=>array('fecha','albaran')));
+                //$data["entregas"] = Model_Entrega::find('all',array('where' => array(array('idpuesto', '=', $idpuesto),
+                //array('Fecha', '>=', $start),array('Fecha', '<=', $end))),array('order_by' => array('Fecha' => 'desc')));
             }
             $this->template->title = "Entrega diaria en rango de fechas";
             $this->template->content = View::forge('entrega/fechas',$data);
@@ -98,11 +100,10 @@ class Controller_Entrega extends Controller_Template
             $data['anticipos'] = Model_Anticipo::find('all',array('where'=>array(array('recogido'=>'1'),array('idprov'=> $idprov),array('fecha', 'LIKE', $year.'%')),'order_by'=>array('fecha'=>'desc')));
             $data['entregas'] = $entregas;
             $data['nombre_prov'] = Model_Proveedor::find($idprov)->get('nombre');
-            $data['idc'] = $idprov;
-
-            $this->template->title = "Ficha final de proveedor";
-            $this->template->content = View::forge('entrega/list_prov',$data);
         }
+
+        $this->template->title = "Ficha final de proveedor";
+        $this->template->content = View::forge('entrega/list_prov',$data);
     }
 
     public function action_list($idpuesto = null){
@@ -137,26 +138,26 @@ class Controller_Entrega extends Controller_Template
         $this->template->content = View::forge('entrega/list', $data);
     }
 
-	public function action_view($id = null){
-		is_null($id) and Response::redirect('entrega');
+    public function action_view($id = null){
+        is_null($id) and Response::redirect('entrega');
 
-		if ( ! $data['entrega'] = Model_Entrega::find($id))
-		{
-			Session::set_flash('error', 'No se ha podido encontrar la entrega solicitada.');
-			Response::redirect('entrega/list');
-		}
-		$this->template->title = "Detalle de Entrega";
-		$this->template->content = View::forge('entrega/view', $data);
-	}
+        if ( ! $data['entrega'] = Model_Entrega::find($id))
+        {
+            Session::set_flash('error', 'Could not find entrega #'.$id);
+            Response::redirect('entrega');
+        }
+        $this->template->title = "Detalle de Entrega";
+        $this->template->content = View::forge('entrega/view', $data);
+    }
 
-	public function action_create(){
-		if (Input::method() == 'POST')
-		{
-			$val = Model_Entrega::validate('create');
+    public function action_create(){
+        if (Input::method() == 'POST'){
+            $val = Model_Entrega::validate('create');
 
-			if ($val->run())
-			{
-                $last_albaran=Model_Albaran::find('last');
+            if ($val->run()){
+                $albs=Model_Albaran::find('all',array('where'=>array(array('fecha','LIKE','2016%')),'order_by'=>array('idalbaran'=>'desc','id'=>'desc')));
+                $last_albaran = array_shift($albs);
+                //print_r($last_albaran);die();
 
                 if(!$last_albaran) {
                     $last_albaran_id = 1;
@@ -167,26 +168,26 @@ class Controller_Entrega extends Controller_Template
                     $last_albaran_num = $last_albaran->get('idalbaran');
                 }
 
-				$entrega = Model_Entrega::forge(array(
-					'fecha' => Input::post('fecha'),
-					'albaran' => $last_albaran_id+1,
-					'variedad' => Input::post('variedad'),
-					'tam' => Input::post('tam'),
-					'total' => Input::post('total'),
-					'envases' => Input::post('envases'),
-					'rate_picado' => Input::post('rate_picado'),
-					'rate_molestado' => Input::post('rate_molestado'),
-					'rate_morado' => Input::post('rate_morado'),
-					'rate_mosca' => Input::post('rate_mosca'),
-					'rate_azofairon' => Input::post('rate_azofairon'),
-					'rate_agostado' => Input::post('rate_agostado'),
-					'rate_granizado' => Input::post('rate_granizado'),
-					'rate_perdigon' => Input::post('rate_perdigon'),
-					'rate_taladro' => Input::post('rate_taladro'),
+                $entrega = Model_Entrega::forge(array(
+                    'fecha' => Input::post('fecha'),
+                    'albaran' => $last_albaran_id+1,
+                    'variedad' => Input::post('variedad'),
+                    'tam' => Input::post('tam'),
+                    'total' => Input::post('total'),
+                    'envases' => Input::post('envases'),
+                    'rate_picado' => Input::post('rate_picado'),
+                    'rate_molestado' => Input::post('rate_molestado'),
+                    'rate_morado' => Input::post('rate_morado'),
+                    'rate_mosca' => Input::post('rate_mosca'),
+                    'rate_azofairon' => Input::post('rate_azofairon'),
+                    'rate_agostado' => Input::post('rate_agostado'),
+                    'rate_granizado' => Input::post('rate_granizado'),
+                    'rate_perdigon' => Input::post('rate_perdigon'),
+                    'rate_taladro' => Input::post('rate_taladro'),
                     'idpuesto' => Input::post('idpuesto'),
-				));
+                ));
 
-				if ($entrega and $entrega->save()){
+                if ($entrega and $entrega->save()){
                     $current_albaran_num=$last_albaran_num+1;
                     if(\Fuel\Core\Session::get('num_alb')){
                         $current_albaran_num=\Fuel\Core\Session::get('num_alb');
@@ -213,105 +214,106 @@ class Controller_Entrega extends Controller_Template
                         //eliminamos variables de sesion que ya no nos sirven
                         \Fuel\Core\Session::delete('idprov');
                         \Fuel\Core\Session::delete('num_alb');
-                        Response::redirect('albaran/print/'.$albaran->id);
+                        Response::redirect('albaran/print/'.$albaran->idalbaran);
                     }
-				}
-				else{
-					Session::set_flash('error', 'No se pudo registrar la nueva entrega.');
-				}
-			}
-			else{
-				Session::set_flash('error', $val->error());
-			}
-		}
+                }
 
-		$this->template->title = "Registrar nueva entrega";
-		$this->template->content = View::forge('entrega/create');
+                else{
+                    Session::set_flash('error', 'No se pudo registrar la nueva entrega.');
+                }
+            }
+            else{
+                Session::set_flash('error', $val->error());
+            }
+        }
 
-	}
+        $this->template->title = "Registrar nueva entrega";
+        $this->template->content = View::forge('entrega/create');
 
-	public function action_edit($id = null){
-		is_null($id) and Response::redirect('entrega');
+    }
 
-		if ( ! $entrega = Model_Entrega::find($id)){
-			Session::set_flash('error', 'Could not find entrega #'.$id);
-			Response::redirect('entrega');
-		}
+    public function action_edit($id = null){
+        is_null($id) and Response::redirect('entrega');
 
-		$val = Model_Entrega::validate('edit');
+        if ( ! $entrega = Model_Entrega::find($id))
+        {
+            Session::set_flash('error', 'Could not find entrega #'.$id);
+            Response::redirect('entrega');
+        }
 
-		if ($val->run())
-		{
-			$entrega->fecha = Input::post('fecha');
-			$entrega->albaran = Input::post('albaran');
-			$entrega->variedad = Input::post('variedad');
-			$entrega->tam = Input::post('tam');
-			$entrega->total = Input::post('total');
-			$entrega->envases = Input::post('envases');
-			$entrega->rate_picado = Input::post('rate_picado');
-			$entrega->rate_molestado = Input::post('rate_molestado');
-			$entrega->rate_morado = Input::post('rate_morado');
-			$entrega->rate_mosca = Input::post('rate_mosca');
-			$entrega->rate_azofairon = Input::post('rate_azofairon');
-			$entrega->rate_agostado = Input::post('rate_agostado');
-			$entrega->rate_granizado = Input::post('rate_granizado');
-			$entrega->rate_perdigon = Input::post('rate_perdigon');
-			$entrega->rate_taladro = Input::post('rate_taladro');
+        $val = Model_Entrega::validate('edit');
+
+        if ($val->run()){
+            $entrega->fecha = Input::post('fecha');
+            $entrega->albaran = Input::post('albaran');
+            $entrega->variedad = Input::post('variedad');
+            $entrega->tam = Input::post('tam');
+            $entrega->total = Input::post('total');
+            $entrega->envases = Input::post('envases');
+            $entrega->rate_picado = Input::post('rate_picado');
+            $entrega->rate_molestado = Input::post('rate_molestado');
+            $entrega->rate_morado = Input::post('rate_morado');
+            $entrega->rate_mosca = Input::post('rate_mosca');
+            $entrega->rate_azofairon = Input::post('rate_azofairon');
+            $entrega->rate_agostado = Input::post('rate_agostado');
+            $entrega->rate_granizado = Input::post('rate_granizado');
+            $entrega->rate_perdigon = Input::post('rate_perdigon');
+            $entrega->rate_taladro = Input::post('rate_taladro');
             $entrega->idpuesto = Input::post('idpuesto');
 
-			if ($entrega->save())
-			{
-				Session::set_flash('success', 'Datos de la entrega actualizados.');
-				Response::redirect('entrega/list');
-			}
+            if ($entrega->save())
+            {
+                Session::set_flash('success', 'Datos de la entrega actualizados.');
+                Response::redirect('entrega/list');
+            }
 
-			else
-			{
-				Session::set_flash('error', 'No se ha podido actualizar la entrega.');
-			}
-		}
+            else
+            {
+                Session::set_flash('error', 'No se ha podido actualizar la entrega.');
+            }
+        }
 
-		else
-		{
-			if (Input::method() == 'POST')
-			{
-				$entrega->fecha = $val->validated('fecha');
-				$entrega->albaran = $val->validated('albaran');
-				$entrega->variedad = $val->validated('variedad');
-				$entrega->tam = $val->validated('tam');
-				$entrega->total = $val->validated('total');
-				$entrega->envases = $val->validated('envases');
-				$entrega->rate_picado = $val->validated('rate_picado');
-				$entrega->rate_molestado = $val->validated('rate_molestado');
-				$entrega->rate_morado = $val->validated('rate_morado');
-				$entrega->rate_mosca = $val->validated('rate_mosca');
-				$entrega->rate_azofairon = $val->validated('rate_azofairon');
-				$entrega->rate_agostado = $val->validated('rate_agostado');
-				$entrega->rate_granizado = $val->validated('rate_granizado');
-				$entrega->rate_perdigon = $val->validated('rate_perdigon');
-				$entrega->rate_taladro = $val->validated('rate_taladro');
+        else
+        {
+            if (Input::method() == 'POST')
+            {
+                $entrega->fecha = $val->validated('fecha');
+                $entrega->albaran = $val->validated('albaran');
+                $entrega->variedad = $val->validated('variedad');
+                $entrega->tam = $val->validated('tam');
+                $entrega->total = $val->validated('total');
+                $entrega->envases = $val->validated('envases');
+                $entrega->rate_picado = $val->validated('rate_picado');
+                $entrega->rate_molestado = $val->validated('rate_molestado');
+                $entrega->rate_morado = $val->validated('rate_morado');
+                $entrega->rate_mosca = $val->validated('rate_mosca');
+                $entrega->rate_azofairon = $val->validated('rate_azofairon');
+                $entrega->rate_agostado = $val->validated('rate_agostado');
+                $entrega->rate_granizado = $val->validated('rate_granizado');
+                $entrega->rate_perdigon = $val->validated('rate_perdigon');
+                $entrega->rate_taladro = $val->validated('rate_taladro');
                 $entrega->idpuesto = $val->validated('idpuesto');
 
-				Session::set_flash('error', $val->error());
-			}
-			$this->template->set_global('entrega', $entrega, false);
-		}
+                Session::set_flash('error', $val->error());
+            }
+            $this->template->set_global('entrega', $entrega, false);
+        }
 
-		$this->template->title = "Entregas";
-		$this->template->content = View::forge('entrega/edit');
-	}
+        $this->template->title = "Entregas";
+        $this->template->content = View::forge('entrega/edit');
+    }
 
-	public function action_delete($id = null){
-		is_null($id) and Response::redirect('entrega');
-		if ($entrega = Model_Entrega::find($id)){
+    public function action_delete($id = null){
+        is_null($id) and Response::redirect('entrega');
+        if ($entrega = Model_Entrega::find($id)){
             //Deleting the associated line on Albaran model.
             $albaran = Model_Albaran::find($entrega->albaran);
-			$entrega->delete();
+            $entrega->delete();
             $albaran->delete();
-			Session::set_flash('success', 'Entrega borrada y albarán asociado actualizado.');
-		}else{
-			Session::set_flash('error', 'No se ha podido borrar la entrega solicitada.');
-		}
-		Response::redirect('entrega/list');
-	}
+            Session::set_flash('success', 'Entrega borrada y albarán asociado actualizado.');
+        }else{
+            Session::set_flash('error', 'No se ha podido borrar la entrega solicitada.');
+        }
+        Response::redirect('entrega/list');
+    }
 }
