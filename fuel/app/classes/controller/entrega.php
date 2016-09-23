@@ -155,17 +155,17 @@ class Controller_Entrega extends Controller_Template
             $val = Model_Entrega::validate('create');
 
             if ($val->run()){
-                $albs=Model_Albaran::find('all',array('where'=>array(array('fecha','LIKE','2016%')),'order_by'=>array('idalbaran'=>'desc','id'=>'desc')));
+                $albs=Model_Albaran::find('all',array('where'=>array(array('fecha','LIKE','2016%')),'order_by'=>array('id'=>'desc','idalbaran'=>'desc')));
                 $last_albaran = array_shift($albs);
-                //print_r($last_albaran);die();
 
                 if(!$last_albaran) {
                     $last_albaran_id = 1;
                     $last_albaran_num = 1;
                 }
                 else {
+                    $last_albaran = Model_Albaran::find('last', array('order_by' => array('id'=>'desc')));
                     $last_albaran_id = $last_albaran->get('id');
-                    $last_albaran_num = $last_albaran->get('idalbaran');
+                    $last_albaran_num = Model_Albaran::query()->where('fecha','LIKE','2016%')->max('idalbaran');
                 }
 
                 $entrega = Model_Entrega::forge(array(
@@ -211,7 +211,6 @@ class Controller_Entrega extends Controller_Template
                         Response::redirect('entrega/create');
                     }
                     else{
-                        //eliminamos variables de sesion que ya no nos sirven
                         \Fuel\Core\Session::delete('idprov');
                         \Fuel\Core\Session::delete('num_alb');
                         Response::redirect('albaran/print/'.$albaran->idalbaran);

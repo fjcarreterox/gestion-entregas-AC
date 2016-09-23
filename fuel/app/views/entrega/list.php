@@ -34,12 +34,29 @@ else{
         <tbody>
         <?php
         $total = array();
-        foreach ($entregas as $item):?>
+        foreach ($entregas as $item):
+            if(Model_Albaran::find('first', array('where' => array('id' => $item->albaran)))){
+                $alb = Model_Albaran::find('first', array('where' => array('id' => $item->albaran)));
+                $prov = Model_Proveedor::find($alb->get('idproveedor'))->get('nombre');
+                $nif = Model_Proveedor::find($alb->get('idproveedor'))->get('nifcif');
+            }
+            else{
+                $prov = "N/D";
+                $nif = "N/D";
+            }
+            ?>
             <tr>
                 <td><?php echo date_conv($item->fecha); ?></td>
-                <td><?php echo Model_Proveedor::find(Model_Albaran::find('first', array('where' => array('id' => $item->albaran)))->get('idproveedor'))->get('nombre'); ?></td>
-                <td><?php echo Model_Proveedor::find(Model_Albaran::find('first', array('where' => array('id' => $item->albaran)))->get('idproveedor'))->get('nifcif'); ?></td>
-                <td><?php echo Model_Albaran::find($item->albaran)->get('idalbaran'); ?></td>
+                <td><?php echo $prov; ?></td>
+                <td><?php echo $nif; ?></td>
+                <td><?php
+                    if(Model_Albaran::find($item->albaran)){
+                        echo Model_Albaran::find($item->albaran)->get('idalbaran');
+                    }
+                    else{
+                        echo "N/D";
+                    }
+                    ?></td>
                 <td><?php $v = $item->variedad;
                     echo Model_Variedad::find($v)->get('nombre');
                     ?></td>
@@ -91,6 +108,6 @@ else{
 <p>
     <?php echo Html::anchor('javascript:window.print()', '<span class="glyphicon glyphicon-print"></span> Imprimir entrada diaria', array('class' => 'btn btn-small btn-info','id'=>'print-deliverynote')); ?>
     <?php if(isset($puesto)){ ?>
-        <?php echo Html::anchor('entrega/fechas/'.$idpuesto, '<span class="glyphicon glyphicon-calendar"></span> Consultar entrada en otra fecha', array('class' => 'btn btn-success')); ?>
+        <?php echo Html::anchor('entrega/fechas/'.$idpuesto, 'Consultar entrada en otra fecha', array('class' => 'btn btn-success')); ?>
     <?php } ?>
 </p>
