@@ -29,7 +29,11 @@ $albaran=array_shift($albaranes);
 <br/><br/>
 <?php
 $year = date('Y',$albaran->created_at);
-echo Html::anchor('albaran/edit/'.$albaran->id, '<span class="glyphicon glyphicon-pencil"></span> Editar',array('class' => 'btn btn-success')); ?>
+echo Html::anchor('albaran/edit/'.$albaran->id, '<span class="glyphicon glyphicon-pencil"></span> Editar',array('class' => 'btn btn-success'));
+if(strcmp(Session::get('username'),"rocio")==0) {
+    echo Html::anchor('albaran/edit_prov/' . $albaran->idalbaran . '/' . $albaran->idproveedor, '<span class="glyphicon glyphicon-pencil"></span> Cambiar proveedor', array('class' => 'btn btn-success'));
+}
+?>
 <?php echo Html::anchor('albaran/print/'.$albaran->idalbaran.'/'.$year, '<span class="glyphicon glyphicon-print"></span> Imprimir',array('class' => 'btn btn-sm btn-info')); ?>
 <?php echo Html::anchor('albaran/list', '<span class="glyphicon glyphicon-backward"></span> Volver al listado',array('class' => 'btn btn-sm btn-danger'));?>
 <?php

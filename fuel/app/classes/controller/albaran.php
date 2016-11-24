@@ -166,6 +166,36 @@ class Controller_Albaran extends Controller_Template{
 		$this->template->content = View::forge('albaran/edit');
 	}
 
+	public function action_edit_prov($idalb = null, $idprov){
+		is_null($idalb) and Response::redirect('albaran/list');
+
+		if ( ! $albs = Model_Albaran::find('all',array('where'=>array("idalbaran"=>$idalb)))){
+			Session::set_flash('error', 'No existe en el sistema el albarán núm. '.$idalb);
+			Response::redirect('albaran/list');
+		}
+
+		$val = Model_Albaran::validate('edit');
+
+		if ($val->run()){
+            foreach($albs as $alb){
+                $alb->idproveedor = Input::post('provider');
+                if ($alb->save()){
+                    Session::set_flash('success', 'Albarán núm. ' . $alb->idalbaran .' actualizado.');
+                }
+                else{
+                    Session::set_flash('error', 'No se ha podido actualizar el albarán núm. ' . $alb->idalbaran);
+                }
+            }
+            Response::redirect('albaran/view/'.$alb->idalbaran);
+		}
+        $data["proveedores"] = Model_Proveedor::find('all');
+        $data["current"] = $idprov;
+        $data["idalb"] = $idalb;
+
+		$this->template->title = "Editando datos del Albarán";
+		$this->template->content = View::forge('albaran/edit_prov',$data);
+	}
+
 	public function action_delete($id = null){
 		is_null($id) and Response::redirect('albaran/list');
 
