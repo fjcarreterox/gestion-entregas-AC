@@ -42,14 +42,20 @@ class Controller_Entrega extends Controller_Template
         $this->template->content = View::forge('entrega/report',$data);
     }
 
-    public function action_historico(){
+    public function action_historico($year=null){
         $user = Session::get('username');
         if ( $user == "" ){
             return Response::redirect('welcome/login');
         }
         else{
-            $this->template->title = "Datos históricos 2015";
-            $this->template->content = View::forge('entrega/historico');
+            if($year!=null){
+                $data['year'] = $year;
+                $this->template->title = "Datos históricos de la campaña ".$year;
+                $this->template->content = View::forge('entrega/historico',$data);
+            }else{
+                $this->template->title = "Datos históricos de campañas anteriores";
+                $this->template->content = View::forge('entrega/historico');
+            }
         }
     }
 
