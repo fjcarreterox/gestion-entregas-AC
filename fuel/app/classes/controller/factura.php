@@ -29,7 +29,7 @@ class Controller_Factura extends Controller_Template{
 
     public function action_list()
     {
-        $data['facturas'] = Model_Factura::find('all',array('where'=>array(array('fecha','>','2015-12-31')),'order_by' => array('num_factura' => 'desc')));
+        $data['facturas'] = Model_Factura::find('all',array('where'=>array(array('fecha','>','2016-12-31')),'order_by' => array('num_factura' => 'desc')));
         $data['titulo'] = "";
         $this->template->title = "Facturas registradas en el sistema";
         $this->template->content = View::forge('factura/list', $data);
@@ -253,7 +253,7 @@ class Controller_Factura extends Controller_Template{
 			}
 		}
 
-        $newyear=false;
+        $newyear=true;
         if(!$newyear) {
             $fmax= Model_Factura::max('id');
             $data['num_fact'] = Model_Factura::find($fmax)->get('num_factura');
