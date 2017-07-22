@@ -42,6 +42,7 @@
                         <?php echo Html::anchor('proveedor/edit/'.$item->id.'/'.$action, '<span class="glyphicon glyphicon-pencil"></span> Editar', array('class' => 'btn btn-sm btn-success')); ?>
                         <?php echo Html::anchor('entrega/list_prov/'.$item->id, '<span class="glyphicon glyphicon-paperclip"></span> Ficha final', array('class' => 'btn btn-sm btn-warning')); ?>
                         <?php echo Html::anchor('anticipo/list_prov/'.$item->id, '<span class="glyphicon glyphicon-euro"></span> Anticipos', array('class' => 'btn btn-sm btn-info')); ?>
+                        <?php echo Html::anchor('factura/list_prov/'.$item->id, '<span class="glyphicon glyphicon-credit-card"></span> Hco.facturas', array('class' => 'btn btn-sm btn-info')); ?>
                         <?php echo Html::anchor('proveedor/delete/'.$item->id, '<span class="glyphicon glyphicon-trash"></span> Borrar', array('class' => 'btn btn-sm btn-danger', 'onclick' => "return confirm('¿Estás seguro de esto? El borrado de un proveedor conllevará al borrado de sus facturas, anticipos, albaranes y entregas asociadas.')")); ?>
                     </div>
 				</div>
