@@ -15,7 +15,6 @@ class Controller_Entrega extends Controller_Template
         $this->template->content = View::forge('entrega/init',$data);
     }
 
-
     public function action_report(){
         $variedades = array(1,2,3);
         $data = array();
@@ -98,7 +97,7 @@ class Controller_Entrega extends Controller_Template
             Session::set_flash('error', 'No se ha podido encontrar el proveedor indicado');
             Response::redirect('entrega/list');
         }else{
-            $albaranes = Model_Albaran::find('all',array('where'=>array('idproveedor'=>$idprov,array('fecha', 'LIKE', $year.'%'))));
+            $albaranes = Model_Albaran::find('all',array('where'=>array('idproveedor'=>$idprov,array('fecha', 'LIKE', $year.'%')),'order_by'=>array('id'=>'asc')));
             $entregas = array();
             foreach($albaranes as $a){
                 $entregas[] = Model_Entrega::find($a->identrega);
@@ -161,7 +160,7 @@ class Controller_Entrega extends Controller_Template
             $val = Model_Entrega::validate('create');
 
             if ($val->run()){
-                $albs=Model_Albaran::find('all',array('where'=>array(array('fecha','LIKE','2016%')),'order_by'=>array('id'=>'desc','idalbaran'=>'desc')));
+                $albs=Model_Albaran::find('all',array('where'=>array(array('fecha','LIKE','2017%')),'order_by'=>array('id'=>'desc','idalbaran'=>'desc')));
                 $last_albaran = array_shift($albs);
 
                 if(!$last_albaran) {
@@ -171,7 +170,7 @@ class Controller_Entrega extends Controller_Template
                 else {
                     $last_albaran = Model_Albaran::find('last', array('order_by' => array('id'=>'desc')));
                     $last_albaran_id = $last_albaran->get('id');
-                    $last_albaran_num = Model_Albaran::query()->where('fecha','LIKE','2016%')->max('idalbaran');
+                    $last_albaran_num = Model_Albaran::query()->where('fecha','LIKE','2017%')->max('idalbaran');
                 }
 
                 $entrega = Model_Entrega::forge(array(
