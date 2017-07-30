@@ -2,7 +2,7 @@
 $prov = Model_Proveedor::find($factura->idprov);
 ?>
 <div id="page-wrap">
-    <textarea id="header">FACTURA</textarea>
+    <textarea id="header">RECIBO</textarea>
     <div id="identity">
         <div id="address">
             <p>ACEITUNAS CORIA, S.L.</p>
@@ -25,7 +25,7 @@ $prov = Model_Proveedor::find($factura->idprov);
     <div id="customer">
         <table id="meta">
             <tr>
-                <td class="meta-head">Factura Núm.</td>
+                <td class="meta-head">Recibo Núm.</td>
                 <td class="idfactura"><?php echo $factura->num_factura; ?></td>
             </tr>
             <tr>
@@ -101,9 +101,9 @@ $prov = Model_Proveedor::find($factura->idprov);
             <td class="total-value balance"><div class="total_fac">0.00 &euro;</div></td>
         </tr>
     </table>
-    <div class="comment">
+    <!--<div class="comment">
         <p>Comentario:</p><textarea><?php echo $factura->comentario; ?></textarea>
-    </div>
+    </div>-->
     <div id="terms">
         <h5>Firma:</h5><br/><br/>
     </div>
