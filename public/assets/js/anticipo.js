@@ -53,9 +53,18 @@ $( document ).ready(function() {
         var ant = parseFloat($('#form_totale')[0].value)-parseFloat($('#form_acum')[0].value);
         $('#form_anticipo').attr('value',roundNumber(ant,2));
     });
-    $("#form_precio").keyup(function( event ) {
-        var res = parseFloat($('#form_totalkg')[0].value) * parseFloat($('#form_precio')[0].value);
+    //to update the total price with different prices.
+    $('input[name="precio"]').change(function( event ) {
+        var res= 0;
+        var totales = $('input#form_totalkg');
+
+        $('input#form_precio').each(function(index,data) {
+            res = res + $(this).val() * totales[index].value;
+        });
+
+        //var res = parseFloat($('#form_totalkg')[0].value) * parseFloat($('#form_precio')[0].value);
         $('#form_totale').attr('value',roundNumber(res,2));
+
         var ant = parseFloat($('#form_totale')[0].value)-parseFloat($('#form_acum')[0].value);
         $('#form_anticipo').attr('value',roundNumber(ant,2));
     });

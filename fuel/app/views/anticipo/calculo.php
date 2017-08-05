@@ -6,18 +6,21 @@
     $acum=0;
 
     //calculando el total de kg de todas las entregas del proveedor seleccionado
-    $alb_a = Model_Albaran::find('all',array('where'=>array(array("IdProveedor",\Fuel\Core\Session::get('ses_anticipo_prov')),array('fecha','LIKE','2016%'))));
+    $alb_a = Model_Albaran::find('all',array('where'=>array(array("IdProveedor",\Fuel\Core\Session::get('ses_anticipo_prov')),array('fecha','LIKE','2017%'))));
+    $variedades = array();
     foreach($alb_a as $alb) {
         $id_ent = $alb->get('identrega');
         $parcial = Model_Entrega::find($id_ent)->get('total');
         //Filtramos las aceitunas de molino que no entran en el cómputo
         $variedad = Model_Entrega::find($id_ent)->get('variedad');
+        $variedad_name = Model_Variedad::find($variedad)->get('nombre');
         if (Model_Variedad::find($variedad)->get('en_anticipo')) {
+            $variedades[$variedad_name]=$parcial;
             $totalKg += $parcial;
         }
     }
 
-    $ant_a = Model_Anticipo::find('all',array('where'=>array(array("idprov",\Fuel\Core\Session::get('ses_anticipo_prov')),array('fecha','LIKE','2016%'))));
+    $ant_a = Model_Anticipo::find('all',array('where'=>array(array("idprov",\Fuel\Core\Session::get('ses_anticipo_prov')),array('fecha','LIKE','2017%'))));
     foreach($ant_a as $ant){
         //sólo computan los anticipos que están recogidos.
         if($ant->get('recogido')) {
@@ -47,19 +50,28 @@ else {
         <!--<p>No se han encontrado anticipos anteriores.</p>-->
     <?php endif;
         echo Form::open('anticipo/calculo', array("class" => "form-horizontal")); ?>
-
+        <table id="items">
+            <tr>
+                <th>Variedad</th>
+                <th>Kilos entregados</th>
+                <th>Precio por kgr.</th>
+            </tr>
+            <?php
+                $total=0;
+                foreach($variedades as $var => $peso) {?>
+            <tr class="item-row">
+                <td><?php echo $var; ?></td>
+                <td><?php echo Form::input('totalkg', $peso, array('class' => 'col-md-4 form-control','readonly'=>'readonly')); ?></td>
+                <td><?php echo Form::input('precio', $precio, array('class' => 'col-md-4 form-control')); ?></td>
+            </tr>
+            <?php
+                    $total += $peso*$precio;
+                } ?>
+        </table>
         <fieldset>
             <div class="form-group">
-                <?php echo Form::label('Kilos totales entregados (sólo Manzanilla y Gordal)', 'totalkg', array('class' => 'control-label')); ?>
-                <?php echo Form::input('totalkg', $totalKg, array('class' => 'col-md-4 form-control','readonly'=>'readonly')); ?>
-            </div>
-            <div class="form-group">
-                <?php echo Form::label('Precio por kilo', 'precio', array('class' => 'control-label')); ?>
-                <?php echo Form::input('precio', $precio, array('class' => 'col-md-4 form-control')); ?>
-            </div>
-            <div class="form-group">
                 <?php echo Form::label('Total €', 'totale', array('class' => 'control-label')); ?>
-                <?php echo Form::input('totale', $totalKg*$precio, array('class' => 'col-md-4 form-control','readonly'=>'readonly')); ?>
+                <?php echo Form::input('totale', $total, array('class' => 'col-md-4 form-control','readonly'=>'readonly')); ?>
             </div>
             <div class="form-group">
                 <?php echo Form::label('Acumulado de anticipos recogidos', 'acum', array('class' => 'control-label')); ?>
