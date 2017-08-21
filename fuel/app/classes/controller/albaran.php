@@ -10,7 +10,7 @@ class Controller_Albaran extends Controller_Template{
 		if($year == null){
 			$year = date('Y');
 		}
-		$albaranes = Model_Albaran::find('all', array("where" => array(array('fecha','LIKE',$year.'%')),"order_by"=>'idalbaran'));
+		$albaranes = Model_Albaran::find('all', array("where" => array(array('fecha','LIKE',$year.'%')),"order_by"=>array('idalbaran'=>'desc')));
 		/*$albaranes = array();
         $res=DB::select('idalbaran','fecha')->from('albarans')->distinct()->order_by('idalbaran','desc')->execute();
         foreach($res as $r) {
