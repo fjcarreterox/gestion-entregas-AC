@@ -46,11 +46,15 @@ class Controller_Factura extends Controller_Template{
         $this->template->content = View::forge('factura/report', $data);
     }
 
-    public function action_full(){
+    public function action_full($year = null){
+        if($year == null){ //if not defined, it's the current year
+            $year = date('Y');
+        }
+
         $facts = array();
         $proveedores = Model_Proveedor::find('all',array('order_by' => array('nombre' => 'asc')));
         foreach($proveedores as $p) {
-            $facturas = Model_Factura::find('all', array('where' => array('idprov' => $p->id)));
+            $facturas = Model_Factura::find('all', array('where' => array('idprov' => $p->id,array('fecha','like',$year.'-%'))));
             if(count($facturas)>0) {
                 $total_ret = 0;
                 $iva_array = array("4"=>array("base"=>0,"comp"=>0,"suma"=>0),
