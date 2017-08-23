@@ -37,7 +37,7 @@ class Controller_Entrega extends Controller_Template
         $data['total'] = $total_kilos;
         $data['var'] = $total_var;
 
-        $this->template->title = "Informe global de la campaña 2016";
+        $this->template->title = "Informe global de la campaña 2017";
         $this->template->content = View::forge('entrega/report',$data);
     }
 
