@@ -84,7 +84,15 @@ class Controller_Factura extends Controller_Template{
 
                     }
                     //echo "Prov: ".$p->id.", Base: $base, IVA: $iva, Comp: $comp, suma: $suma, retencion: $ret <br/>";
-                    $facts[$p->id] = array("base"=> $base,"iva" => $iva, "comp"=> $comp, "suma" => $suma, "retencion" => $ret);
+                    if(isset($facts[$p->id])) {
+                        $facts[$p->id]["base"] += $base;
+                        $facts[$p->id]["comp"] += $comp;
+                        $facts[$p->id]["suma"] += $suma;
+                        $facts[$p->id]["retencion"] += $ret;
+                    }
+                    else{
+                        $facts[$p->id] = array("base" => $base, "iva" => $iva, "comp" => $comp, "suma" => $suma, "retencion" => $ret);
+                    }
                 }
             }
         }
