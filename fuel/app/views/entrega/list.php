@@ -1,4 +1,5 @@
 <?php
+\Fuel\Core\Session::delete('idprov');
 if(isset($puesto)){
     echo "<h2>Entrega diaria para el puesto <span class='muted'>$puesto.</span></h2>";
     echo "<h3>Día: <span class='muted'>".date_conv($fecha)."</span></h3><br/>";
