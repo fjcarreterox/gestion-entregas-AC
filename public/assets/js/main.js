@@ -2,7 +2,7 @@
  * Created by motillaPalace on 13/07/2015.
  */
 $( document ).ready(function() {
-    $("input#form_end").click(function( event ) {
+    $("button[name='end']").click(function( event ) {
         if($("#form_idprov")[0].value=="0") {
             alert("Por favor, selecciona al proveedor que realiza la entrega.");
             return false;
@@ -10,7 +10,7 @@ $( document ).ready(function() {
         return true;
     });
     
-    $("input#form_more").click(function( event ) {
+    $("button[name='more']").click(function( event ) {
         if($("#form_idprov")[0].value=="0") {
             alert("Por favor, selecciona al proveedor que realiza la entrega.");
             return false;

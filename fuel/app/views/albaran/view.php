@@ -23,7 +23,16 @@ $albaran=array_shift($albaranes);
 </table>
 <p>
     <strong>Proveedor:</strong>
-    <?php echo Model_Proveedor::find($albaran->idproveedor)->get('nombre'); ?></p>
+    <?php
+    $n=Model_Proveedor::find($albaran->idproveedor);
+    if($n != null){
+        echo $n->get('nombre');
+    }
+    else{
+        echo '<span class="totaleuros">¡ERROR! Albarán sin Proveedor asociado.</span>';
+    }
+    ?>
+</p>
 <p>
     <strong>Comentario:</strong>
     <?php echo $albaran->comentario; ?></p>
