@@ -34,7 +34,7 @@ $( document ).ready(function() {
         return true;
     });
 
-    $("input#form_factura_submit").click(function( event ) {
+    $("button[name='factura_submit']").click(function( event ) {
         if($("#form_idprov")[0].value=="0") {
             alert("Por favor, selecciona el proveedor para poder ver sus facturas o crear una nueva.");
             return false;

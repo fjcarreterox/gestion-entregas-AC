@@ -102,7 +102,7 @@ $prov = Model_Proveedor::find($factura->idprov);
         </tr>
     </table>
     <!--<div class="comment">
-        <p>Comentario:</p><textarea><?php echo $factura->comentario; ?></textarea>
+        <p>Comentario:</p><textarea><?php /*echo $factura->comentario;*/ ?></textarea>
     </div>-->
     <div id="terms">
         <h5>Firma:</h5><br/><br/>
