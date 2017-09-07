@@ -105,7 +105,9 @@ $prov = Model_Proveedor::find($factura->idprov);
         <p>Comentario:</p><textarea><?php /*echo $factura->comentario;*/ ?></textarea>
     </div>-->
     <div id="terms">
-        <h5>Firma:</h5><br/><br/>
+        <h5>Firma:</h5><br/>
+        <p>MANIFIESTA: que se encuentra acogido al R.E.A.G.P</p>
+        <p>En Bollullos de la Mitación, a ______ de ___________________ de 20____</p></br>
     </div>
 
     <?php echo Form::open(array("class"=>"form-horizontal")); ?>
