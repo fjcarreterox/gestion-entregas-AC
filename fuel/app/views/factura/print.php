@@ -1,5 +1,6 @@
 <?php
 $prov = Model_Proveedor::find($factura->idprov);
+$ftemp=explode('-',date_conv($factura->fecha));
 ?>
 <div id="page-wrap">
     <textarea id="header">RECIBO</textarea>
@@ -107,7 +108,7 @@ $prov = Model_Proveedor::find($factura->idprov);
     <div id="terms">
         <h5>Firma:</h5><br/>
         <p>MANIFIESTA: que se encuentra acogido al R.E.A.G.P</p>
-        <p>En Bollullos de la Mitación, a ______ de ___________________ de 20____</p></br>
+        <p>En Bollullos de la Mitación, a <?php echo $ftemp[0];?> de <?php echo getMes($ftemp[1]);?> de <?php echo $ftemp[2];?></p></br>
     </div>
 
     <?php echo Form::open(array("class"=>"form-horizontal")); ?>
