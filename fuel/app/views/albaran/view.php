@@ -40,7 +40,7 @@ $albaran=array_shift($albaranes);
 <?php
 $year = date('Y',$albaran->created_at);
 echo Html::anchor('albaran/edit/'.$albaran->id, '<span class="glyphicon glyphicon-pencil"></span> Editar',array('class' => 'btn btn-success'));
-if(strcmp($v['username'],"Rocio")==0) {
+if($v['username']=="javi" || $v['username']=="Rocio" ){
     echo Html::anchor('albaran/edit_prov/' . $albaran->idalbaran . '/' . $albaran->idproveedor, '<span class="glyphicon glyphicon-pencil"></span> Cambiar proveedor', array('class' => 'btn btn-success'));
 }
 ?>

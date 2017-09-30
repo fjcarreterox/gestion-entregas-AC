@@ -188,7 +188,7 @@ class Controller_Albaran extends Controller_Template{
             }
             Response::redirect('albaran/view/'.$alb->idalbaran);
 		}
-        $data["proveedores"] = Model_Proveedor::find('all');
+        $data["proveedores"] = Model_Proveedor::find('all',array('order_by'=>'nombre'));
         $data["current"] = $idprov;
         $data["idalb"] = $idalb;
 
