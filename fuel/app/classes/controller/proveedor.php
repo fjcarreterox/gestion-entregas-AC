@@ -12,7 +12,7 @@ class Controller_Proveedor extends Controller_Template
     public function action_activos(){
         $provs = Model_Proveedor::find('all',array('where'=>array('liquidado'=>0),'order_by' => 'nombre'));
         foreach($provs as $p){
-            if(!Model_Albaran::find('first',array('where'=>array('idproveedor'=>$p->id,array('fecha', 'LIKE', '2016%'))))){
+            if(!Model_Albaran::find('first',array('where'=>array('idproveedor'=>$p->id,array('fecha', 'LIKE', '2018%'))))){
                 unset($provs[$p->id]);
             }
         }
@@ -25,7 +25,7 @@ class Controller_Proveedor extends Controller_Template
     public function action_inactivos(){
         $provs = Model_Proveedor::find('all',array('order_by' => 'nombre'));
         foreach($provs as $p){
-            if(Model_Albaran::find('first',array('where'=>array('idproveedor'=>$p->id,array('fecha', 'LIKE', '2016%'))))){
+            if(Model_Albaran::find('first',array('where'=>array('idproveedor'=>$p->id,array('fecha', 'LIKE', '2017%'))))){
                 unset($provs[$p->id]);
             }
         }
@@ -210,6 +210,7 @@ class Controller_Proveedor extends Controller_Template
 
     public function action_ficha_final($idp){
         $data['pname'] = Model_Proveedor::find($idp)->get('nombre');
+        $data['dni'] = Model_Proveedor::find($idp)->get('nifcif');
         $albaranes = Model_Albaran::find('all', array(
             'where' => array(
                 array('idproveedor', $idp),

@@ -6,7 +6,7 @@ $precio=0.30;
 $acum=0;
 
 //calculando el total de kg de todas las entregas del proveedor seleccionado
-$alb_a = Model_Albaran::find('all',array('where'=>array(array("IdProveedor",\Fuel\Core\Session::get('ses_anticipo_prov')),array('fecha','LIKE','2017%'))));
+$alb_a = Model_Albaran::find('all',array('where'=>array(array("IdProveedor",\Fuel\Core\Session::get('ses_anticipo_prov')),array('fecha','LIKE','2018%'))));
 $variedades = array();
 $parcial=0;
 foreach($alb_a as $alb) {
