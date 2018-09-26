@@ -105,7 +105,6 @@ class Controller_Entrega extends Controller_Template
             $data['anticipos'] = Model_Anticipo::find('all',array('where'=>array(array('recogido'=>'1'),array('idprov'=> $idprov),array('fecha', 'LIKE', $year.'%')),'order_by'=>array('fecha'=>'desc')));
             $data['entregas'] = $entregas;
             $data['nombre_prov'] = Model_Proveedor::find($idprov)->get('nombre');
-            $data['idc'] = $idprov;
         }
 
         $this->template->title = "Ficha final de proveedor";
@@ -165,14 +164,14 @@ class Controller_Entrega extends Controller_Template
                 $last_albaran = array_shift($albs);
 
                 if(!$last_albaran) {
-                    $last_albaran_id = 1;
-                    $last_albaran_num = 1;
+                    //$last_albaran_id = 1;
+                    $last_albaran_num = 0;
                 }
                 else {
-                    $last_albaran = Model_Albaran::find('last', array('order_by' => array('id'=>'desc')));
-                    $last_albaran_id = $last_albaran->get('id');
                     $last_albaran_num = Model_Albaran::query()->where('fecha','LIKE','2018%')->max('idalbaran');
                 }
+                $last_albaran_all = Model_Albaran::find('last', array('order_by' => array('id'=>'desc')));
+                $last_albaran_id = $last_albaran_all->get('id');
 
                 $entrega = Model_Entrega::forge(array(
                     'fecha' => Input::post('fecha'),
