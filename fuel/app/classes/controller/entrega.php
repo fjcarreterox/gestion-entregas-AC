@@ -161,10 +161,8 @@ class Controller_Entrega extends Controller_Template
 
             if ($val->run()){
                 $albs=Model_Albaran::find('all',array('where'=>array(array('fecha','LIKE','2018%')),'order_by'=>array('id'=>'desc','idalbaran'=>'desc')));
-                $last_albaran = array_shift($albs);
 
-                if(!$last_albaran) {
-                    //$last_albaran_id = 1;
+                if(count($albs)==0) {
                     $last_albaran_num = 0;
                 }
                 else {
