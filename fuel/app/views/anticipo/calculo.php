@@ -22,7 +22,7 @@ foreach($alb_a as $alb) {
     }
 }
 
-$ant_a = Model_Anticipo::find('all',array('where'=>array(array("idprov",\Fuel\Core\Session::get('ses_anticipo_prov')),array('fecha','LIKE','2017%'))));
+$ant_a = Model_Anticipo::find('all',array('where'=>array(array("idprov",\Fuel\Core\Session::get('ses_anticipo_prov')),array('fecha','LIKE','2018%'))));
 foreach($ant_a as $ant){
     //sólo computan los anticipos que están recogidos.
     if($ant->get('recogido')) {
