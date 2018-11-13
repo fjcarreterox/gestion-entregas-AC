@@ -28,13 +28,18 @@ else{*/
         <tbody>
 <?php
 $total_variedades = array();
+$total_tam = array();
 
 foreach ($entregas as $item):?>
     <tr>
 			<td><?php echo date_conv($item->fecha); ?></td>
             <td><?php echo Model_Albaran::find($item->albaran)->get('idalbaran'); ?></td>
 			<td><?php echo Model_Variedad::find($item->variedad)->get('nombre');?></td>
-            <td class="gris"><?php echo $item->tam; ?></td>
+            <td class="gris"><?php echo $item->tam;
+                if($item->tam!=0) {
+                    $total_tam[$item->variedad][] = $item->tam;
+                }
+                ?></td>
 			<td><strong><?php echo $item->total;
                 if(isset($total_variedades[$item->variedad])) {
                     $total_variedades[$item->variedad] += $item->total;
@@ -56,10 +61,25 @@ foreach ($entregas as $item):?>
 <?php endforeach;?>
         </tbody>
 </table>
-
+<br/>
+    <br/>
+<h3 class="print"><u><b>Tamaños medio</b> por variedad de aceituna</u></h3>
+<table class="table table-striped print">
+    <thead>
+    </thead>
+    <tbody>
+    <?php
+    foreach ($total_tam as $v => $value):?>
+        <tr>
+            <td><?php echo "Tamaño medio ".Model_Variedad::find($v)->get('nombre'); ?></td>
+            <td><?php echo array_sum($value)/count($value);?></td>
+        </tr>
+    <?php endforeach;?>
+    </tbody>
+    </table>
     <br/>
     <br/>
-    <h3 class="print"><u>Resumen de kg. entregados por variedad de aceituna</u></h3>
+    <h3 class="print"><u>Resumen de <b>kg. entregados</b> por variedad de aceituna</u></h3>
 <table class="table table-striped print">
     <thead>
     <tr>
