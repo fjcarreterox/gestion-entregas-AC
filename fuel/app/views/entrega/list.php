@@ -29,12 +29,15 @@ else{
             <th>Núm. Albarán</th>
             <th>Variedad</th>
             <th>Total Kg</th>
+            <th>Tamaño medio</th>
             <th>&nbsp;</th>
         </tr>
         </thead>
         <tbody>
         <?php
         $total = array();
+        $tam_total = array();
+        $num_entregas = array();
         foreach ($entregas as $item):
             if(Model_Albaran::find('first', array('where' => array('id' => $item->albaran)))){
                 $alb = Model_Albaran::find('first', array('where' => array('id' => $item->albaran)));
@@ -68,6 +71,20 @@ else{
                         $total[$v] += $item->total;
                     } ?></td>
                 <td>
+                    <?php echo $item->tam;
+                    if(!isset($tam_total[$v])){
+                        $tam_total[$v] = $item->tam;
+                    }else{
+                        $tam_total[$v] += $item->tam;
+                    }
+                    if(!isset($num_entregas[$v])){
+                        $num_entregas[$v] = 1;
+                    }else{
+                        $num_entregas[$v]++;
+                    }
+                    ?>
+                </td>
+                <td>
                     <div class="btn-toolbar">
                         <div class="btn-group">
                             <?php echo Html::anchor('entrega/view/'.$item->id, '<span class="glyphicon glyphicon-eye-open"></span> Detalle', array('class' => 'btn btn-default')); ?>
@@ -97,6 +114,27 @@ else{
             <tr>
                 <td><?php echo Model_Variedad::find($v)->get('nombre'); ?></td>
                 <td><?php echo $t; ?>  Kgs.</td>
+            </tr>
+        <?php endforeach;?>
+        </tbody>
+    </table>
+    <br/>
+
+    <h3 class="print"><u>Resumen de tamaño medio por variedad de aceituna</u></h3>
+    <table class="table table-striped print">
+        <thead>
+        <tr>
+            <th>Variedad</th>
+            <th>Tamaño medio entregado hoy</th>
+            <th>Media del puesto durante la campaña</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach($tam_total as $v => $t): ?>
+            <tr>
+                <td><?php echo Model_Variedad::find($v)->get('nombre'); ?></td>
+                <td><?php echo number_format($t/$num_entregas[$v],2); ?></td>
+                <td><?php  echo number_format(getTamMedio($idpuesto)[$v],2);?></td>
             </tr>
         <?php endforeach;?>
         </tbody>

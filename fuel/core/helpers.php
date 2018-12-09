@@ -67,3 +67,22 @@ function get_percents($entrega){
 
     return $str.".";
 }
+/*
+ * Get the average size of the delivered in the current campaign by delivery post
+ * */
+function getTamMedio($idp){
+    $total = DB::select('id','tam','variedad')->from('entregas')->where(array(array('idpuesto','=', $idp),array('tam','<>',0),array('fecha','>','2018-01-01')))->execute();
+    $tam_medio=array();
+    $num_entregas=array();
+    foreach($total as $t){
+        $v=$t['variedad'];
+        if(isset($tam_medio[$v])){$tam_medio[$v] += $t['tam'];}
+        else{$tam_medio[$v] = $t['tam'];}
+        if(isset($num_entregas[$v])){$num_entregas[$v]++;}
+        else{$num_entregas[$v] = 1;}
+    }
+    foreach($tam_medio as $v => $t){
+        $tam_medio[$v]=$t/$num_entregas[$v];
+    }
+    return $tam_medio;
+}
