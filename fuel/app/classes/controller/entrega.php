@@ -37,7 +37,7 @@ class Controller_Entrega extends Controller_Template
         $data['total'] = $total_kilos;
         $data['var'] = $total_var;
 
-        $this->template->title = "Informe global de la campaña 2018";
+        $this->template->title = "Informe global de la campaña 2019";
         $this->template->content = View::forge('entrega/report',$data);
     }
 
@@ -105,6 +105,7 @@ class Controller_Entrega extends Controller_Template
             $data['anticipos'] = Model_Anticipo::find('all',array('where'=>array(array('recogido'=>'1'),array('idprov'=> $idprov),array('fecha', 'LIKE', $year.'%')),'order_by'=>array('fecha'=>'desc')));
             $data['entregas'] = $entregas;
             $data['nombre_prov'] = Model_Proveedor::find($idprov)->get('nombre');
+            $data['idc'] = $idprov;
         }
 
         $this->template->title = "Ficha final de proveedor";
@@ -114,8 +115,8 @@ class Controller_Entrega extends Controller_Template
     public function action_list($idpuesto = null){
 
         if(is_null($idpuesto)) {
-            $data['titulo'] = "durante la campaña 2018.";
-            $data['entregas'] = Model_Entrega::find('all', array('where'=>array(array('fecha','>','2017-12-31')),'order_by' => array('Fecha' => 'desc'),'order_by' => array('id' => 'desc')));
+            $data['titulo'] = "durante la campaña 2019.";
+            $data['entregas'] = Model_Entrega::find('all', array('where'=>array(array('fecha','>','2018-12-31')),'order_by' => array('Fecha' => 'desc'),'order_by' => array('id' => 'desc')));
             $this->template->title = "Listado de todas las entregas realizadas";
         }
         else{
@@ -160,13 +161,13 @@ class Controller_Entrega extends Controller_Template
             $val = Model_Entrega::validate('create');
 
             if ($val->run()){
-                $albs=Model_Albaran::find('all',array('where'=>array(array('fecha','LIKE','2018%')),'order_by'=>array('id'=>'desc','idalbaran'=>'desc')));
+                $albs=Model_Albaran::find('all',array('where'=>array(array('fecha','LIKE','2019%')),'order_by'=>array('id'=>'desc','idalbaran'=>'desc')));
 
                 if(count($albs)==0) {
                     $last_albaran_num = 0;
                 }
                 else {
-                    $last_albaran_num = Model_Albaran::query()->where('fecha','LIKE','2018%')->max('idalbaran');
+                    $last_albaran_num = Model_Albaran::query()->where('fecha','LIKE','2019%')->max('idalbaran');
                 }
                 $last_albaran_all = Model_Albaran::find('last', array('order_by' => array('id'=>'desc')));
                 $last_albaran_id = $last_albaran_all->get('id');

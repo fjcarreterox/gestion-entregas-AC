@@ -7,6 +7,7 @@
         <li><a href="../entrega/historico/2015">Campaña 2015</a></li>
         <li><a href="../entrega/historico/2016">Campaña 2016</a></li>
         <li><a href="../entrega/historico/2017">Campaña 2017</a></li>
+        <li><a href="../entrega/historico/2018">Campaña 2018</a></li>
     </ul>
 <?php
 }
