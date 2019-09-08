@@ -28,6 +28,7 @@ else{*/
         <tbody>
 <?php
 $total_variedades = array();
+$total_kg_tam = array();
 $total_tam = array();
 
 foreach ($entregas as $item):?>
@@ -37,8 +38,13 @@ foreach ($entregas as $item):?>
 			<td><?php echo Model_Variedad::find($item->variedad)->get('nombre');?></td>
             <td class="gris"><?php echo $item->tam;
 
-                $total_tam[$item->variedad][] = $item->tam*$item->total;
-
+            if($item->tam!=0) {
+                $total_tam[$item->variedad][] = $item->tam * $item->total;
+                if(!isset($total_kg_tam[$item->variedad]))
+                    $total_kg_tam[$item->variedad]=$item->total;
+                else
+                    $total_kg_tam[$item->variedad]+=$item->total;
+            }
                 ?></td>
 			<td><strong><?php echo $item->total;
                 if(isset($total_variedades[$item->variedad])) {
@@ -73,13 +79,13 @@ foreach ($entregas as $item):?>
     foreach ($total_tam as $v => $value):?>
         <tr>
             <td><?php echo "Tamaño medio ".Model_Variedad::find($v)->get('nombre'); ?></td>
-            <td><?php echo number_format(array_sum($value)/$total_variedades[$v],4);?></td>
+            <td><?php echo number_format(array_sum($value)/$total_kg_tam[$v],4);?></td>
         </tr>
     <?php endforeach;?>
     </tbody>
     </table>
     <?php else: ?>
-        <p class="print">No se han registrado aún entregas con tamaños significativos para este proveedor.</p>
+        <p class="print">No se han localizado entregas con tamaños significativos para este proveedor.</p>
     <?php endif; ?>
     <br/>
     <br/>
