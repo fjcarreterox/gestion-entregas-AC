@@ -142,7 +142,10 @@ else{
         <?php foreach($tam_total as $v => $t): ?>
             <tr>
                 <td><?php echo Model_Variedad::find($v)->get('nombre'); ?></td>
-                <td><?php echo number_format($t/$total_kg_tam[$v],2); ?></td>
+                <td><?php
+                    if(isset($total_kg_tam[$v])){echo number_format($t/$total_kg_tam[$v],2);}
+                    else{echo 0.00;}
+                    ?></td>
                 <td><?php echo number_format(getTamMedio($vars["puesto"],$v),2); ?></td>
             </tr>
         <?php endforeach;?>
