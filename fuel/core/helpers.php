@@ -70,19 +70,31 @@ function get_percents($entrega){
 /*
  * Get the average size of the delivered in the current campaign by delivery post
  * */
-function getTamMedio($idp){
-    $total = DB::select('id','tam','variedad')->from('entregas')->where(array(array('idpuesto','=', $idp),array('tam','<>',0),array('fecha','>','2018-01-01')))->execute();
+function getTamMedio($idp,$variedad){
+    $total = DB::select('id','tam','total','variedad')->from('entregas')->where(array(array('idpuesto','=', $idp),array('tam','<>',0),array('fecha','>','2019-01-01')))->execute();
     $tam_medio=array();
-    $num_entregas=array();
+    $total_kg_medio=array();
     foreach($total as $t){
         $v=$t['variedad'];
-        if(isset($tam_medio[$v])){$tam_medio[$v] += $t['tam'];}
-        else{$tam_medio[$v] = $t['tam'];}
-        if(isset($num_entregas[$v])){$num_entregas[$v]++;}
-        else{$num_entregas[$v] = 1;}
+        if(isset($tam_medio[$v])){
+            $tam_medio[$v] += $t['tam']*$t['total'];
+        }
+        else{
+            $tam_medio[$v] = $t['tam']*$t['total'];
+        }
+        if($t['tam']!=0){
+            if(isset($total_kg_medio[$v])){
+                $total_kg_medio[$v] += $t['total'];
+            }
+            else{
+                $total_kg_medio[$v] = $t['total'];
+            }
+        }
+
     }
     foreach($tam_medio as $v => $t){
-        $tam_medio[$v]=$t/$num_entregas[$v];
+        $tam_medio[$v]=$t/$total_kg_medio[$v];
     }
-    return $tam_medio;
+    if(isset($tam_medio[$variedad])) return $tam_medio[$variedad];
+    else return 0;
 }

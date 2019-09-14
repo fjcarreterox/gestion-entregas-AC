@@ -1,5 +1,6 @@
 <?php
 \Fuel\Core\Session::delete('idprov');
+$vars=Session::get();
 if(isset($puesto)){
     echo "<h2>Entrega diaria para el puesto <span class='muted'>$puesto.</span></h2>";
     echo "<h3>Día: <span class='muted'>".date_conv($fecha)."</span></h3><br/>";
@@ -38,6 +39,7 @@ else{
         $total = array();
         $tam_total = array();
         $num_entregas = array();
+        $total_kg_tam = array();
         foreach ($entregas as $item):
             if(Model_Albaran::find('first', array('where' => array('id' => $item->albaran)))){
                 $alb = Model_Albaran::find('first', array('where' => array('id' => $item->albaran)));
@@ -73,14 +75,21 @@ else{
                 <td>
                     <?php echo $item->tam;
                     if(!isset($tam_total[$v])){
-                        $tam_total[$v] = $item->tam;
+                        $tam_total[$v] = $item->tam*$item->total;
                     }else{
-                        $tam_total[$v] += $item->tam;
+                        $tam_total[$v] += $item->tam*$item->total;
                     }
                     if(!isset($num_entregas[$v])){
                         $num_entregas[$v] = 1;
                     }else{
                         $num_entregas[$v]++;
+                    }
+
+                    if($item->tam!=0) {
+                        if(!isset($total_kg_tam[$v]))
+                            $total_kg_tam[$v]=$item->total;
+                        else
+                            $total_kg_tam[$v]+=$item->total;
                     }
                     ?>
                 </td>
@@ -106,7 +115,7 @@ else{
         <thead>
         <tr>
             <th>Variedad</th>
-            <th>Total entregado</th>
+            <th>Total entregado en la campaña</th>
         </tr>
         </thead>
         <tbody>
@@ -125,16 +134,16 @@ else{
         <thead>
         <tr>
             <th>Variedad</th>
-            <th>Tamaño medio entregado hoy</th>
-            <th>Media del puesto durante la campaña</th>
+            <th>Tamaño medio entregado (campaña actual)</th>
+            <th>Media <u>del puesto actual</u> durante la campaña</th>
         </tr>
         </thead>
         <tbody>
         <?php foreach($tam_total as $v => $t): ?>
             <tr>
                 <td><?php echo Model_Variedad::find($v)->get('nombre'); ?></td>
-                <td><?php echo number_format($t/$num_entregas[$v],2); ?></td>
-                <td><?php  echo number_format(getTamMedio($idpuesto)[$v],2);?></td>
+                <td><?php echo number_format($t/$total_kg_tam[$v],2); ?></td>
+                <td><?php echo number_format(getTamMedio($vars["puesto"],$v),2); ?></td>
             </tr>
         <?php endforeach;?>
         </tbody>
@@ -149,4 +158,5 @@ else{
     <?php if(isset($puesto)){ ?>
         <?php echo Html::anchor('entrega/fechas/'.$idpuesto, 'Consultar entrada en otra fecha', array('class' => 'btn btn-success')); ?>
     <?php } ?>
+    <?php echo Html::anchor('/', '<span class="glyphicon glyphicon-backward"></span> Menú principal', array('class' => 'btn btn-danger','title'=>'Volver al menu')); ?>
 </p>
