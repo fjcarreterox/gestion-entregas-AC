@@ -1,3 +1,4 @@
 .idea/
 fuel/app/logs/
 fuel/core/*
+fuel/app/views/template.php
