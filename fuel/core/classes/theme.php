@@ -159,7 +159,7 @@ class Theme
 		}
 		catch (\Exception $e)
 		{
-			\Error::exception_handler($e);
+			\Errorhandler::exception_handler($e);
 
 			return '';
 		}
