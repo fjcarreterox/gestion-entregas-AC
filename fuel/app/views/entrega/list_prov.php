@@ -9,7 +9,7 @@ else{*/
 ?>
 <br/>
 <p><?php echo Html::anchor('javascript:window.print()', '<span class="glyphicon glyphicon-print"></span> Imprimir ficha final', array('class' => 'btn btn-info','id'=>'print-deliverynote')); ?>
-   <?php echo Html::anchor('proveedor/ficha_final/'.$idc, '<span class="glyphicon glyphicon-print"></span> Generar PDF', array('class' => 'btn btn-info','id'=>'print-deliverynote','target'=>'_blank')); ?></p>
+   <?php /*echo Html::anchor('proveedor/ficha_final/'.$idc, '<span class="glyphicon glyphicon-print"></span> Generar PDF', array('class' => 'btn btn-info','id'=>'print-deliverynote','target'=>'_blank'));*/ ?></p>
 <?php if ($entregas): ?>
     <h3 class="print"><u>Historial de entregas del cliente</u></h3>
     <p class="print">Número total de entregas realizadas: <b><?php echo count($entregas) ?></b> durante toda la campaña.</p>
@@ -145,7 +145,7 @@ foreach ($entregas as $item):?>
 
 <?php endif; ?><p>
     <?php echo Html::anchor('javascript:window.print()', '<span class="glyphicon glyphicon-print"></span>  Imprimir ficha final', array('class' => 'btn btn-info','id'=>'print-deliverynote')); ?>
-    <?php echo Html::anchor('proveedor/ficha_final/'.$idc, '<span class="glyphicon glyphicon-print"></span> Generar PDF', array('class' => 'btn btn-info','id'=>'print-deliverynote')); ?>
+    <?php /*echo Html::anchor('proveedor/ficha_final/'.$idc, '<span class="glyphicon glyphicon-print"></span> Generar PDF', array('class' => 'btn btn-info','id'=>'print-deliverynote'));*/ ?>
 </p>
 <script type="text/javascript">
     var total = $("p.total");
