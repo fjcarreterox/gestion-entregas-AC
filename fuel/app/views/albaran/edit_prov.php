@@ -7,6 +7,10 @@
     echo Form::open(array("class" => "form-horizontal")); ?>
     <fieldset>
         <div class="form-group">
+            <?php echo Form::label('Id interno', 'id', array('class'=>'control-label')); ?>
+            <?php echo Form::input('id', $id, array('class' => 'col-md-4 form-control', 'placeholder'=>'Idalbaran','readonly'=>'readonly')); ?>
+        </div>
+        <div class="form-group">
             <?php echo Form::label('Núm. Albarán', 'idalbaran', array('class'=>'control-label')); ?>
             <?php echo Form::input('idalbaran', $idalb, array('class' => 'col-md-4 form-control', 'placeholder'=>'Idalbaran','readonly'=>'readonly')); ?>
         </div>
