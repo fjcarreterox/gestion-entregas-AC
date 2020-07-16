@@ -4,10 +4,11 @@
     foreach ($proveedores as $p) {
         $provs[$p->get('id')] = $p->get('nombre');
     }
+    echo "<p>Este cambio de proveedor sólo tendrá efecto para este único albarán</p>";
     echo Form::open(array("class" => "form-horizontal")); ?>
     <fieldset>
         <div class="form-group">
-            <?php echo Form::label('Id interno', 'id', array('class'=>'control-label')); ?>
+            <?php echo Form::label('Identificador del sistema', 'id', array('class'=>'control-label')); ?>
             <?php echo Form::input('id', $id, array('class' => 'col-md-4 form-control', 'placeholder'=>'Idalbaran','readonly'=>'readonly')); ?>
         </div>
         <div class="form-group">
@@ -19,11 +20,10 @@
             <?php echo Form::select('provider', $current, $provs, array('class' => 'col-md-4 form-control')); ?>
         </div>
         <br/>
-        <br/>
-
         <div class="form-group">
             <label class='control-label'>&nbsp;</label>
-            <?php echo Form::button('editprov_submit', '<span class="glyphicon glyphicon-pencil"></span> Cambiar proveedor', array('class' => 'btn btn-primary','type'=>'submit')); ?>
+            <p><?php echo Html::anchor('albaran/list', '<span class="glyphicon glyphicon-backward"></span> Volver',array('class'=>'btn btn-danger')); ?>
+            <?php echo Form::button('editprov_submit', '<span class="glyphicon glyphicon-pencil"></span> Cambiar proveedor', array('class' => 'btn btn-primary','type'=>'submit')); ?></p>
         </div>
     </fieldset>
     <?php echo Form::close();
