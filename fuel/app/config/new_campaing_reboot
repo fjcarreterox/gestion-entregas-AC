@@ -1,5 +1,5 @@
 Guide to update the app very new campaing in the MySQL queries and menu options.
-Hoepfully the data adequation can be automated with an script.
+Hopefully the data adequation can be automated with an script.
 
 1) Delete the following tables: (only when the app is new, with no historical data)
     * albarans
@@ -9,6 +9,8 @@ Hoepfully the data adequation can be automated with an script.
     * lineas
 
 2) Edit the following files in order to modify the queries to the database (look for last year occurences):
+
+i.e. https://github.com/fjcarreterox/gestion-entregas-AC/commit/6b7ed5b3bb7883b7bcf1c33750edee2fca42f710
 
 CONTROLLERS
     * fuel/app/classes/controller/albaran.php -> '2018%' (3 places)
