@@ -41,7 +41,7 @@ $albaran=array_shift($albaranes);
 $year = date('Y',$albaran->created_at);
 echo Html::anchor('albaran/edit/'.$albaran->id, '<span class="glyphicon glyphicon-pencil"></span> Editar',array('class' => 'btn btn-success'));
 if($v['username']=="javi" || $v['username']=="Rocio" ){
-    echo Html::anchor('albaran/edit_prov/' . $albaran->id . '/' . $albaran->idproveedor, '<span class="glyphicon glyphicon-pencil"></span> Cambiar proveedor', array('class' => 'btn btn-success'));
+    echo Html::anchor('albaran/edit_prov/' . $albaran->idalbaran . '/' . $albaran->idproveedor, '<span class="glyphicon glyphicon-pencil"></span> Cambiar proveedor', array('class' => 'btn btn-success'));
 }
 ?>
 <?php echo Html::anchor('albaran/print/'.$albaran->idalbaran.'/'.$year, '<span class="glyphicon glyphicon-print"></span> Imprimir',array('class' => 'btn btn-sm btn-info')); ?>

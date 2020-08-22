@@ -166,32 +166,32 @@ class Controller_Albaran extends Controller_Template{
 		$this->template->content = View::forge('albaran/edit');
 	}
 
-	public function action_edit_prov($id = null, $idprov){
-		is_null($id) and Response::redirect('albaran/list');
+	public function action_edit_prov($idalb = null, $idprov){
+		is_null($idalb) and Response::redirect('albaran/list');
 
-		if ( ! $alb = Model_Albaran::find($id)){
-			Session::set_flash('error', 'No existe en el sistema el albarán núm. '.$id);
+		$albaranes = Model_Albaran::find('all',array("where" => array("idalbaran"=>$idalb)));
+
+		if (empty($albaranes)){
+			Session::set_flash('error', 'No existe en el sistema el albarán núm. '.$idalb);
 			Response::redirect('albaran/list');
 		}
 
 		$val = Model_Albaran::validate('edit');
 
 		if ($val->run()){
-
-                $alb->idproveedor = Input::post('provider');
-                if ($alb->save()){
-                    Session::set_flash('success', 'Albarán núm. ' . $alb->idalbaran .' actualizado.');
-                }
-                else{
-                    Session::set_flash('error', 'No se ha podido actualizar el albarán núm. ' . $alb->id);
-                }
-
-            Response::redirect('albaran/view/'.$alb->idalbaran);
+			foreach($albaranes as $alb) {
+				$alb->idproveedor = Input::post('provider');
+				if ($alb->save()) {
+					Session::set_flash('success', 'Albarán núm. ' . $alb->idalbaran . ' actualizado.');
+				} else {
+					Session::set_flash('error', 'No se ha podido actualizar el albarán núm. ' . $alb->id);
+				}
+			}
+            Response::redirect('albaran/view/'.$idalb);
 		}
         $data["proveedores"] = Model_Proveedor::find('all',array('order_by'=>'nombre'));
         $data["current"] = $idprov;
-		$data["id"] = $id;
-        $data["idalb"] = $alb->get('idalbaran');;
+        $data["idalb"] = $idalb;
 
 		$this->template->title = "Cambiar proveedor para el Albarán";
 		$this->template->content = View::forge('albaran/edit_prov',$data);

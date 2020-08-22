@@ -4,15 +4,11 @@
     foreach ($proveedores as $p) {
         $provs[$p->get('id')] = $p->get('nombre');
     }
-    echo "<p>Este cambio de proveedor sólo tendrá efecto para este único albarán</p>";
+    echo "<p>Este cambio de proveedor sólo tendrá efecto para este único albarán, incluyendo todas las líneas diferentes de entregas que lo compongan:</p>";
     echo Form::open(array("class" => "form-horizontal")); ?>
     <fieldset>
         <div class="form-group">
-            <?php echo Form::label('Identificador del sistema', 'id', array('class'=>'control-label')); ?>
-            <?php echo Form::input('id', $id, array('class' => 'col-md-4 form-control', 'placeholder'=>'Idalbaran','readonly'=>'readonly')); ?>
-        </div>
-        <div class="form-group">
-            <?php echo Form::label('Núm. Albarán', 'idalbaran', array('class'=>'control-label')); ?>
+            <?php echo Form::label('Núm. Albarán (no cambiará)', 'idalbaran', array('class'=>'control-label')); ?>
             <?php echo Form::input('idalbaran', $idalb, array('class' => 'col-md-4 form-control', 'placeholder'=>'Idalbaran','readonly'=>'readonly')); ?>
         </div>
         <div class="form-group">
