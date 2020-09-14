@@ -9,7 +9,7 @@ $prov=Model_Proveedor::find($albaran->get('idproveedor'));
             <div id="address">
                 <p>ACEITUNAS CORIA, S.L.</p>
                 <p class="smaller">N.I.F. B-91030692</p>
-                <p class="smallest">C/ Tres de Abril, 9, 1º - Teléfono 954 77 19 29<br/>
+                <p class="smallest">Avda. de Andalucía, 189 - Teléfono 954 77 19 29<br/>
                     41100 CORIA DEL RIO (Sevilla)</p>
             </div>
             <div class="customer">
