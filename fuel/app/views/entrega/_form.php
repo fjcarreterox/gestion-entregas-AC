@@ -86,7 +86,7 @@ if($idprov==""){
 		</div>
 		<div class="form-group">
 			<?php echo Form::label('Total pesados (kgrs.)', 'total', array('class'=>'control-label')); ?>
-			<?php echo Form::input('total', Input::post('total', isset($entrega) ? $entrega->total : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Total Kg pesados')); ?>
+			<?php echo Form::input('total', Input::post('total', isset($entrega) ? $entrega->total : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Total Kg pesados','autocomplete'=>'off')); ?>
 		</div>
 		<div class="form-group">
 			<?php echo Form::label('Envases prestados', 'envases', array('class'=>'control-label')); ?>
