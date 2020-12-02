@@ -31,6 +31,8 @@ else{*/
 $total_variedades = array();
 $total_kg_tam = array();
 $total_tam = array();
+$rep_m = array("O"=>0,"A"=>0,"B"=>0,"C"=>0,"D"=>0,"E"=>0);
+$rep_g = array("O"=>0,"A"=>0,"B"=>0,"C"=>0,"D"=>0,"E"=>0);
 
 foreach ($entregas as $item):?>
     <tr>
@@ -45,6 +47,23 @@ foreach ($entregas as $item):?>
                     $total_kg_tam[$item->variedad]=$item->total;
                 else
                     $total_kg_tam[$item->variedad]+=$item->total;
+            }
+
+            if($item->variedad==1){
+                    if($item->tam == 0) $rep_m["O"] += $item->total;
+                    if(($item->tam > 0) && ($item->tam <= 280)) $rep_m["A"] += $item->total;
+                    if(($item->tam > 280) && ($item->tam <= 300)) $rep_m["B"] += $item->total;
+                    if(($item->tam > 300) && ($item->tam <= 320)) $rep_m["C"] += $item->total;
+                    if(($item->tam > 320) && ($item->tam <= 340)) $rep_m["D"] += $item->total;
+                    else if($item->tam > 340) $rep_m["E"] += $item->total;
+            }
+            else if($item->variedad==2){
+                    if($item->tam == 0) $rep_g["O"] += $item->total;
+                    if(($item->tam > 0) && ($item->tam <= 100)) $rep_g["A"] += $item->total;
+                    if(($item->tam > 100) && ($item->tam <= 120)) $rep_g["B"] += $item->total;
+                    if(($item->tam > 120) && ($item->tam <= 140)) $rep_g["C"] += $item->total;
+                    if(($item->tam > 140) && ($item->tam <= 160)) $rep_g["D"] += $item->total;
+                    else if($item->tam > 160) $rep_g["E"] += $item->total;
             }
                 ?></td>
 			<td><strong><?php echo $item->total;
@@ -69,6 +88,53 @@ foreach ($entregas as $item):?>
         </tbody>
 </table>
 <br/>
+    <h3 class="print"><u>Distribución de kgrs. según tamaño (rangos)</u></h3>
+<table class="table table-striped print">
+    <thead>
+    <h4><b>Tipo Manzanilla</b></h4>
+    <tr>
+        <th>0</th>
+        <th>< 280</th>
+        <th>280 - 300</th>
+        <th>300 - 320</th>
+        <th>320 - 340</th>
+        <th>340 - N</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+<?php foreach ($rep_m as $rango=>$v):{
+            echo "<td>".$v."</td>";
+}
+endforeach;
+?>
+        </tr>
+    </tbody>
+</table>
+    <br/>
+    <br/>
+    <table class="table table-striped print">
+        <thead>
+        <h4><b>Tipo Gordal</b></h4>
+        <tr>
+            <th>0</th>
+            <th>< 100</th>
+            <th>100 - 120</th>
+            <th>120 - 140</th>
+            <th>140 - 160</th>
+            <th>160 - N</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <?php foreach ($rep_g as $rango=>$v):{
+                echo "<td>".$v."</td>";
+            }
+            endforeach;
+            ?>
+        </tr>
+        </tbody>
+    </table>
     <br/>
 <h3 class="print"><u><b>Tamaños medio</b> por variedad de aceituna</u></h3>
 <?php if (!empty($total_tam)): ?>
