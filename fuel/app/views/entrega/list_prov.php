@@ -33,6 +33,7 @@ $total_kg_tam = array();
 $total_tam = array();
 $rep_m = array("O"=>0,"A"=>0,"B"=>0,"C"=>0,"D"=>0,"E"=>0);
 $rep_g = array("O"=>0,"A"=>0,"B"=>0,"C"=>0,"D"=>0,"E"=>0);
+$rango_molino = array("R1"=>0,"R2"=>0,"R3"=>0,"R4"=>0);
 
 foreach ($entregas as $item):?>
     <tr>
@@ -64,6 +65,12 @@ foreach ($entregas as $item):?>
                     if(($item->tam > 120) && ($item->tam <= 140)) $rep_g["C"] += $item->total;
                     if(($item->tam > 140) && ($item->tam <= 160)) $rep_g["D"] += $item->total;
                     else if($item->tam > 160) $rep_g["E"] += $item->total;
+            }
+            else if($item->variedad==3){
+                if(($item->fecha > "2020-01-01") && ($item->fecha <= "2020-10-17")) $rango_molino["R1"] += $item->total;
+                if(($item->fecha > "2020-10-18") && ($item->fecha <= "2020-10-25")) $rango_molino["R2"] += $item->total;
+                if(($item->fecha > "2020-10-26") && ($item->fecha <= "2020-11-12")) $rango_molino["R3"] += $item->total;
+                if(($item->fecha > "2020-11-13") && ($item->fecha <= "2020-12-31")) $rango_molino["R4"] += $item->total;
             }
                 ?></td>
 			<td><strong><?php echo $item->total;
@@ -135,6 +142,29 @@ endforeach;
         </tr>
         </tbody>
     </table>
+<br/>
+<h3 class="print"><u>Distribución de kgrs. por rangos de fecha</u></h3>
+<table class="table table-striped print">
+    <thead>
+    <h4><b>Tipo Molino</b></h4>
+    <tr>
+        <th>Inicio campaña - 17/10</th>
+        <th>18/10 - 25/10</th>
+        <th>26/10 - 12/11</th>
+        <th>13/11 - 31/12</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <?php foreach ($rango_molino as $rango => $v):{
+            echo "<td>".$v."</td>";
+        }
+        endforeach;
+        ?>
+    </tr>
+    </tbody>
+</table>
+    <br/>
     <br/>
 <h3 class="print"><u><b>Tamaños medio</b> por variedad de aceituna</u></h3>
 <?php if (!empty($total_tam)): ?>
