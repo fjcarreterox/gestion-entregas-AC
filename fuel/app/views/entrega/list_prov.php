@@ -67,10 +67,10 @@ foreach ($entregas as $item):?>
                     else if($item->tam > 160) $rep_g["E"] += $item->total;
             }
             else if($item->variedad==3){
-                if(($item->fecha > "2020-01-01") && ($item->fecha <= "2020-10-17")) $rango_molino["R1"] += $item->total;
-                if(($item->fecha > "2020-10-18") && ($item->fecha <= "2020-10-25")) $rango_molino["R2"] += $item->total;
-                if(($item->fecha > "2020-10-26") && ($item->fecha <= "2020-11-12")) $rango_molino["R3"] += $item->total;
-                if(($item->fecha > "2020-11-13") && ($item->fecha <= "2020-12-31")) $rango_molino["R4"] += $item->total;
+                if(($item->fecha >= "2020-01-01") && ($item->fecha <= "2020-10-17")) $rango_molino["R1"] += $item->total;
+                if(($item->fecha >= "2020-10-18") && ($item->fecha <= "2020-10-25")) $rango_molino["R2"] += $item->total;
+                if(($item->fecha >= "2020-10-26") && ($item->fecha <= "2020-11-12")) $rango_molino["R3"] += $item->total;
+                if(($item->fecha >= "2020-11-13") && ($item->fecha <= "2020-12-31")) $rango_molino["R4"] += $item->total;
             }
                 ?></td>
 			<td><strong><?php echo $item->total;
