@@ -207,7 +207,7 @@ endforeach;
     </table>
     <!--<p>En total suman: <?php /*echo $sumakg;*/ ?> Kg.</p>-->
     <br/>
-    <h3 class="print"><u>Listado de anticipos entregados</u></h3>
+    <h3 class="anticipo print"><u>Listado de anticipos entregados</u></h3>
     <p class="print">Número total de anticipos recogidos: <b><?php echo count($anticipos) ?></b> durante toda la campaña.</p>
     <?php if(count($anticipos)>0):?>
     <table class="table table-striped print">
@@ -246,5 +246,5 @@ endforeach;
 </p>
 <script type="text/javascript">
     var total = $("p.total");
-    $($("h3")[2]).next().append("<br/><br/>").append(total);
+    $($("h3.anticipo")[2]).next().append("<br/><br/>").append(total);
 </script>
