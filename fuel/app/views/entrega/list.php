@@ -20,6 +20,8 @@ else{
     <br/>
     <p><u>ATENCIÓN:</u> este listado no está ordenado por el <i>número de albarán</i>, sino por el <b>número de la entrega</b>. Si ves que no encuentras un albarán concreto, prueba a buscarlo en
         <?php echo Html::anchor('albaran/list', 'este listado', array('target' => '_blank')); ?>.</p>
+    <p>Para ir al final de esta página para consultar <b>los resúmenes</b>, haz click <a href="#reports">aqui</a>.</p>
+    <br/>
     <h3 class="print"><u>Listado detallado de entregas</u></h3>
     <table class="table table-striped print">
         <thead>
@@ -128,7 +130,7 @@ else{
         </tbody>
     </table>
     <br/>
-
+    <a id="reports"></a>
     <h3 class="print"><u>Resumen de tamaño medio por variedad de aceituna</u></h3>
     <table class="table table-striped print">
         <thead>
