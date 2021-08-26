@@ -5,12 +5,13 @@
 }
 else{*/
     if(empty($tlfno)){$tlfno="No Espec.";}
-    echo "<h2><span class='muted'>Ficha final</span> del proveedor <b>$nombre_prov.</b> ($tlfno)</h2>";
+    echo "<h3><span class='muted'>Ficha final</span> del proveedor <b>$nombre_prov.</b> ($tlfno)</h3>";
 //}
 ?>
 <br/>
 <p><?php echo Html::anchor('javascript:window.print()', '<span class="glyphicon glyphicon-print"></span> Imprimir ficha final', array('class' => 'btn btn-info','id'=>'print-deliverynote')); ?>
-   <?php /*echo Html::anchor('proveedor/ficha_final/'.$idc, '<span class="glyphicon glyphicon-print"></span> Generar PDF', array('class' => 'btn btn-info','id'=>'print-deliverynote','target'=>'_blank'));*/ ?></p>
+    <?php echo Html::anchor('/', '<span class="glyphicon glyphicon-backward"></span> Menú principal', array('class' => 'btn btn-danger','title'=>'Volver al menu')); ?>
+    <?php /*echo Html::anchor('proveedor/ficha_final/'.$idc, '<span class="glyphicon glyphicon-print"></span> Generar PDF', array('class' => 'btn btn-info','id'=>'print-deliverynote','target'=>'_blank'));*/ ?></p>
 <?php if ($entregas): ?>
     <h3 class="print"><u>Historial de entregas del cliente</u></h3>
     <p class="print">Número total de entregas realizadas: <b><?php echo count($entregas) ?></b> durante toda la campaña.</p>
@@ -205,7 +206,6 @@ endforeach;
     <?php endforeach;?>
     </tbody>
     </table>
-    <!--<p>En total suman: <?php /*echo $sumakg;*/ ?> Kg.</p>-->
     <br/>
     <h3 class="anticipo print"><u>Listado de anticipos entregados</u></h3>
     <p class="print">Número total de anticipos recogidos: <b><?php echo count($anticipos) ?></b> durante toda la campaña.</p>
@@ -232,7 +232,7 @@ endforeach;
         <?php endforeach;?>
         </tbody>
     </table>
-    <p class="total print">En total suman: <span class="totaleuros"><?php echo number_format($suma,2); ?> &euro;.</span></p>
+    <p class="total print">En total, suman: <span class="totaleuros"><?php echo number_format($suma,2); ?> &euro;.</span></p>
     <?php else: ?>
         <p class="print">No se han registrado aún anticipos para este proveedor.</p>
     <?php endif; ?>
@@ -242,6 +242,7 @@ endforeach;
 
 <?php endif; ?><p>
     <?php echo Html::anchor('javascript:window.print()', '<span class="glyphicon glyphicon-print"></span>  Imprimir ficha final', array('class' => 'btn btn-info','id'=>'print-deliverynote')); ?>
+    <?php echo Html::anchor('/', '<span class="glyphicon glyphicon-backward"></span> Menú principal', array('class' => 'btn btn-danger','title'=>'Volver al menu')); ?>
     <?php /*echo Html::anchor('proveedor/ficha_final/'.$idc, '<span class="glyphicon glyphicon-print"></span> Generar PDF', array('class' => 'btn btn-info','id'=>'print-deliverynote'));*/ ?>
 </p>
 <script type="text/javascript">
