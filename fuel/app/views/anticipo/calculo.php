@@ -33,7 +33,6 @@ foreach($ant_a as $ant){
 <h2>Calcular un nuevo anticipo para <span class='muted'><?php echo $nombre_proveedor?></span></h2>
 <br>
 <p>A continuación aparecer el cálculo automático realizado por el sistema:</p>
-<br/>
 <?php if( isset($_POST['submit'])){
     //\Fuel\Core\Session::_init();
     \Fuel\Core\Session::set('ses_anticipo_cuantia',$_POST['anticipo']);
@@ -70,6 +69,7 @@ else {
             $total += $peso*$precio;
         } ?>
     </table>
+    <br/>
     <fieldset>
         <div class="form-group">
             <?php echo Form::label('Total €', 'totale', array('class' => 'control-label')); ?>
