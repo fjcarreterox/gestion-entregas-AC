@@ -26,7 +26,7 @@ CONTROLLERS
 
 VIEWS
     * fuel/app/views/anticipo/calculo.php -> array('fecha','LIKE','2018%') (2 queries)
-    * fuel/app/views/entrega/historico.php -> <li><a href="../entrega/historico/2017">Campaña 2017</a></li>
+    * fuel/app/views/entrega/historico.php -> Add new line: <li><a href="../entrega/historico/2017">Campaña 2017</a></li>
     * fuel/app/views/anticipo/sel_year.php -> <li><a href="../list_prov/<?php echo $idprov;?>/2018">Campaña 2018</a></li>
     * fuel/app/views/entrega/sel_year.php -> <li><strong><a href="../list_prov/<?php echo $idprov;?>/2018">Campaña 2018</a></strong></li>
     * fuel/app/views/factura/sel_year.php -> <li><strong><a href="../list_prov/<?php echo $idprov;?>/2018">Campaña 2018</a></strong></li>
@@ -34,7 +34,7 @@ VIEWS
 HELPERS
     * fuel/core/helpers.php -> getTamMedio($idp,$v) -> update current year. (1 ocurrence)
 
-3) Commit the changes to the repository
+3) Commit the changes to the repository calling the commit "Campaign reboot 202X"
 
 4) Upload to PRE and verify
 
