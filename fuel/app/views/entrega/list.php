@@ -44,7 +44,7 @@ else{
         $total_kg_tam = array();
         $rep_m = array("O"=>0,"A"=>0,"B"=>0,"C"=>0,"D"=>0,"E"=>0,"F"=>0,"G"=>0,"H"=>0,"I"=>0);
         $rep_g = array("O"=>0,"A"=>0,"B"=>0,"C"=>0,"D"=>0,"E"=>0);
-        $rango_molino = array("R1"=>0,"R2"=>0,"R3"=>0,"R4"=>0);
+        $rango_molino = array("R1"=>0,"R2"=>0,"R3"=>0/*,"R4"=>0*/);
         foreach ($entregas as $item):
             if(Model_Albaran::find('first', array('where' => array('id' => $item->albaran)))){
                 $alb = Model_Albaran::find('first', array('where' => array('id' => $item->albaran)));
@@ -77,10 +77,10 @@ else{
                 else if($item->tam > 160) $rep_g["E"] += $item->total;
             }
             else if($item->variedad==3){
-                if(($item->fecha > "2022-01-01") && ($item->fecha <= "2022-10-17")) $rango_molino["R1"] += $item->total;
-                if(($item->fecha > "2022-10-18") && ($item->fecha <= "2022-10-25")) $rango_molino["R2"] += $item->total;
-                if(($item->fecha > "2022-10-26") && ($item->fecha <= "2022-11-12")) $rango_molino["R3"] += $item->total;
-                if(($item->fecha > "2022-11-13") && ($item->fecha <= "2022-12-31")) $rango_molino["R4"] += $item->total;
+                if(($item->fecha > "2022-01-01") && ($item->fecha <= "2022-10-9")) $rango_molino["R1"] += $item->total;
+                if(($item->fecha > "2022-10-10") && ($item->fecha <= "2022-10-27")) $rango_molino["R2"] += $item->total;
+                if(($item->fecha > "2022-10-28") && ($item->fecha <= "2022-12-31")) $rango_molino["R3"] += $item->total;
+                //if(($item->fecha > "2022-11-13") && ($item->fecha <= "2022-12-31")) $rango_molino["R4"] += $item->total;
             }
             ?>
             <tr>
@@ -241,10 +241,9 @@ else{
         <thead>
         <h4><b>Tipo Molino</b></h4>
         <tr>
-            <th>Inicio campaña - 17/10</th>
-            <th>18/10 - 25/10</th>
-            <th>26/10 - 12/11</th>
-            <th>13/11 - 31/12</th>
+            <th>Inicio campaña - 9/10</th>
+            <th>10/10 - 27/10</th>
+            <th>28/10 - 31/12</th>
         </tr>
         </thead>
         <tbody>
