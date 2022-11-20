@@ -59,13 +59,13 @@ else{
             if($item->variedad==1){
                 if($item->tam == 0) $rep_m["O"] += $item->total;
                 if(($item->tam > 0) && ($item->tam <= 250)) $rep_m["A"] += $item->total;
-                if(($item->tam > 251) && ($item->tam <= 260)) $rep_m["B"] += $item->total;
-                if(($item->tam > 261) && ($item->tam <= 270)) $rep_m["C"] += $item->total;
-                if(($item->tam > 271) && ($item->tam <= 280)) $rep_m["D"] += $item->total;
-                if(($item->tam > 281) && ($item->tam <= 290)) $rep_m["E"] += $item->total;
-                if(($item->tam > 291) && ($item->tam <= 300)) $rep_m["F"] += $item->total;
-                if(($item->tam > 301) && ($item->tam <= 320)) $rep_m["G"] += $item->total;
-                if(($item->tam > 321) && ($item->tam <= 340)) $rep_m["H"] += $item->total;
+                if(($item->tam > 250) && ($item->tam <= 260)) $rep_m["B"] += $item->total;
+                if(($item->tam > 260) && ($item->tam <= 270)) $rep_m["C"] += $item->total;
+                if(($item->tam > 270) && ($item->tam <= 280)) $rep_m["D"] += $item->total;
+                if(($item->tam > 280) && ($item->tam <= 290)) $rep_m["E"] += $item->total;
+                if(($item->tam > 290) && ($item->tam <= 300)) $rep_m["F"] += $item->total;
+                if(($item->tam > 300) && ($item->tam <= 320)) $rep_m["G"] += $item->total;
+                if(($item->tam > 320) && ($item->tam <= 340)) $rep_m["H"] += $item->total;
                 else if($item->tam > 340) $rep_m["I"] += $item->total;
             }
             else if($item->variedad==2){
