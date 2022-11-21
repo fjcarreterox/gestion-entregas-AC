@@ -42,7 +42,7 @@ else{
         $tam_total = array();
         $num_entregas = array();
         $total_kg_tam = array();
-        $rep_m = array("O"=>0,"A"=>0,"B"=>0,"C"=>0,"D"=>0,"E"=>0,"F"=>0,"G"=>0,"H"=>0,"I"=>0);
+        $rep_m = array("O"=>0,"A"=>0,"B"=>0,"C"=>0,"D"=>0,"E"=>0,"F"=>0,"G"=>0,"H"=>0,"I"=>0,"J"=>0);
         $rep_g = array("O"=>0,"A"=>0,"B"=>0,"C"=>0,"D"=>0,"E"=>0);
         $rango_molino = array("R1"=>0,"R2"=>0,"R3"=>0/*,"R4"=>0*/);
         foreach ($entregas as $item):
@@ -58,15 +58,16 @@ else{
 
             if($item->variedad==1){
                 if($item->tam == 0) $rep_m["O"] += $item->total;
-                if(($item->tam > 0) && ($item->tam <= 250)) $rep_m["A"] += $item->total;
-                if(($item->tam > 250) && ($item->tam <= 260)) $rep_m["B"] += $item->total;
-                if(($item->tam > 260) && ($item->tam <= 270)) $rep_m["C"] += $item->total;
-                if(($item->tam > 270) && ($item->tam <= 280)) $rep_m["D"] += $item->total;
-                if(($item->tam > 280) && ($item->tam <= 290)) $rep_m["E"] += $item->total;
-                if(($item->tam > 290) && ($item->tam <= 300)) $rep_m["F"] += $item->total;
-                if(($item->tam > 300) && ($item->tam <= 320)) $rep_m["G"] += $item->total;
-                if(($item->tam > 320) && ($item->tam <= 340)) $rep_m["H"] += $item->total;
-                else if($item->tam > 340) $rep_m["I"] += $item->total;
+                if(($item->tam > 0) && ($item->tam <= 220)) $rep_m["A"] += $item->total;
+                if(($item->tam > 220) && ($item->tam <= 250)) $rep_m["B"] += $item->total;
+                if(($item->tam > 250) && ($item->tam <= 260)) $rep_m["C"] += $item->total;
+                if(($item->tam > 260) && ($item->tam <= 270)) $rep_m["D"] += $item->total;
+                if(($item->tam > 270) && ($item->tam <= 280)) $rep_m["E"] += $item->total;
+                if(($item->tam > 280) && ($item->tam <= 290)) $rep_m["F"] += $item->total;
+                if(($item->tam > 290) && ($item->tam <= 300)) $rep_m["G"] += $item->total;
+                if(($item->tam > 300) && ($item->tam <= 320)) $rep_m["H"] += $item->total;
+                if(($item->tam > 320) && ($item->tam <= 340)) $rep_m["I"] += $item->total;
+                else if($item->tam > 340) $rep_m["J"] += $item->total;
             }
             else if($item->variedad==2){
                 if($item->tam == 0) $rep_g["O"] += $item->total;
@@ -190,7 +191,8 @@ else{
         <h4><b>Tipo Manzanilla</b></h4>
         <tr>
             <th>0</th>
-            <th>< 250</th>
+            <th>< 220</th>
+            <th>221-250</th>
             <th>251-260</th>
             <th>261-270</th>
             <th>271-280</th>
