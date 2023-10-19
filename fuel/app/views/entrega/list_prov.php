@@ -71,7 +71,7 @@ foreach ($entregas as $item):?>
                     if(($item->tam > 120) && ($item->tam <= 130)) $rep_g["B"] += $item->total;
                     /*if(($item->tam > 120) && ($item->tam <= 140)) $rep_g["C"] += $item->total;
                     if(($item->tam > 140) && ($item->tam <= 160)) $rep_g["D"] += $item->total;*/
-                    else if($item->tam > 160) $rep_g["C"] += $item->total;
+                    else if($item->tam > 130) $rep_g["C"] += $item->total;
             }
             else if($item->variedad==3){
                 if(($item->fecha >= "2022-01-01") && ($item->fecha <= "2022-10-09")) $rango_molino["R1"] += $item->total;
