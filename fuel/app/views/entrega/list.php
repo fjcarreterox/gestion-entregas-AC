@@ -43,8 +43,8 @@ else{
         $num_entregas = array();
         $total_kg_tam = array();
         //$rep_m = array("O"=>0,"A"=>0,"B"=>0,"C"=>0,"D"=>0,"E"=>0,"F"=>0,"G"=>0,"H"=>0,"I"=>0,"J"=>0);
-        $rep_m = array("O"=>0,"A"=>0,"B"=>0,"C"=>0);
-        $rep_g = array("O"=>0,"A"=>0,"B"=>0,"C"=>0,"D"=>0,"E"=>0);
+        $rep_m = array("O"=>0,"A"=>0,"B"=>0,"C"=>0,"D"=>0);
+        $rep_g = array("O"=>0,"A"=>0,"B"=>0,"C"=>0);
         $rango_molino = array("R1"=>0,"R2"=>0,"R3"=>0/*,"R4"=>0*/);
         foreach ($entregas as $item):
             if(Model_Albaran::find('first', array('where' => array('id' => $item->albaran)))){
@@ -59,9 +59,9 @@ else{
 
             if($item->variedad==1){
                 if($item->tam == 0) $rep_m["O"] += $item->total;
-                if(($item->tam > 0) && ($item->tam <= 220)) $rep_m["A"] += $item->total;
-                if(($item->tam > 220) && ($item->tam <= 280)) $rep_m["B"] += $item->total;
-                //if(($item->tam > 220) && ($item->tam <= 250)) $rep_m["B"] += $item->total;
+                if(($item->tam > 0) && ($item->tam <= 240)) $rep_m["A"] += $item->total;
+                if(($item->tam > 240) && ($item->tam <= 260)) $rep_m["B"] += $item->total;
+                if(($item->tam > 260) && ($item->tam <= 300)) $rep_m["C"] += $item->total;
                 //if(($item->tam > 250) && ($item->tam <= 260)) $rep_m["C"] += $item->total;
                 /*if(($item->tam > 260) && ($item->tam <= 270)) $rep_m["D"] += $item->total;
                 if(($item->tam > 270) && ($item->tam <= 280)) $rep_m["E"] += $item->total;
@@ -70,15 +70,15 @@ else{
                 if(($item->tam > 300) && ($item->tam <= 320)) $rep_m["H"] += $item->total;
                 if(($item->tam > 320) && ($item->tam <= 340)) $rep_m["I"] += $item->total;*/
                 //else if($item->tam > 340) $rep_m["J"] += $item->total;
-                else if($item->tam > 281) $rep_m["C"] += $item->total;
+                else if($item->tam > 300) $rep_m["D"] += $item->total;
             }
             else if($item->variedad==2){
                 if($item->tam == 0) $rep_g["O"] += $item->total;
-                if(($item->tam > 0) && ($item->tam <= 100)) $rep_g["A"] += $item->total;
-                if(($item->tam > 100) && ($item->tam <= 120)) $rep_g["B"] += $item->total;
-                if(($item->tam > 120) && ($item->tam <= 140)) $rep_g["C"] += $item->total;
-                if(($item->tam > 140) && ($item->tam <= 160)) $rep_g["D"] += $item->total;
-                else if($item->tam > 160) $rep_g["E"] += $item->total;
+                if(($item->tam > 0) && ($item->tam <= 120)) $rep_g["A"] += $item->total;
+                if(($item->tam > 120) && ($item->tam <= 130)) $rep_g["B"] += $item->total;
+                //if(($item->tam > 120) && ($item->tam <= 140)) $rep_g["C"] += $item->total;
+                //if(($item->tam > 140) && ($item->tam <= 160)) $rep_g["D"] += $item->total;
+                else if($item->tam > 130) $rep_g["C"] += $item->total;
             }
             else if($item->variedad==3){
                 if(($item->fecha >= "2022-01-01") && ($item->fecha <= "2022-10-09")) $rango_molino["R1"] += $item->total;
@@ -194,9 +194,10 @@ else{
         <h4><b>Tipo Manzanilla</b></h4>
         <tr>
             <th>0</th>
-            <th>< 220</th>
-            <th>221-280</th>
-            <th>281-N</th>
+            <th>< 240</th>
+            <th>241-260</th>
+            <th>261-300</th>
+            <th>301-N</th>
         </tr>
         </thead>
         <tbody>
@@ -216,11 +217,9 @@ else{
         <h4><b>Tipo Gordal</b></h4>
         <tr>
             <th>0</th>
-            <th>< 100</th>
-            <th>100 - 120</th>
-            <th>120 - 140</th>
-            <th>140 - 160</th>
-            <th>160 - N</th>
+            <th>< 120</th>
+            <th>121 - 130</th>
+            <th>131 - N</th>
         </tr>
         </thead>
         <tbody>
