@@ -194,7 +194,7 @@ class Controller_Entrega extends Controller_Template
 
                 if ($entrega and $entrega->save()){
                     $current_albaran_num=$last_albaran_num+1;
-                    if(\Fuel\Core\Session::get('num_alb')){
+                    if(\Fuel\Core\Session::get('num_alb') and (\Fuel\Core\Session::get('idprov')==Input::post('idprov'))){
                         $current_albaran_num=\Fuel\Core\Session::get('num_alb');
                     }
 
