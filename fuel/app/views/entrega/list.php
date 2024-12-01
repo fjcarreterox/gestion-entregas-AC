@@ -84,10 +84,10 @@ else{
                 if(($item->fecha >= "2024-01-01") && ($item->fecha <= "2024-10-13")) $rango_molino["R1"] += $item->total;
                 if(($item->fecha >= "2024-10-14") && ($item->fecha <= "2024-10-20")) $rango_molino["R2"] += $item->total;
                 if(($item->fecha >= "2024-10-21") && ($item->fecha <= "2024-10-27")) $rango_molino["R3"] += $item->total;
-                if(($item->fecha > "2024-10-28") && ($item->fecha <= "2024-11-03")) $rango_molino["R4"] += $item->total;
-                if(($item->fecha > "2024-11-04") && ($item->fecha <= "2024-11-10")) $rango_molino["R5"] += $item->total;
-                if(($item->fecha > "2024-11-11") && ($item->fecha <= "2024-11-17")) $rango_molino["R6"] += $item->total;
-                if(($item->fecha > "2024-11-18") && ($item->fecha <= "2024-11-24")) $rango_molino["R7"] += $item->total;
+                if(($item->fecha >= "2024-10-28") && ($item->fecha <= "2024-11-03")) $rango_molino["R4"] += $item->total;
+                if(($item->fecha >= "2024-11-04") && ($item->fecha <= "2024-11-10")) $rango_molino["R5"] += $item->total;
+                if(($item->fecha >= "2024-11-11") && ($item->fecha <= "2024-11-17")) $rango_molino["R6"] += $item->total;
+                if(($item->fecha >= "2024-11-18") && ($item->fecha <= "2024-11-24")) $rango_molino["R7"] += $item->total;
             }
             ?>
             <tr>
